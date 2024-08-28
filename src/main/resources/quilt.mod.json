@@ -1,0 +1,37 @@
+{
+    "schema_version": 1,
+    "quilt_loader": {
+        "group": "${group}",
+        "id": "backstreet_gardening",
+        "version": "${version}",
+        "metadata": {
+            "name": "Backstreet Gardening",
+            "description": "We do a little unlawful consumption of controlled substances.",
+            "contributors": {
+                "maloryware": "Owner"
+            },
+            "contact": {},
+            "icon": "assets/example_mod/icon.png",
+            "license": "MIT"
+        },
+        "intermediate_mappings": "net.fabricmc:intermediary",
+        "entrypoints": {
+            "init": "io.github.maloryware.backstreet_gardening.BackstreetGardening"
+        },
+        "depends": [
+            {
+                "id": "quilt_loader",
+                "versions": ">=0.19.1"
+            },
+            {
+                "id": "quilted_fabric_api",
+                "versions": ">=7.0.2"
+            },
+            {
+                "id": "minecraft",
+                "versions": ">=1.20"
+            }
+        ]
+    },
+    "mixin": "backstreet_gardening.mixins.json"
+}
