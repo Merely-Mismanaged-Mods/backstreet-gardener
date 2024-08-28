@@ -2,10 +2,10 @@
     "schema_version": 1,
     "quilt_loader": {
         "group": "${group}",
-        "id": "backstreet_gardening",
+        "id": "backstreet_gardener",
         "version": "${version}",
         "metadata": {
-            "name": "Backstreet Gardening",
+            "name": "Backstreet Gardener",
             "description": "We do a little unlawful consumption of controlled substances.",
             "contributors": {
                 "maloryware": "Owner"
@@ -16,7 +16,8 @@
         },
         "intermediate_mappings": "net.fabricmc:intermediary",
         "entrypoints": {
-            "init": "io.github.maloryware.backstreet_gardening.BackstreetGardening"
+            "init": "io.github.maloryware.backstreet_gardener.BackstreetGardener",
+						"client-init": "io.github.maloryware.backstreet_gardener.BackstreetGardenerClient"
         },
         "depends": [
             {
