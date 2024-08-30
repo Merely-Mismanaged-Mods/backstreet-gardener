@@ -9,8 +9,11 @@ public class BSGDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		FabricDataGenerator.Pack pack = generator.createPack();
 
+
+
 		// stub because datagen is for LOSERS
 	}
+
 
 }
 
