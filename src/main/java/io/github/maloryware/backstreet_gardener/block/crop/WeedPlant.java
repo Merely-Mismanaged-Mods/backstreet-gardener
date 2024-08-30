@@ -29,7 +29,7 @@ public class WeedPlant extends CropBlock {
 		return AGE_TO_HEIGHT[getAge(state)];
 	}
 
-	public WeedPlant(AbstractBlock.Settings settings){
+	public WeedPlant(Settings settings){
 		super(settings);
 	}
 }

@@ -29,7 +29,7 @@ public class OpiumPlant extends CropBlock {
 		return AGE_TO_HEIGHT[getAge(state)];
 	}
 
-	public OpiumPlant(AbstractBlock.Settings settings){
+	public OpiumPlant(Settings settings){
 		super(settings);
 	}
 }
