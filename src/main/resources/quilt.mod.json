@@ -18,7 +18,8 @@
         "entrypoints": {
             "init": "io.github.maloryware.backstreet_gardener.BackstreetGardener",
 						"client-init": "io.github.maloryware.backstreet_gardener.BackstreetGardenerClient"
-        },
+
+				},
         "depends": [
             {
                 "id": "quilt_loader",

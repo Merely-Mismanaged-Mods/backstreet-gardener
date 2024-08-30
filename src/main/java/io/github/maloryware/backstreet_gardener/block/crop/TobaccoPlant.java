@@ -1,13 +1,16 @@
 package io.github.maloryware.backstreet_gardener.block.crop;
 
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.CropBlock;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
-public class OpiumPlant extends CropBlock {
+public class TobaccoPlant extends CropBlock {
 
 	private static final VoxelShape[] AGE_TO_HEIGHT = new VoxelShape[]{
 		Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D),
@@ -21,7 +24,7 @@ public class OpiumPlant extends CropBlock {
 
 	@Override
 	protected ItemConvertible getSeedsItem() {
-		return BSGItems.POPPY_SEED;
+		return BSGItems.TOBACCO_SEED;
 	}
 
 	@Override
@@ -29,7 +32,7 @@ public class OpiumPlant extends CropBlock {
 		return AGE_TO_HEIGHT[getAge(state)];
 	}
 
-	public OpiumPlant(AbstractBlock.Settings settings){
+	public TobaccoPlant(Settings settings){
 		super(settings);
 	}
 }

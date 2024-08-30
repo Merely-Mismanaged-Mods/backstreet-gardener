@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class TitleScreenMixin {
     @Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
-        BackstreetGardener.LOGGER.info("Sorry pookie. Domain expansion: English or Spanish");
+        BackstreetGardener.LOGGER.info("domain expansion: opioid addiction");
     }
 }

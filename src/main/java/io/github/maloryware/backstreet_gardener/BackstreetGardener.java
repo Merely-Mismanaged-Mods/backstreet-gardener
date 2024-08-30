@@ -9,13 +9,8 @@ import org.slf4j.LoggerFactory;
 public class BackstreetGardener implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Backstreet Gardening");
 
-
-	// weed - plant, item
-	// opium - plant, item
-	// cocaine leaf - plant, item
-	// cocaine - item
-	// crack pipe - item
-
+	// hi chat! this is built on quilt mappings but it should work on fabric
+	// if not i'll change them :clueless:
 
 	@Override
 	public void onInitialize() {

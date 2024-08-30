@@ -21,7 +21,7 @@ public class WeedPlant extends CropBlock {
 
 	@Override
 	protected ItemConvertible getSeedsItem() {
-		return BSGItems.WEED_LEAF;
+		return BSGItems.CANNABIS_SEED;
 	}
 
 	@Override

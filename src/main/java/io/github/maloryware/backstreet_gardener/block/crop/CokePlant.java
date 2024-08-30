@@ -3,11 +3,15 @@ package io.github.maloryware.backstreet_gardener.block.crop;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.minecraft.block.*;
 import net.minecraft.item.ItemConvertible;
+import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 
 public class CokePlant extends CropBlock {
+
+	// note: it's probably better to datagen this but i'm too lazy so i decided to just
+	// copy this entire code block from the fabric wiki :trollface:
 
 	private static final VoxelShape[] AGE_TO_HEIGHT = new VoxelShape[]{
 		Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D),
@@ -21,7 +25,7 @@ public class CokePlant extends CropBlock {
 
 	@Override
 	protected ItemConvertible getSeedsItem() {
-		return BSGItems.COKE_LEAF;
+		return BSGItems.PERUVIAN_COCA_SEED;
 	}
 
 	@Override
