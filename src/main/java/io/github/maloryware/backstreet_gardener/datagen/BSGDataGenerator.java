@@ -9,9 +9,13 @@ public class BSGDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator generator) {
 		FabricDataGenerator.Pack pack = generator.createPack();
 
+		// provide some bitches why don't you
+
+		pack.addProvider(BlockLootTableProvider::new);
+		pack.addProvider(ModelProvider::new);
 
 
-		// stub because datagen is for LOSERS
+
 	}
 
 

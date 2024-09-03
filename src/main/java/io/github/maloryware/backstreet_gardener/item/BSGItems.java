@@ -32,7 +32,7 @@ public class BSGItems {
 	public static final Item TOBACCO_LEAF = new Item(new Item.Settings().rarity(Rarity.UNCOMMON));
 
 
-public static void initialize(){
+	public static void initialize(){
 
 		register("blunt", BLUNT);
 		register("pipe", CRACK_PIPE);
