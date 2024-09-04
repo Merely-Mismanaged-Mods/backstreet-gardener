@@ -35,7 +35,7 @@ public class BSGBlocks {
 	public static final CropBlock OPIUM_CROP = registerCropBlock("opium_crop",
 		new OpiumPlant(defaultCropSettings));
 
-	public static final CropBlock CANNABIS_CROP = registerCropBlock("opium_crop",
+	public static final CropBlock CANNABIS_CROP = registerCropBlock("cannabis_crop",
 		new WeedPlant(defaultCropSettings));
 
 	public static final CropBlock TOBACCO_CROP = registerCropBlock("tobacco_crop",

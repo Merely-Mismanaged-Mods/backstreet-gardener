@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "backstreet_gardener",
+	"version": "${version}",
+	"name": "Backstreet Gardener",
+	"description": "We do a little unlawful consumption of controlled substances.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://github.com/maloryware",
+		"sources": "https://github.com/maloryware/backstreet-gardener"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/backstreet_gardener/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"io.github.maloryware.backstreet_gardener.BackstreetGardener"
+		],
+		"client": [
+			"io.github.maloryware.backstreet_gardener.BackstreetGardenerClient"
+		],
+		"fabric-datagen": [
+			"io.github.maloryware.backstreet_gardener.BackstreetGardenerDatagen"
+		]
+	},
+	"mixins": [
+    "backstreet_gardener.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.3",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
