@@ -1,15 +1,12 @@
 package io.github.maloryware.backstreet_gardener;
 
 
-import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.item.BSGItemGroup;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("deprecation")
 public class BackstreetGardener implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Backstreet Gardening");
 	public static final String ID = "backstreet_gardener";

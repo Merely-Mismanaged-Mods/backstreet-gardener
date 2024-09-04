@@ -8,7 +8,6 @@ import net.minecraft.client.render.RenderLayer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@SuppressWarnings("deprecation")
 public class BackstreetGardenerClient implements ClientModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Backstreet Gardening");
 
