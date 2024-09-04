@@ -18,15 +18,6 @@ public class BackstreetGardener implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger("Backstreet Gardening");
 	public static final String ID = "backstreet_gardener";
 
-	public static final ScreenHandlerType<?> BONG_SCREEN_HANDLER =
-		Registry.register(Registries.SCREEN_HANDLER, ID,
-			new ScreenHandlerType<>((syncId, playerInventory, blockInventory) ->
-				new BongGui(
-					syncId,
-					playerInventory,
-					ScreenHandlerContext.EMPTY),
-				FeatureFlags.VANILLA_FEATURES));
-
 	// hi chat! this is built on quilt mappings but it should work on fabric
 	// if not i'll change them :clueless:
 
