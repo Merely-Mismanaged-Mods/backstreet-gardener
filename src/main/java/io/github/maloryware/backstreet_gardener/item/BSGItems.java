@@ -17,6 +17,7 @@ public class BSGItems {
 
 	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item BLUNT = new Item(new Item.Settings().rarity(Rarity.RARE));
+	public static final Item JOINT = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item CRACK_PIPE = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item CIGARETTE = new Item(new Item.Settings().rarity(Rarity.RARE));
@@ -35,6 +36,7 @@ public class BSGItems {
 	public static void initialize(){
 
 		register("blunt", BLUNT);
+		register("joint", JOINT);
 		register("pipe", CRACK_PIPE);
 		register("cigarette", CIGARETTE);
 		register("cocaine", COKE);

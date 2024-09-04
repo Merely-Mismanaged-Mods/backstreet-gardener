@@ -33,9 +33,15 @@ public class ModelProvider extends FabricModelProvider {
 		// this is also redundant but i'm the one writing the code so. oh well
 		gen.register(BSGItems.COKE, Models.HANDHELD);
 		gen.register(BSGItems.BLUNT, Models.HANDHELD);
+		gen.register(BSGItems.JOINT, Models.HANDHELD);
 		gen.register(BSGItems.OPIUM, Models.HANDHELD);
 		gen.register(BSGItems.CRACK_PIPE, Models.HANDHELD);
 		gen.register(BSGItems.CIGARETTE, Models.HANDHELD);
+
+
+		// so... turns out this isn't needed because AliasedBlockItems already register the
+		// item model?? weird...
+		// either way uncommenting this code *will* cause the datagenerator to crash
 
 		/*
 		gen.register(BSGItems.PERUVIAN_COCA_SEED, Models.HANDHELD);

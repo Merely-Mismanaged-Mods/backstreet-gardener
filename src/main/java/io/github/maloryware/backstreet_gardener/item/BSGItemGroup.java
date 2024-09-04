@@ -29,6 +29,7 @@ public class BSGItemGroup {
 
 			itemStackCollector.add(CIGARETTE);
 			itemStackCollector.add(BLUNT);
+			itemStackCollector.add(JOINT);
 			itemStackCollector.add(CRACK_PIPE);
 			itemStackCollector.add(COKE);
 			itemStackCollector.add(OPIUM);
