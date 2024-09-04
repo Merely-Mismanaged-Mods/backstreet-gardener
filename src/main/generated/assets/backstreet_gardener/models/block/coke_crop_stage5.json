@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "backstreet_gardener:block/coke_crop_stage5"
+  }
+}
