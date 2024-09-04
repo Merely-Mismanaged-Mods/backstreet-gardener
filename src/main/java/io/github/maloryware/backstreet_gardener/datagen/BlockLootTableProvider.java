@@ -8,13 +8,9 @@ import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
-import net.minecraft.loot.condition.LootCondition;
-import net.minecraft.loot.condition.RandomChanceLootCondition;
 import net.minecraft.predicate.StatePredicate;
-import net.minecraft.registry.HolderLookup;
 import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
