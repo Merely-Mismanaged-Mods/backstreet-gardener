@@ -8,9 +8,9 @@ import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
+import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.model.BlockStateModelGenerator;
-import net.minecraft.data.client.model.Models;
+import net.minecraft.data.client.Models;
 
 public class ModelProvider extends FabricModelProvider {
 	public ModelProvider(FabricDataOutput output) {
@@ -31,22 +31,23 @@ public class ModelProvider extends FabricModelProvider {
 	public void generateItemModels(ItemModelGenerator gen) {
 
 		// this is also redundant but i'm the one writing the code so. oh well
-		gen.register(BSGItems.COKE, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.BLUNT, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.OPIUM, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.CRACK_PIPE, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.CIGARETTE, Models.SINGLE_LAYER_ITEM);
+		gen.register(BSGItems.COKE, Models.HANDHELD);
+		gen.register(BSGItems.BLUNT, Models.HANDHELD);
+		gen.register(BSGItems.OPIUM, Models.HANDHELD);
+		gen.register(BSGItems.CRACK_PIPE, Models.HANDHELD);
+		gen.register(BSGItems.CIGARETTE, Models.HANDHELD);
 
-		gen.register(BSGItems.PERUVIAN_COCA_SEED, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.POPPY_SEED, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.CANNABIS_SEED, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.TOBACCO_SEED, Models.SINGLE_LAYER_ITEM);
+		/*
+		gen.register(BSGItems.PERUVIAN_COCA_SEED, Models.HANDHELD);
+		gen.register(BSGItems.POPPY_SEED, Models.HANDHELD);
+		gen.register(BSGItems.CANNABIS_SEED, Models.HANDHELD);
+		gen.register(BSGItems.TOBACCO_SEED, Models.HANDHELD);
+		*/
 
-
-		gen.register(BSGItems.COCA_LEAF, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.OPIUM_LEAF, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.CANNABIS_LEAF, Models.SINGLE_LAYER_ITEM);
-		gen.register(BSGItems.TOBACCO_LEAF, Models.SINGLE_LAYER_ITEM);
+		gen.register(BSGItems.COCA_LEAF, Models.HANDHELD);
+		gen.register(BSGItems.OPIUM_LEAF, Models.HANDHELD);
+		gen.register(BSGItems.CANNABIS_LEAF, Models.HANDHELD);
+		gen.register(BSGItems.TOBACCO_LEAF, Models.HANDHELD);
 
 
 	}

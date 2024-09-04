@@ -12,7 +12,7 @@
 		"sources": "https://github.com/maloryware/backstreet-gardener"
 	},
 	"license": "CC0-1.0",
-	"icon": "icon.png",
+	"icon": "assets/backstreet_gardener/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
@@ -22,7 +22,7 @@
 			"io.github.maloryware.backstreet_gardener.BackstreetGardenerClient"
 		],
 		"fabric-datagen": [
-			"io.github.maloryware.backstreet_gardener.datagen.BSGDataGenerator"
+			"io.github.maloryware.backstreet_gardener.BackstreetGardenerDatagen"
 		]
 	},
 	"mixins": [

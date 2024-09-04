@@ -8,7 +8,6 @@ import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.item.ItemConvertible;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.registry.RegistryWrapper;
@@ -18,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
 
-	protected BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+	public BlockLootTableProvider(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
 		super(dataOutput, registryLookup);
 	}
 
@@ -30,6 +29,9 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 		// i'll try to keep it... organized
 
 		// it's gonna be ONE HERPES-INDUCING BLOCK per crop... sorry! teehee
+
+
+		// future mal here: ok this was not as bad as i thought it would be
 
 		BlockStatePropertyLootCondition.Builder maryjuana =
 			BlockStatePropertyLootCondition.builder(BSGBlocks.CANNABIS_CROP)
@@ -49,35 +51,34 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
 
 
-		addDrop(BSGBlocks.CANNABIS_CROP, (ItemConvertible) cropDrops(
+		addDrop(BSGBlocks.CANNABIS_CROP, cropDrops(
 			BSGBlocks.CANNABIS_CROP,
 			BSGItems.CANNABIS_LEAF,
 			BSGItems.CANNABIS_SEED,
 			maryjuana
 		));
 
-		addDrop(BSGBlocks.OPIUM_CROP, (ItemConvertible) cropDrops(
+		addDrop(BSGBlocks.OPIUM_CROP, cropDrops(
 			BSGBlocks.OPIUM_CROP,
 			BSGItems.OPIUM_LEAF,
 			BSGItems.POPPY_SEED,
 			opeeyum
 		));
 
-		addDrop(BSGBlocks.COKE_CROP, (ItemConvertible) cropDrops(
+		addDrop(BSGBlocks.COKE_CROP, cropDrops(
 			BSGBlocks.COKE_CROP,
 			BSGItems.COCA_LEAF,
 			BSGItems.PERUVIAN_COCA_SEED,
 			cock
 		));
 
-		addDrop(BSGBlocks.TOBACCO_CROP, (ItemConvertible) cropDrops(
+		addDrop(BSGBlocks.TOBACCO_CROP, cropDrops(
 			BSGBlocks.TOBACCO_CROP,
 			BSGItems.TOBACCO_LEAF,
 			BSGItems.TOBACCO_SEED,
 			moker
 		));
 
-		// ok this was not as bad as i thought it would be
 
 	}
 }
