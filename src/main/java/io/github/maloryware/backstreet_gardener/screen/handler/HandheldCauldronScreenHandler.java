@@ -6,19 +6,22 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import org.jetbrains.annotations.Nullable;
 
-public class BongScreenHandler extends ScreenHandler {
+public class HandheldCauldronScreenHandler extends ScreenHandler {
 
-	protected BongScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId) {
+
+	protected HandheldCauldronScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId) {
 		super(type, syncId);
 	}
 
-	@Override
+
 	public ItemStack quickMove(PlayerEntity player, int slot) {
-		return null;
+
 	}
 
 	@Override
 	public boolean canUse(PlayerEntity player) {
-		return false;
+		return player.getInventory().canPlayerUse(player);
 	}
+
+
 }

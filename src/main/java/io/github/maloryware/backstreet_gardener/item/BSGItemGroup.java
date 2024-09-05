@@ -9,7 +9,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.LOGGER;
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 import static io.github.maloryware.backstreet_gardener.item.BSGItems.*;
 
 public class BSGItemGroup {
@@ -36,7 +36,7 @@ public class BSGItemGroup {
 		})).build();
 
 	public static void register(){
-		LOGGER.info("Registering item groups for {}", BackstreetGardener.ID);
+		BSGLOGGER.info("Registering item groups for {}", BackstreetGardener.ID);
 		Registry.register(Registries.ITEM_GROUP, Identifier.of(BackstreetGardener.ID, "substances"), BSG_TAB);
 	}
 }
