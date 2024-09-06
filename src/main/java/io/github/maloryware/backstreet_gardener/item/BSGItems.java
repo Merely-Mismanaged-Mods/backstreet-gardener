@@ -1,12 +1,19 @@
 package io.github.maloryware.backstreet_gardener.item;
 
 import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
+import io.github.maloryware.backstreet_gardener.component.BSGComponents;
+import io.github.maloryware.backstreet_gardener.item.custom.HandheldCauldronItem;
+import io.github.maloryware.backstreet_gardener.screen.handler.HandheldCauldronScreenHandler;
+import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+
+import static io.github.maloryware.backstreet_gardener.screen.handler.HandheldCauldronScreenHandler.*;
 
 public class BSGItems {
 
@@ -15,11 +22,20 @@ public class BSGItems {
 	}
 
 
+	public static final Item CRACK_PIPE = new Item(new Item.Settings().rarity(Rarity.EPIC));
+	public static final Item BONG = new HandheldCauldronItem(
+		new Item.Settings()
+			.rarity(Rarity.EPIC)
+			.component(
+				BSGComponents.HANDHELD_CAULDRON_COMPONENT,
+				NbtComponent.of(getDefaultCompound())
+			)
+	);
+
 	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.EPIC));
 	public static final Item BLUNT = new Item(new Item.Settings().rarity(Rarity.EPIC));
 	public static final Item JOINT = new Item(new Item.Settings().rarity(Rarity.EPIC));
 	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.EPIC));
-	public static final Item CRACK_PIPE = new Item(new Item.Settings().rarity(Rarity.EPIC));
 	public static final Item CIGARETTE = new Item(new Item.Settings().rarity(Rarity.EPIC));
 
 	public static final Item PERUVIAN_COCA_SEED = new AliasedBlockItem(BSGBlocks.COKE_CROP, new Item.Settings().rarity(Rarity.UNCOMMON));
@@ -51,6 +67,10 @@ public class BSGItems {
 		register("opium_leaf", OPIUM_LEAF);
 		register("cannabis_leaf", CANNABIS_LEAF);
 		register("tobacco_leaf", TOBACCO_LEAF);
+
+
+
+		register("bong", BONG);
 
 	}
 

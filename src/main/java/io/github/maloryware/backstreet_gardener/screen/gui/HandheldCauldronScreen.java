@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 
-public class BongScreen extends BaseOwoScreen<FlowLayout> {
+public class HandheldCauldronScreen extends BaseOwoScreen<FlowLayout> {
 
 	@Override
 	protected @NotNull OwoUIAdapter<FlowLayout> createAdapter() {
@@ -23,18 +23,18 @@ public class BongScreen extends BaseOwoScreen<FlowLayout> {
 			.surface(Surface.VANILLA_TRANSLUCENT)
 			.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 		rootComponent.child(
-			Containers.verticalFlow(Sizing.content(6), Sizing.content(6))
+			Containers.verticalFlow(Sizing.fixed(300), Sizing.fixed(200))
 				.child(
 					Components.button(
-						Text.literal("Test"),
+						Text.literal(""),
 						button -> {
 							BSGLOGGER.info("Tested.");
 						}
-					)
+					).tooltip(Text.literal("Ejects the water from the bong."))
 				)
 				.padding(Insets.of(10))
 				.surface(Surface.PANEL)
-				.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER)
+				.alignment(HorizontalAlignment.RIGHT, VerticalAlignment.CENTER)
 
 		);
 	}

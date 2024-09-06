@@ -1,6 +1,6 @@
 package io.github.maloryware.backstreet_gardener.screen;
 
-import io.github.maloryware.backstreet_gardener.screen.gui.BongScreen;
+import io.github.maloryware.backstreet_gardener.screen.gui.HandheldCauldronScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.tooltip.Tooltip;
@@ -16,7 +16,7 @@ public class QButtons {
 			client.getToastManager().add(SystemToast.create(
 				client, SystemToast.Type.NARRATOR_TOGGLE, Text.of("Moved to new title screen."), Text.of("To return, press [ESCAPE]."))
 			);
-			client.setScreen(new BongScreen());
+			client.setScreen(new HandheldCauldronScreen());
 		}).dimensions(x, y, width, height).build();
 	}
 
@@ -26,7 +26,7 @@ public class QButtons {
 			client.getToastManager().add(SystemToast.create(
 				client, SystemToast.Type.NARRATOR_TOGGLE, Text.of("Moved to new title screen."), Text.of("To return, press [ESCAPE]."))
 			);
-			client.setScreen(new BongScreen());
+			client.setScreen(new HandheldCauldronScreen());
 		})
 			.tooltip(Tooltip.of(Text.of("Sends you to the test menu.")))
 			.dimensions(parent.width/2 + 100, anchor, 20, 20).build();
