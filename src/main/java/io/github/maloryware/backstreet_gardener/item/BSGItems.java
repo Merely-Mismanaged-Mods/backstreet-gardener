@@ -4,16 +4,12 @@ import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.custom.HandheldCauldronItem;
 import io.github.maloryware.backstreet_gardener.screen.handler.HandheldCauldronScreenHandler;
-import net.minecraft.component.type.NbtComponent;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-
-import static io.github.maloryware.backstreet_gardener.screen.handler.HandheldCauldronScreenHandler.*;
 
 public class BSGItems {
 
@@ -27,8 +23,7 @@ public class BSGItems {
 		new Item.Settings()
 			.rarity(Rarity.EPIC)
 			.component(
-				BSGComponents.HANDHELD_CAULDRON_COMPONENT,
-				NbtComponent.of(getDefaultCompound())
+				BSGComponents.HANDHELD_CAULDRON_COMPONENT, BSGComponents.HandheldCauldronDefaultComponent
 			)
 	);
 

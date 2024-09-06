@@ -1,6 +1,7 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
 import io.github.maloryware.backstreet_gardener.screen.handler.HandheldCauldronScreenHandler;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
@@ -15,15 +16,22 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import static net.minecraft.util.Hand.MAIN_HAND;
+import static net.minecraft.util.Hand.OFF_HAND;
+
 public class HandheldCauldronItem extends Item {
 	public HandheldCauldronItem(Settings settings) {
 		super(settings);
 	}
 
+	private ItemStack getInactiveStack(PlayerEntity player){
+		return player.getStackInHand(player.getActiveHand() == MAIN_HAND ? OFF_HAND : MAIN_HAND);
+	}
+
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand){
 
-		if(user.getMainHandStack().equals(Items.STICK) || user.getOffHandStack().equals(Items.STICK)){
+		if(getInactiveStack(user).isOf(Items.STICK)){
 			// hold cauldron up and slow down, like when drawing a bow
 			// on tick, remainingWaterPurity-- and remainingResource--
 		}
