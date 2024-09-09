@@ -2,12 +2,12 @@
   "parent": "minecraft:block/crop",
   "credit": "Made with Blockbench",
   "textures": {
-    "0": "backstreet_gardener:weednewstalk",
-    "1": "backstreet_gardener:weednew",
-    "2": "backstreet_gardener:weednewsmall",
-    "3": "backstreet_gardener:weednewtiny",
-    "4": "backstreet_gardener:weednewtop",
-    "particle": "backstreet_gardener:weednewstalk"
+    "0": "backstreet_gardener:block/zaza/weednewstalk",
+    "1": "backstreet_gardener:block/zaza/weednew",
+    "2": "backstreet_gardener:block/zaza/weednewsmall",
+    "3": "backstreet_gardener:block/zaza/weednewtiny",
+    "4": "backstreet_gardener:block/zaza/weednewtop",
+    "particle": "backstreet_gardener:block/zaza/weednewstalk"
   },
   "elements": [
     {

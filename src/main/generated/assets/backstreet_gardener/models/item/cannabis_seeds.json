@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "backstreet_gardener:item/weed_seeds"
+    "layer0": "backstreet_gardener:item/cannabis_seeds"
   }
 }

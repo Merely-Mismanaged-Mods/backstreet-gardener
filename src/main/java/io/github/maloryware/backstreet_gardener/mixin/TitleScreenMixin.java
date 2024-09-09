@@ -1,7 +1,6 @@
 package io.github.maloryware.backstreet_gardener.mixin;
 
 import io.github.maloryware.backstreet_gardener.BackstreetGardener;
-import io.github.maloryware.backstreet_gardener.screen.QButtons;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.text.Text;
@@ -21,8 +20,5 @@ public class TitleScreenMixin extends Screen {
         BackstreetGardener.BSGLOGGER.info("domain expansion: opioid addiction");
     }
 
-	@Inject(method = "initWidgetsNormal", at = @At("RETURN"))
-	private void addTitleScreenWidgets(int y, int spacingY, CallbackInfo ci){
-		this.addDrawableChild(QButtons.createQTitleScreenButton(this, y));
-	}
+
 }

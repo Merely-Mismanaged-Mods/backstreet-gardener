@@ -27,7 +27,7 @@
             },
             {
               "type": "minecraft:item",
-              "name": "backstreet_gardener:weed_seeds"
+              "name": "backstreet_gardener:cannabis_seeds"
             }
           ]
         }
@@ -59,7 +59,7 @@
               }
             }
           ],
-          "name": "backstreet_gardener:weed_seeds"
+          "name": "backstreet_gardener:cannabis_seeds"
         }
       ],
       "rolls": 1.0

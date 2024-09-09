@@ -2,8 +2,7 @@ package io.github.maloryware.backstreet_gardener.item;
 
 import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
-import io.github.maloryware.backstreet_gardener.item.custom.HandheldCauldronItem;
-import io.github.maloryware.backstreet_gardener.screen.handler.HandheldCauldronScreenHandler;
+import io.github.maloryware.backstreet_gardener.item.custom.SmokableContainerItem;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -18,13 +17,13 @@ public class BSGItems {
 	}
 
 
-	public static final Item CRACK_PIPE = new Item(new Item.Settings().rarity(Rarity.EPIC));
-	public static final Item BONG = new HandheldCauldronItem(
-		new Item.Settings()
-			.rarity(Rarity.EPIC)
-			.component(
-				BSGComponents.HANDHELD_CAULDRON_COMPONENT, BSGComponents.HandheldCauldronDefaultComponent
-			)
+
+	public static final Item BONG = new SmokableContainerItem(
+			new Item.Settings()
+				.rarity(Rarity.EPIC)
+				.component(
+					BSGComponents.BONG_COMPONENT, BSGComponents.BongDefaultComponent
+				)
 	);
 
 	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.EPIC));
@@ -48,22 +47,19 @@ public class BSGItems {
 
 		register("blunt", BLUNT);
 		register("joint", JOINT);
-		register("pipe", CRACK_PIPE);
 		register("cigarette", CIGARETTE);
 		register("cocaine", COKE);
 		register("opium", OPIUM);
 
 		register("coke_seeds", PERUVIAN_COCA_SEED);
 		register("poppy_seeds", POPPY_SEED);
-		register("weed_seeds", CANNABIS_SEED);
+		register("cannabis_seeds", CANNABIS_SEED);
 		register("tobacco_seeds", TOBACCO_SEED);
 
 		register("cocaine_leaf", COCA_LEAF);
 		register("opium_leaf", OPIUM_LEAF);
 		register("cannabis_leaf", CANNABIS_LEAF);
 		register("tobacco_leaf", TOBACCO_LEAF);
-
-
 
 		register("bong", BONG);
 

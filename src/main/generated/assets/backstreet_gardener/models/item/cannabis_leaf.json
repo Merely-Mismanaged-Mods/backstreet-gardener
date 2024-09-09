@@ -1,6 +1,35 @@
 {
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "backstreet_gardener:item/cannabis_leaf"
-  }
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "backstreet_gardener:item/cannabis_leaf",
+		"particle": "backstreet_gardener:item/cannabis_leaf"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [56, 0, 28],
+			"translation": [0, 0.25, 0.25],
+			"scale": [0.31, 0.31, 0.31]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [56, 0, 28],
+			"translation": [0, 0.25, 0.25],
+			"scale": [0.31, 0.31, 0.31]
+		},
+		"firstperson_righthand": {
+			"rotation": [-27.22, -37, 49.5],
+			"translation": [2.75, -1.25, -7],
+			"scale": [0.56836, 0.56836, 0.56836]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-67.08, -51.38, -63.47],
+			"translation": [4, -1.25, -7],
+			"scale": [0.56836, 0.56836, 0.56836]
+		},
+		"head": {
+			"rotation": [39.94, -28.39, 38.87],
+			"translation": [6.25, 6.25, -6.75],
+			"scale": [0.44727, 0.44727, 0.44727]
+		}
+	}
 }

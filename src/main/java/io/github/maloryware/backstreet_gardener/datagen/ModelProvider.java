@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+import net.minecraft.data.client.Model;
 import net.minecraft.data.client.Models;
 
 public class ModelProvider extends FabricModelProvider {
@@ -35,8 +36,9 @@ public class ModelProvider extends FabricModelProvider {
 		gen.register(BSGItems.BLUNT, Models.HANDHELD);
 		gen.register(BSGItems.JOINT, Models.HANDHELD);
 		gen.register(BSGItems.OPIUM, Models.HANDHELD);
-		gen.register(BSGItems.CRACK_PIPE, Models.HANDHELD);
 		gen.register(BSGItems.CIGARETTE, Models.HANDHELD);
+
+		gen.register(BSGItems.BONG, Models.HANDHELD);
 
 
 		// so... turns out this isn't needed because AliasedBlockItems already register the
