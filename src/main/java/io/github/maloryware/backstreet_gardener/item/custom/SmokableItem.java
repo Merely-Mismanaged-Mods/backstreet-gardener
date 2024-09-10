@@ -10,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -20,6 +21,9 @@ import net.minecraft.world.World;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 import static net.minecraft.util.Hand.MAIN_HAND;
 import static net.minecraft.util.Hand.OFF_HAND;
+
+//TODO:
+// fix emissive textures, add sound file, add particles, add BipedEntityModel override
 
 public class SmokableItem extends Item {
 	public SmokableItem(Settings settings) {
@@ -72,10 +76,12 @@ public class SmokableItem extends Item {
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
 		super.usageTick(world, user, stack, remainingUseTicks);
-		if(Boolean.TRUE.equals(user.getActiveItem().getOrDefault(IS_LIT, true))){
-			if(!world.isClient()) user.getActiveItem().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, item -> {
-				user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack());
-			});
+		if(Boolean.TRUE.equals(user.getActiveItem().getOrDefault(IS_LIT, true))
+		|| Math.random() < 0.6D){
+			if(!world.isClient()) user.getActiveItem().damage(
+					1,
+					(ServerWorld) world, (ServerPlayerEntity) user,
+					item -> user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
 		}
 		if(getInactiveStack((PlayerEntity) user).isOf(Items.FLINT_AND_STEEL)) {
 			if (!world.isClient) {
@@ -83,11 +89,19 @@ public class SmokableItem extends Item {
 
 				world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 				user.getActiveItem().set(IS_LIT, true);
-				user.getActiveItem().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, item -> {
-					user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack());
-				});
+				user.getActiveItem().damage(
+						1,
+						(ServerWorld) world, (ServerPlayerEntity) user,
+						item -> user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
 
 			}
 		}
+	}
+
+	@Override
+	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+
+		world.addParticle(new ParticleEffect());
+		return super.finishUsing(stack, world, user);
 	}
 }

@@ -34,18 +34,19 @@ public class BongItem extends Item {
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 
 		var comp = stack.get(BSGComponents.BONG_COMPONENT);
+		tooltip.add(Text.of("§o§7Time to get fucked up."));
 
-		if(comp.hasWater()){
-			tooltip.add(Text.of("§o§7Time to get fucked up."));
-			tooltip.add(Text.of(String.format("§o§7Remaining water: %s", comp.waterPurity())));
-			tooltip.add(Text.of(String.format("§o§7Remaining za: %s", comp.resourceQuantity())));
-		}
+		assert comp != null;
 
-		else {
-			tooltip.add(Text.of("§o§oTime to get fucked up."));
-			tooltip.add(Text.of("§oNo water"));
-			tooltip.add(Text.of(String.format("§oRemaining za: %s", comp.resourceQuantity())));
-		}
+		var hasWater = comp.hasWater()
+			? tooltip.add(Text.of(String.format("§o§Water cleanliness: %s", comp.waterPurity())))
+			: tooltip.add(Text.of(("§o§7All outta water."))) ;
+
+
+		var hasZa = comp.resourceQuantity() == 0
+			? tooltip.add(Text.of("§o§7All outta za."))
+			: tooltip.add(Text.of(String.format("§o§7Remaining za: %s", comp.resourceQuantity())));
+
 
 		super.appendTooltip(stack, context, tooltip, type);
 	}
@@ -61,6 +62,7 @@ public class BongItem extends Item {
 			user.setCurrentHand(hand);
 
 			BongComponent comp = this.getComponents().get(BSGComponents.BONG_COMPONENT);
+			assert comp != null; // null pointer deez nuts you fucking moron
 			var newWaterPurity = comp.waterPurity();
 			var newResourceQuantity = comp.resourceQuantity();
 
