@@ -15,7 +15,7 @@ import static io.github.maloryware.backstreet_gardener.item.BSGItems.*;
 public class BSGItemGroup {
 	public static final ItemGroup BSG_TAB = FabricItemGroup.builder()
 		.icon(() -> new ItemStack(CIGARETTE))
-		.displayName(Text.translatable(BackstreetGardener.ID,"itemGroup.bsg"))	// ok mcdev yeah please keep erroring yeah no i love manually filling out a lang file you fucking wanker
+		.displayName(Text.translatable(BackstreetGardener.ID,"substances"))	// ok mcdev yeah please keep erroring yeah no i love manually filling out a lang file you fucking wanker
 		.entries(((displayParameters, itemStackCollector) -> {
 			itemStackCollector.add(TOBACCO_SEED);
 			itemStackCollector.add(CANNABIS_SEED);
@@ -28,6 +28,7 @@ public class BSGItemGroup {
 			itemStackCollector.add(OPIUM_LEAF);
 
 			itemStackCollector.add(CIGARETTE);
+			itemStackCollector.add(CIGARETTE_BUTT);
 			itemStackCollector.add(BLUNT);
 			itemStackCollector.add(JOINT);
 			itemStackCollector.add(COKE);

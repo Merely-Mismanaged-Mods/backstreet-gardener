@@ -3,8 +3,6 @@ package io.github.maloryware.backstreet_gardener.screen.gui;
 import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.wispforest.owo.ui.base.BaseOwoHandledScreen;
-import io.wispforest.owo.ui.base.BaseUIModelHandledScreen;
-import io.wispforest.owo.ui.base.BaseUIModelScreen;
 import io.wispforest.owo.ui.component.Components;
 import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
@@ -16,11 +14,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.Flow;
-
 public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandler> {
 
-	private static final Identifier TEXTURE = Identifier.of(BackstreetGardener.ID, "textures/gui/holder.png");
+	private static final Identifier TEXTURE = Identifier.of(BackstreetGardener.ID, "textures/gui/temp.png");
 
 	public BongScreen(BongScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
@@ -39,7 +35,8 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 			.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
 		rootComponent.child(
-				Components.texture(TEXTURE,0,0,176,166));
+				Components.texture(TEXTURE,0,0,176,166))
+			.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 	}
 
 }

@@ -1,19 +1,11 @@
 package io.github.maloryware.backstreet_gardener.datagen;
 
-import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
-import io.github.maloryware.backstreet_gardener.item.BSGItemGroup;
-import io.github.maloryware.backstreet_gardener.item.BSGItems.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.entity.attribute.EntityAttribute;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.entry.RegistryEntry;
 
-import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
 
-import static io.github.maloryware.backstreet_gardener.item.BSGItemGroup.BSG_TAB;
 import static io.github.maloryware.backstreet_gardener.item.BSGItems.*;
 
 public class TranslationProvider extends FabricLanguageProvider {
@@ -41,6 +33,7 @@ public class TranslationProvider extends FabricLanguageProvider {
 		translationBuilder.add(TOBACCO_LEAF, "Tobacco Leaf");
 
 		translationBuilder.add("substances","Backstreet Gardener");
+		translationBuilder.add("backstreet_gardener","Backstreet Gardener");
 
 	}
 }

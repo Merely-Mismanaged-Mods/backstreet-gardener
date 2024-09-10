@@ -6,6 +6,8 @@ import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 
+import java.util.Objects;
+
 public record BongComponent(boolean hasWater, int waterPurity, int resourceQuantity) {
 
 	public static final Codec<BongComponent> CODEC =
@@ -25,5 +27,21 @@ public record BongComponent(boolean hasWater, int waterPurity, int resourceQuant
 			PacketCodecs.INTEGER, BongComponent::resourceQuantity, BongComponent::new
 		);
 
+	public static BongComponent of(boolean hasWater, int waterPurity, int resourceQuantity){
+		return new BongComponent(hasWater, waterPurity, resourceQuantity);
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		BongComponent that = (BongComponent) o;
+		return waterPurity == that.waterPurity && hasWater == that.hasWater && resourceQuantity == that.resourceQuantity;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(hasWater, waterPurity, resourceQuantity);
+	}
 }
 

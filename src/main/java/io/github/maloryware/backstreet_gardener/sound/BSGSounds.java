@@ -16,6 +16,7 @@ public class BSGSounds {
 	}
 
 	public static final SoundEvent LIGHTER_FLICKING = register("lighter_flicking");
+	public static final SoundEvent SMOKING = register("smoking");
 
 	public static void initialize(){
 

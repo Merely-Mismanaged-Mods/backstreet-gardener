@@ -1,10 +1,10 @@
 package io.github.maloryware.backstreet_gardener.screen.handler;
 
-import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.BackstreetGardenerClient;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.datagen.ItemTagProvider;
+import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -34,14 +34,14 @@ public class BongScreenHandler extends ScreenHandler {
 	}
 
 	// cauldron water slot
-	private class CauldronResourceSlot extends Slot {
+	private static class CauldronResourceSlot extends Slot {
 		public CauldronResourceSlot(final BongScreenHandler handler, final Inventory inventory, final int index, final int x, final int y) {
 			super(inventory, index, x, y);
 		}
 
 		@Override
 		public boolean canInsert(ItemStack stack) {
-			return stack.isIn(ItemTagProvider.BONGABLE);
+			return stack.isIn(ItemTagProvider.BONGABLE) || stack.isOf(BSGItems.CANNABIS_LEAF);
 		}
 
 		@Override
@@ -51,14 +51,14 @@ public class BongScreenHandler extends ScreenHandler {
 	}
 
 	// cauldron material slot
-	private class CauldronWaterSlot extends Slot {
+	private static class CauldronWaterSlot extends Slot {
 
 		public CauldronWaterSlot(final BongScreenHandler handler, final Inventory inventory, final int index, final int x, final int y) {
 			super(inventory, index, x, y);
 		}
 		@Override
 		public boolean canInsert(ItemStack stack) {
-			return stack.isOf(Items.BUCKET);
+			return stack.isOf(Items.WATER_BUCKET);
 		}
 		@Override
 		public int getMaxItemCount(){
@@ -105,29 +105,33 @@ public class BongScreenHandler extends ScreenHandler {
 		itemStack = stack;
 		hand = h;
 
-		this.waterSlot = new CauldronWaterSlot(this, this.inventory,1,20, 20); // placeholder values
-		this.resourceSlot = new CauldronResourceSlot(this, this.inventory,0,40, 40); // placeholder values
+		this.waterSlot = new CauldronWaterSlot(this, this.inventory, 1, 52, 10);
+		this.resourceSlot = new CauldronResourceSlot(this, this.inventory, 0, 25, 50);
+
+		this.addSlot(waterSlot);
+		this.addSlot(resourceSlot);
 
 		BongComponent component = itemStack.get(BSGComponents.BONG_COMPONENT);
 
 		this.inventory.addListener(sender -> {
 			assert component != null;
 
-			if(!component.hasWater() && waterSlot.hasStack()){
-				this.itemStack.set(
+			if(!component.hasWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(Items.WATER_BUCKET)){
+				BongScreenHandler.this.itemStack.set(
 					BSGComponents.BONG_COMPONENT,
-					new BongComponent(true,255, component.resourceQuantity()));
-				waterSlot.setStack(Items.BUCKET.getDefaultStack());
+					BongComponent.of(true,255, component.resourceQuantity()));
+				BongScreenHandler.this.waterSlot.setStack(Items.BUCKET.getDefaultStack());
 			}
 
-			if(component.resourceQuantity() == 0 && resourceSlot.hasStack()){
-				this.itemStack.set(
+			if(component.resourceQuantity() == 0 && resourceSlot.hasStack() && resourceSlot.getStack().isOf(BSGItems.CANNABIS_LEAF) ){
+				BongScreenHandler.this.itemStack.set(
 					BSGComponents.BONG_COMPONENT,
-					new BongComponent(component.hasWater(),component.waterPurity(), 255));
-				resourceSlot.setStack(ItemStack.EMPTY);
+					BongComponent.of(component.hasWater(), component.waterPurity(), 255));
+				BongScreenHandler.this.resourceSlot.setStack(Items.CHARCOAL.getDefaultStack());
 			}
 
-		}
+			}
+
 		);
 
 		// draw player inventory //
@@ -135,12 +139,12 @@ public class BongScreenHandler extends ScreenHandler {
 		int k;
 		for(k = 0; k < 3; ++k) {
 			for(int l = 0; l < 9; ++l) {
-				this.addSlot(new Slot(playerInventory, l + k * 9 + 10, 36 + l * 18, 137 + k * 18));
+				this.addSlot(new Slot(playerInventory, l + k * 9 + 9, 8 + l * 18, 84 + k * 18));
 			}
 		}
 
 		for(k = 0; k < 9; ++k) {
-			this.addSlot(new Slot(playerInventory, k + 1, 36 + k * 18, 195));
+			this.addSlot(new Slot(playerInventory, k, 8 + k * 18, 142	));
 		}
 
 		// ---------------------- //
@@ -162,30 +166,32 @@ public class BongScreenHandler extends ScreenHandler {
 		ItemStack leftoverStack = ItemStack.EMPTY;
 		Slot sourceSlot = this.slots.get(slotIndex);
 
-		if(sourceSlot != null && sourceSlot.hasStack()){
+		if(sourceSlot.hasStack()){
 
 			ItemStack fromStack = sourceSlot.getStack();
 			leftoverStack = fromStack.copy();
 
 			switch(slotIndex){
 				case 0, 1 -> {
-					if(!this.insertItem(fromStack,3,39,true)) return ItemStack.EMPTY;
+					if(!this.insertItem(fromStack,3,38,true)) return ItemStack.EMPTY;
 					sourceSlot.onQuickTransfer(fromStack, leftoverStack);
 				}
 				default -> {
-					if (waterSlot.canInsert(fromStack)){
-						if (!this.insertItem(fromStack,1,1,false)) return ItemStack.EMPTY;
+					if (fromStack.isOf(Items.WATER_BUCKET)){
+						if (!this.insertItem(fromStack,1,1,true)) return ItemStack.EMPTY;
+						else return leftoverStack;
 					}
-					if (resourceSlot.canInsert(fromStack)){
-						if (!this.insertItem(fromStack,0,0,false)) return ItemStack.EMPTY;
+					if (fromStack.isOf(BSGItems.CANNABIS_LEAF)){
+						if (!this.insertItem(fromStack,0,0,true)) return ItemStack.EMPTY;
+						else return leftoverStack;
 					}
 
-					else if (slotIndex >= 30 && slotIndex < 39 && !this.insertItem(fromStack, 2, 29, false)) {
+					else if (slotIndex >= 28 && slotIndex < 38 && !this.insertItem(fromStack, 1, 28, false)) {
 						// in player inventory hotbar and successfully moved everything to non-hotbar (combined index check and trying to move because it's last in this branch)
 						return ItemStack.EMPTY;
 					}
 
-					else if (!this.insertItem(fromStack, 3, 39, false)) {
+					else if (!this.insertItem(fromStack, 3, 38, false)) {
 						// moving out of an input slot, failed to move to player inventory
 						return ItemStack.EMPTY;
 					}
@@ -213,8 +219,13 @@ public class BongScreenHandler extends ScreenHandler {
 	}
 
 
-
-
-
+	@Override
+	public void onClosed(PlayerEntity player) {
+		super.onClosed(player);
+		if(!inventory.isEmpty()){
+			player.giveItemStack(waterSlot.getStack());
+			player.giveItemStack(resourceSlot.getStack());
+		}
+	}
 }
 

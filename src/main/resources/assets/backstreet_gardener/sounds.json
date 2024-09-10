@@ -4,5 +4,12 @@
     "sounds": [
       "backstreet_gardener:lighter_flicking"
     ]
+  },
+
+  "smoking": {
+    "subtitle": "sound.backstreet_gardener.smoking",
+    "sounds": [
+      "backstreet_gardener:smoking"
+    ]
   }
 }

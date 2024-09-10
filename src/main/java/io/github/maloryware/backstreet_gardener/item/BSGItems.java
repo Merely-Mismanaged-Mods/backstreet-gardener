@@ -2,13 +2,16 @@ package io.github.maloryware.backstreet_gardener.item;
 
 import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
-import io.github.maloryware.backstreet_gardener.item.custom.SmokableContainerItem;
+import io.github.maloryware.backstreet_gardener.item.custom.BongItem;
+import io.github.maloryware.backstreet_gardener.item.custom.SmokableItem;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+
+import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 
 public class BSGItems {
 
@@ -18,7 +21,7 @@ public class BSGItems {
 
 
 
-	public static final Item BONG = new SmokableContainerItem(
+	public static final Item BONG = new BongItem(
 			new Item.Settings()
 				.rarity(Rarity.EPIC)
 				.component(
@@ -27,10 +30,11 @@ public class BSGItems {
 	);
 
 	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.EPIC));
-	public static final Item BLUNT = new Item(new Item.Settings().rarity(Rarity.EPIC));
-	public static final Item JOINT = new Item(new Item.Settings().rarity(Rarity.EPIC));
+	public static final Item BLUNT = new SmokableItem(new Item.Settings().rarity(Rarity.EPIC).maxDamage(255).maxCount(1).component(IS_LIT, false));
+	public static final Item JOINT = new SmokableItem(new Item.Settings().rarity(Rarity.EPIC).maxDamage(255).maxCount(1).component(IS_LIT, false));
 	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.EPIC));
-	public static final Item CIGARETTE = new Item(new Item.Settings().rarity(Rarity.EPIC));
+	public static final Item CIGARETTE = new SmokableItem(new Item.Settings().rarity(Rarity.EPIC).maxDamage(255).maxCount(1).component(IS_LIT, false));
+	public static final Item CIGARETTE_BUTT = new Item(new Item.Settings().maxCount(8));
 
 	public static final Item PERUVIAN_COCA_SEED = new AliasedBlockItem(BSGBlocks.COKE_CROP, new Item.Settings().rarity(Rarity.UNCOMMON));
 	public static final Item POPPY_SEED = new AliasedBlockItem(BSGBlocks.OPIUM_CROP,new Item.Settings().rarity(Rarity.UNCOMMON));
@@ -62,6 +66,8 @@ public class BSGItems {
 		register("tobacco_leaf", TOBACCO_LEAF);
 
 		register("bong", BONG);
+
+		register("cigarette_butt", CIGARETTE_BUTT);
 
 	}
 
