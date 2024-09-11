@@ -60,14 +60,14 @@ public class SmokableItem extends Item {
 			if(getInactiveStack(user).isOf(Items.FLINT_AND_STEEL)){
 				if(!world.isClient) {
 
-					getInactiveStack(user).damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack -> {
-						user.setStackInHand(getInactiveHand(user), BSGItems.CIGARETTE_BUTT.getDefaultStack());
-					});
+					getInactiveStack(user).damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
+							user.setStackInHand(getInactiveHand(user), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+
 					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 					user.getActiveItem().set(IS_LIT, true);
-					user.getActiveItem().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack -> {
-						user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack());
-					});
+
+					user.getActiveItem().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
+							user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
 
 				}
 				MinecraftClient.getInstance().getSoundManager().play(moking);
@@ -108,18 +108,26 @@ public class SmokableItem extends Item {
 	}
 
 
+
 	@Override
 	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-		var lookingAt = user.getRotationVector().normalize();
-		var particleSpawnPos = new Vec3d(user.getX(), user.getEyeY() + 0.1, user.getZ());
+		var lookingAt = user.getRotationVector().normalize().multiply(0.5);
+		var particleSpawnPos = new Vec3d(user.getX() + lookingAt.x, user.getEyeY() + 0.1, user.getZ() + lookingAt.z);
 		var particleCount = (int) ((Math.random()+0.2) * smokingDuration + 12);
 		if(world.isClient()) {
-			ClientParticles.setParticleCount(particleCount);
-			ClientParticles.setVelocity(new Vec3d(lookingAt.x, lookingAt.y, lookingAt.z));
-			ClientParticles.randomizeVelocity(0.1);
+			ClientParticles.setParticleCount(1);
+
 			ClientParticles.persist();
 
-			ClientParticles.spawn(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, world, particleSpawnPos, 0.1);
+			for(int count = 0; count < particleCount; count++){
+				ClientParticles.setVelocity(
+						new Vec3d(
+						lookingAt.x * 0.3 + 0.05 * (Math.random() - Math.random()),
+						lookingAt.y * 0.3 + 0.05 * (Math.random() - Math.random()),
+						lookingAt.z * 0.3 + 0.05 * (Math.random() - Math.random())
+				));
+				ClientParticles.spawnWithMaxAge(ParticleTypes.CAMPFIRE_COSY_SMOKE, particleSpawnPos, 60);
+			}
 			ClientParticles.reset();
 
 		}
