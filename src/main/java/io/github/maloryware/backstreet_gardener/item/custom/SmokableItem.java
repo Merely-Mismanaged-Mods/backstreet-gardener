@@ -1,8 +1,10 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
+import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
 import io.github.maloryware.backstreet_gardener.sound.tracked.TrackedSmokingSound;
+import io.wispforest.owo.particles.ClientParticles;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
@@ -10,12 +12,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.particle.ParticleEffect;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
@@ -33,8 +36,11 @@ public class SmokableItem extends Item {
 	private ItemStack getInactiveStack(PlayerEntity player) {
 		return player.getStackInHand(player.getActiveHand() == MAIN_HAND ? OFF_HAND : MAIN_HAND);
 	}
+	private Hand getInactiveHand(PlayerEntity player) {
+		return player.getActiveHand() == MAIN_HAND ? OFF_HAND : MAIN_HAND;
+	}
 
-
+	int smokingDuration = 0;
 
 	@Override
 	public void onItemEntityDestroyed(ItemEntity entity) {
@@ -54,7 +60,9 @@ public class SmokableItem extends Item {
 			if(getInactiveStack(user).isOf(Items.FLINT_AND_STEEL)){
 				if(!world.isClient) {
 
-
+					getInactiveStack(user).damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack -> {
+						user.setStackInHand(getInactiveHand(user), BSGItems.CIGARETTE_BUTT.getDefaultStack());
+					});
 					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 					user.getActiveItem().set(IS_LIT, true);
 					user.getActiveItem().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack -> {
@@ -78,6 +86,7 @@ public class SmokableItem extends Item {
 		super.usageTick(world, user, stack, remainingUseTicks);
 		if(Boolean.TRUE.equals(user.getActiveItem().getOrDefault(IS_LIT, true))
 		|| Math.random() < 0.6D){
+			smokingDuration++;
 			if(!world.isClient()) user.getActiveItem().damage(
 					1,
 					(ServerWorld) world, (ServerPlayerEntity) user,
@@ -98,10 +107,27 @@ public class SmokableItem extends Item {
 		}
 	}
 
-	@Override
-	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 
-		world.addParticle(new ParticleEffect());
-		return super.finishUsing(stack, world, user);
+	@Override
+	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+		var lookingAt = user.getRotationVector().normalize();
+		var particleSpawnPos = new Vec3d(user.getX(), user.getEyeY() + 0.1, user.getZ());
+		var particleCount = (int) ((Math.random()+0.2) * smokingDuration + 12);
+		if(world.isClient()) {
+			ClientParticles.setParticleCount(particleCount);
+			ClientParticles.setVelocity(new Vec3d(lookingAt.x, lookingAt.y, lookingAt.z));
+			ClientParticles.randomizeVelocity(0.1);
+			ClientParticles.persist();
+
+			ClientParticles.spawn(ParticleTypes.CAMPFIRE_SIGNAL_SMOKE, world, particleSpawnPos, 0.1);
+			ClientParticles.reset();
+
+		}
+		BackstreetGardener.BSGLOGGER.info("Finished using cigarette.\nSmoking duration: {} ticks\nParticles: {}", smokingDuration, particleCount);
+		smokingDuration = 0	 ;
+
+		super.onStoppedUsing(stack, world, user, remainingUseTicks);
 	}
+
+
 }
