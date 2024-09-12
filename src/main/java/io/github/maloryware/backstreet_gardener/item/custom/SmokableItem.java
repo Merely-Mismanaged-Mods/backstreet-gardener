@@ -21,6 +21,7 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 import static net.minecraft.util.Hand.MAIN_HAND;
 import static net.minecraft.util.Hand.OFF_HAND;
@@ -31,13 +32,6 @@ import static net.minecraft.util.Hand.OFF_HAND;
 public class SmokableItem extends Item {
 	public SmokableItem(Settings settings) {
 		super(settings.maxDamage(255).maxCount(1).component(IS_LIT, false));
-	}
-
-	private ItemStack getInactiveStack(PlayerEntity player) {
-		return player.getStackInHand(player.getActiveHand() == MAIN_HAND ? OFF_HAND : MAIN_HAND);
-	}
-	private Hand getInactiveHand(PlayerEntity player) {
-		return player.getActiveHand() == MAIN_HAND ? OFF_HAND : MAIN_HAND;
 	}
 
 	int smokingDuration = 0;
@@ -54,56 +48,64 @@ public class SmokableItem extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
-		TrackedSmokingSound moking = new TrackedSmokingSound(user, BSGSounds.SMOKING);
-
-		if(!Boolean.TRUE.equals(user.getActiveItem().getOrDefault(IS_LIT, true))){
-			if(getInactiveStack(user).isOf(Items.FLINT_AND_STEEL)){
+		if(!(user.getMainHandStack().getOrDefault(IS_LIT, false))){
+			if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL)){
 				if(!world.isClient) {
 
-					getInactiveStack(user).damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
-							user.setStackInHand(getInactiveHand(user), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+
 
 					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
-					user.getActiveItem().set(IS_LIT, true);
+					user.getMainHandStack().set(IS_LIT, true);
 
-					user.getActiveItem().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
-							user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+					user.getMainHandStack().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
+							user.setStackInHand(MAIN_HAND, BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+
+					user.getOffHandStack().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
+						user.setStackInHand(OFF_HAND, ItemStack.EMPTY));
+
 
 				}
-				MinecraftClient.getInstance().getSoundManager().play(moking);
+				BSGLOGGER.info("lit cigarette");
 				return TypedActionResult.success(user.getStackInHand(hand), false);
+
 			}
 			else return TypedActionResult.fail(user.getStackInHand(hand));
 		}
 		else {
 			user.setCurrentHand(hand);
-			return TypedActionResult.success(user.getStackInHand(hand), false);
+			BSGLOGGER.info("Moked");
+			return TypedActionResult.success(user.getMainHandStack(), false);
+
 		}
 	}
 
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
 		super.usageTick(world, user, stack, remainingUseTicks);
-		if(Boolean.TRUE.equals(user.getActiveItem().getOrDefault(IS_LIT, true))
-		|| Math.random() < 0.6D){
+		if(user.getMainHandStack().getOrDefault(IS_LIT, false)){
 			smokingDuration++;
-			if(!world.isClient()) user.getActiveItem().damage(
-					1,
-					(ServerWorld) world, (ServerPlayerEntity) user,
-					item -> user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+			while(Math.random() < 0.3D){
+				if(!world.isClient() )
+					user.getMainHandStack().damage(
+						1,
+						(ServerWorld) world, (ServerPlayerEntity) user,
+						item -> user.setStackInHand(MAIN_HAND, BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+			}
 		}
-		if(getInactiveStack((PlayerEntity) user).isOf(Items.FLINT_AND_STEEL)) {
+		if(user.getMainHandStack().isOf(Items.FLINT_AND_STEEL)) {
 			if (!world.isClient) {
 
-
-				world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
-				user.getActiveItem().set(IS_LIT, true);
+				user.getMainHandStack().set(IS_LIT, true);
 				user.getActiveItem().damage(
 						1,
 						(ServerWorld) world, (ServerPlayerEntity) user,
-						item -> user.setStackInHand(user.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+						item -> user.setStackInHand(MAIN_HAND, BSGItems.CIGARETTE_BUTT.getDefaultStack()));
 
 			}
+			else {
+				world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
+			}
+
 		}
 	}
 
@@ -127,15 +129,15 @@ public class SmokableItem extends Item {
 						lookingAt.z * 0.3 + 0.05 * (Math.random() - Math.random())
 				));
 				ClientParticles.spawnWithMaxAge(ParticleTypes.CAMPFIRE_COSY_SMOKE, particleSpawnPos, 60);
+
 			}
 			ClientParticles.reset();
 
+
 		}
-		BackstreetGardener.BSGLOGGER.info("Finished using cigarette.\nSmoking duration: {} ticks\nParticles: {}", smokingDuration, particleCount);
+		BSGLOGGER.info("Finished using cigarette.\nSmoking duration: {} ticks\nParticles: {}", smokingDuration, particleCount);
 		smokingDuration = 0	 ;
 
 		super.onStoppedUsing(stack, world, user, remainingUseTicks);
 	}
-
-
 }

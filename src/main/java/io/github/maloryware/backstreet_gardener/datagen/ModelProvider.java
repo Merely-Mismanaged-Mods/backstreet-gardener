@@ -37,6 +37,7 @@ public class ModelProvider extends FabricModelProvider {
 		gen.register(BSGItems.JOINT, Models.HANDHELD);
 		gen.register(BSGItems.OPIUM, Models.HANDHELD);
 		gen.register(BSGItems.CIGARETTE, Models.HANDHELD);
+		gen.register(BSGItems.CIGARETTE_BUTT, Models.HANDHELD);
 
 		gen.register(BSGItems.BONG, Models.HANDHELD);
 

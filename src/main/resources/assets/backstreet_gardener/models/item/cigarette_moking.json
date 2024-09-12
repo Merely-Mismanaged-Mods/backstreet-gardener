@@ -7,7 +7,7 @@
 		"layer0": "backstreet_gardener:item/cigarette"
 	},
 	"overrides": [
-		{"predicate": {"moking": 1}, "model": "backstreet_gardening:item/cigarettelit"}
+		{"predicate": {"not_moking": 1}, "model": "backstreet_gardening:item/cigarette_unlit"}
 	],
 	"display": {
 		"thirdperson_righthand": {
