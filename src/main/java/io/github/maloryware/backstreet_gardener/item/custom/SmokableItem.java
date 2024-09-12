@@ -26,7 +26,7 @@ import static net.minecraft.util.Hand.MAIN_HAND;
 import static net.minecraft.util.Hand.OFF_HAND;
 
 //TODO:
-// fix emissive textures, add sound file, add particles, add BipedEntityModel override
+// fix emissive textures, add sound file
 
 public class SmokableItem extends Item {
 	public SmokableItem(Settings settings) {

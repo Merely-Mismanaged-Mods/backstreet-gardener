@@ -27,6 +27,6 @@ public class TrackedSmokingSound extends MovingSoundInstance {
 	}
 
 	public void stopSound(){
-		setDone();
+		this.setDone();
 	}
 }

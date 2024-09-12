@@ -85,7 +85,6 @@ public class BongItem extends Item {
 	}
 
 
-
 	protected NamedScreenHandlerFactory createScreenHandlerFactory(World world, BlockPos pos, ItemStack stack)
 	{
 		return new SimpleNamedScreenHandlerFactory((i, playerInventory, player) ->

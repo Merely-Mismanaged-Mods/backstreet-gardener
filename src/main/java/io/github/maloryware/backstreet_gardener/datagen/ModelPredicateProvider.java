@@ -19,10 +19,9 @@ public class ModelPredicateProvider extends ModelPredicateProviderRegistry {
 		{
 			assert livingEntity != null;
 			return livingEntity.isUsingItem()
-				&& livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
+				&& livingEntity.getActiveItem() == itemStack ? 0.0F : 1.0F;
 		};
 
-		register(BSGItems.BONG, Identifier.of(ID,"moking"), mokingPredicate);
 		register(BSGItems.BLUNT, Identifier.of(ID,"moking"), mokingPredicate);
 		register(BSGItems.JOINT, Identifier.of(ID,"moking"), mokingPredicate);
 		register(BSGItems.CIGARETTE, Identifier.of(ID,"moking"), mokingPredicate);
