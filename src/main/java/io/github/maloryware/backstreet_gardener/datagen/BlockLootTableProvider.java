@@ -8,7 +8,12 @@ import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.minecraft.block.Blocks;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
 import net.minecraft.loot.condition.BlockStatePropertyLootCondition;
+import net.minecraft.loot.condition.RandomChanceLootCondition;
+import net.minecraft.loot.entry.ItemEntry;
 import net.minecraft.predicate.StatePredicate;
 import net.minecraft.registry.RegistryWrapper;
 
@@ -79,6 +84,12 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 			moker
 		));
 
+		addDrop(Blocks.POPPY, LootTable.builder().pool(LootPool.builder()
+			.with(
+				ItemEntry.builder(BSGItems.POPPY_SEED.asItem()))
+			.conditionally(RandomChanceLootCondition.builder(0.5F))
+			.build()));
 
 	}
 }
+

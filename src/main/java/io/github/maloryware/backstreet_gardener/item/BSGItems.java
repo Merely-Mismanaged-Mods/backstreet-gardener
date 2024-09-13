@@ -19,22 +19,44 @@ public class BSGItems {
 		Registry.register(Registries.ITEM, Identifier.of("backstreet_gardener", itemName), item);
 	}
 
+	// TODO: replace null stubitems!!!
+
+
+
+	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.EPIC));
+
+	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.EPIC));
+	public static final Item CIGARETTE_BUTT = new Item(new Item.Settings().maxCount(8));
+
+	public static final Item BLUNT = new SmokableItem(
+		new Item.Settings()
+			.rarity(Rarity.EPIC)
+			.maxDamage(255).maxCount(1)
+			.component(IS_LIT, false),
+		null);
+
+	public static final Item JOINT = new SmokableItem(
+		new Item.Settings()
+			.rarity(Rarity.EPIC)
+			.maxDamage(255).maxCount(1)
+			.component(IS_LIT, false),
+		null);
+
+	public static final Item CIGARETTE = new SmokableItem(
+		new Item.Settings()
+			.rarity(Rarity.EPIC)
+			.maxDamage(255).maxCount(1)
+			.component(IS_LIT, false),
+		CIGARETTE_BUTT);
 
 
 	public static final Item BONG = new BongItem(
-			new Item.Settings()
-				.rarity(Rarity.EPIC)
-				.component(
-					BSGComponents.BONG_COMPONENT, BSGComponents.BongDefaultComponent
-				)
+		new Item.Settings()
+			.rarity(Rarity.EPIC)
+			.component(
+				BSGComponents.BONG_COMPONENT, BSGComponents.BongDefaultComponent
+			)
 	);
-
-	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.EPIC));
-	public static final Item BLUNT = new SmokableItem(new Item.Settings().rarity(Rarity.EPIC).maxDamage(255).maxCount(1).component(IS_LIT, false));
-	public static final Item JOINT = new SmokableItem(new Item.Settings().rarity(Rarity.EPIC).maxDamage(255).maxCount(1).component(IS_LIT, false));
-	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.EPIC));
-	public static final Item CIGARETTE = new SmokableItem(new Item.Settings().rarity(Rarity.EPIC).maxDamage(255).maxCount(1).component(IS_LIT, false));
-	public static final Item CIGARETTE_BUTT = new Item(new Item.Settings().maxCount(8));
 
 	public static final Item PERUVIAN_COCA_SEED = new AliasedBlockItem(BSGBlocks.COKE_CROP, new Item.Settings().rarity(Rarity.UNCOMMON));
 	public static final Item POPPY_SEED = new AliasedBlockItem(BSGBlocks.OPIUM_CROP,new Item.Settings().rarity(Rarity.UNCOMMON));

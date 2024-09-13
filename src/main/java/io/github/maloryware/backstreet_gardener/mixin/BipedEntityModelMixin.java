@@ -1,6 +1,6 @@
 package io.github.maloryware.backstreet_gardener.mixin;
 
-import io.github.maloryware.backstreet_gardener.item.BSGItems;
+import io.github.maloryware.backstreet_gardener.item.custom.SmokableItem;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.entity.LivingEntity;
@@ -24,7 +24,7 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
 	private void customArmPositions(T entity, CallbackInfo ci){
 		if(entity instanceof PlayerEntity player){
 			var activeItem = player.getActiveItem();
-			if(activeItem.isOf(BSGItems.CIGARETTE)) {
+			if(activeItem.getItem() instanceof SmokableItem) {
 				this.rightArm.pitch = -1.5f;
 				this.rightArm.yaw = -0.5f;
 				ci.cancel();

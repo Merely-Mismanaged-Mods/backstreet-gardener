@@ -1,11 +1,8 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
-import io.github.maloryware.backstreet_gardener.BackstreetGardener;
-import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
-import io.github.maloryware.backstreet_gardener.sound.tracked.TrackedSmokingSound;
 import io.wispforest.owo.particles.ClientParticles;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,17 +27,22 @@ import static net.minecraft.util.Hand.OFF_HAND;
 // fix emissive textures, add sound file
 
 public class SmokableItem extends Item {
-	public SmokableItem(Settings settings) {
+
+	private final Item stubItem;
+
+	public SmokableItem(Settings settings, Item stubItem) {
 		super(settings.maxDamage(255).maxCount(1).component(IS_LIT, false));
+		this.stubItem = stubItem;
 	}
 
 	int smokingDuration = 0;
+	int randTick = 0;
 
 	@Override
 	public void onItemEntityDestroyed(ItemEntity entity) {
 		super.onItemEntityDestroyed(entity);
 		if(entity.getOwner() instanceof PlayerEntity player){
-			player.setStackInHand(player.getActiveHand(), BSGItems.CIGARETTE_BUTT.getDefaultStack());
+			player.setStackInHand(player.getActiveHand(), stubItem.getDefaultStack());
 		}
 
 	}
@@ -51,21 +53,21 @@ public class SmokableItem extends Item {
 		if(!(user.getMainHandStack().getOrDefault(IS_LIT, false))){
 			if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL)){
 				if(!world.isClient) {
-
-
-
 					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
-					user.getMainHandStack().set(IS_LIT, true);
+					if(Math.random() < 0.1F){
+						user.getMainHandStack().set(IS_LIT, true);
+						ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
+						ClientParticles.setParticleCount(8);
+						ClientParticles.spawn(ParticleTypes.FLAME, world, user.getEyePos(), 0.01);
+						user.getMainHandStack().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
+								user.setStackInHand(MAIN_HAND, stubItem.getDefaultStack()));
 
-					user.getMainHandStack().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
-							user.setStackInHand(MAIN_HAND, BSGItems.CIGARETTE_BUTT.getDefaultStack()));
-
-					user.getOffHandStack().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
-						user.setStackInHand(OFF_HAND, ItemStack.EMPTY));
+						user.getOffHandStack().damage(1, (ServerWorld) world, (ServerPlayerEntity) user, stack ->
+								user.setStackInHand(OFF_HAND, ItemStack.EMPTY));
+					}
 
 
 				}
-				BSGLOGGER.info("lit cigarette");
 				return TypedActionResult.success(user.getStackInHand(hand), false);
 
 			}
@@ -79,27 +81,24 @@ public class SmokableItem extends Item {
 		}
 	}
 
+	int smokingDamage = 0;
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
 		super.usageTick(world, user, stack, remainingUseTicks);
 		if(user.getMainHandStack().getOrDefault(IS_LIT, false)){
 			smokingDuration++;
 			while(Math.random() < 0.3D){
-				if(!world.isClient() )
-					user.getMainHandStack().damage(
-						1,
-						(ServerWorld) world, (ServerPlayerEntity) user,
-						item -> user.setStackInHand(MAIN_HAND, BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+				smokingDamage++;
 			}
 		}
-		if(user.getMainHandStack().isOf(Items.FLINT_AND_STEEL)) {
+		else if(user.getMainHandStack().isOf(Items.FLINT_AND_STEEL)) {
 			if (!world.isClient) {
 
-				user.getMainHandStack().set(IS_LIT, true);
+				user.getOffHandStack().set(IS_LIT, true);
 				user.getActiveItem().damage(
 						1,
 						(ServerWorld) world, (ServerPlayerEntity) user,
-						item -> user.setStackInHand(MAIN_HAND, BSGItems.CIGARETTE_BUTT.getDefaultStack()));
+						item -> user.setStackInHand(MAIN_HAND, stubItem.getDefaultStack()));
 
 			}
 			else {
@@ -109,12 +108,34 @@ public class SmokableItem extends Item {
 		}
 	}
 
+	@Override
+	public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+
+		if(entity instanceof PlayerEntity player && player.getStackInHand(MAIN_HAND) == stack){
+
+			if(30 + 2 / (Math.random() * 5 - Math.random() * 5) > randTick) randTick++;
+			else {
+				if(stack.getOrDefault(IS_LIT, false)){
+					ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
+					ClientParticles.spawn(ParticleTypes.FLAME, world,
+							player.getPos()
+									.add(0, 1.2,0)
+									.add(player.getHandPosOffset(stack.getItem()))
+							, 0);
+				}
+
+				randTick = 0;
+
+			}
+		}
+		super.inventoryTick(stack, world, entity, slot, selected);
+	}
 
 
 	@Override
 	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
 		var lookingAt = user.getRotationVector().normalize().multiply(0.5);
-		var particleSpawnPos = new Vec3d(user.getX() + lookingAt.x, user.getEyeY() + 0.1, user.getZ() + lookingAt.z);
+		var particleSpawnPos = new Vec3d(user.getX() + lookingAt.x, user.getEyeY() - 0.3, user.getZ() + lookingAt.z);
 		var particleCount = (int) ((Math.random()+0.2) * smokingDuration + 12);
 		if(world.isClient()) {
 			ClientParticles.setParticleCount(1);
@@ -133,9 +154,15 @@ public class SmokableItem extends Item {
 			}
 			ClientParticles.reset();
 
-
 		}
-		BSGLOGGER.info("Finished using cigarette.\nSmoking duration: {} ticks\nParticles: {}", smokingDuration, particleCount);
+		else {
+			stack.damage(
+					smokingDamage,
+					(ServerWorld) world, (ServerPlayerEntity) user,
+					item -> user.setStackInHand(MAIN_HAND, stubItem.getDefaultStack()));
+			smokingDamage = 0;
+		}
+		// BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}", smokingDuration, particleCount);
 		smokingDuration = 0	 ;
 
 		super.onStoppedUsing(stack, world, user, remainingUseTicks);

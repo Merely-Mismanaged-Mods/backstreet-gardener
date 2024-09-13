@@ -16,15 +16,22 @@ public class ModelPredicateProvider extends ModelPredicateProviderRegistry {
 
 		ClampedModelPredicateProvider moking = (itemStack, clientWorld, livingEntity, seed) ->
 		{
-			assert livingEntity != null;
-			return livingEntity.isUsingItem()
+			if(livingEntity != null) return livingEntity.isUsingItem()
 				&& livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
+			else return 0.0F;
+		};
+
+		ClampedModelPredicateProvider lit = (itemStack, clientWorld, livingEntity, seed) ->
+		{
+			if(livingEntity != null) return livingEntity.getActiveItem() != itemStack && itemStack.getDamage() > 0 ? 1.0F : 0.0F;
+			else return 0.0F;
 		};
 
 		register(BSGItems.BONG, Identifier.of(ID,"moking"), moking);
 		register(BSGItems.BLUNT, Identifier.of(ID,"moking"), moking);
 		register(BSGItems.JOINT, Identifier.of(ID,"moking"), moking);
 		register(BSGItems.CIGARETTE, Identifier.of(ID,"moking"), moking);
+		register(BSGItems.CIGARETTE, Identifier.of(ID,"lit"), lit);
 
 
 

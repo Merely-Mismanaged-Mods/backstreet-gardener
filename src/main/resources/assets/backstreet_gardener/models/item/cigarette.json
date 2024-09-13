@@ -39,6 +39,12 @@
         "backstreet_gardener:moking": 1
       },
       "model": "backstreet_gardener:item/cigarette_moking"
+    },
+    {
+      "predicate": {
+        "backstreet_gardener:lit": 1
+      },
+      "model": "backstreet_gardener:item/cigarette_lit"
     }
   ]
 }
