@@ -1,15 +1,7 @@
 {
-  "item.backstreet_gardener.blunt": "Blunt",
-  "item.backstreet_gardener.cannabis_leaf": "Cannabis Leaf",
-  "item.backstreet_gardener.cannabis_seeds": "Cannabis Seeds",
+  "backstreet_gardener": "Backstreet Gardener",
   "item.backstreet_gardener.cigarette": "Cigarette",
-  "item.backstreet_gardener.cocaine": "Cocaine",
-  "item.backstreet_gardener.cocaine_leaf": "Coca Leaf",
-  "item.backstreet_gardener.coke_seeds": "Coca Plant Seeds",
-  "item.backstreet_gardener.joint": "Joint",
-  "item.backstreet_gardener.opium": "Opium",
-  "item.backstreet_gardener.opium_leaf": "Opium Leaf",
-  "item.backstreet_gardener.poppy_seeds": "Opiate Poppy Seeds",
+  "item.backstreet_gardener.cigarette_butt": "Cigarette Butt",
   "item.backstreet_gardener.tobacco_leaf": "Tobacco Leaf",
   "item.backstreet_gardener.tobacco_seeds": "Tobacco Plant Seeds",
   "substances": "Backstreet Gardener"

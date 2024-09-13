@@ -16,20 +16,9 @@ public class TranslationProvider extends FabricLanguageProvider {
 	@Override
 	public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
 
-		translationBuilder.add(BLUNT, "Blunt");
-		translationBuilder.add(JOINT, "Joint");
 		translationBuilder.add(CIGARETTE, "Cigarette");
-		translationBuilder.add(COKE, "Cocaine");
-		translationBuilder.add(OPIUM, "Opium");
-
-		translationBuilder.add(PERUVIAN_COCA_SEED, "Coca Plant Seeds");
-		translationBuilder.add(POPPY_SEED, "Opiate Poppy Seeds");
-		translationBuilder.add(CANNABIS_SEED, "Cannabis Seeds");
 		translationBuilder.add(TOBACCO_SEED, "Tobacco Plant Seeds");
 
-		translationBuilder.add(COCA_LEAF, "Coca Leaf");
-		translationBuilder.add(OPIUM_LEAF, "Opium Leaf");
-		translationBuilder.add(CANNABIS_LEAF, "Cannabis Leaf");
 		translationBuilder.add(TOBACCO_LEAF, "Tobacco Leaf");
 		translationBuilder.add(CIGARETTE_BUTT, "Cigarette Butt");
 

@@ -6,8 +6,7 @@
     "mixins": [],
     "client": [
         "TitleScreenMixin",
-        "BipedEntityModelMixin",
-        "HudDebugValuesMixin"
+        "BipedEntityModelMixin"
     ],
     "injectors": {
         "defaultRequire": 1

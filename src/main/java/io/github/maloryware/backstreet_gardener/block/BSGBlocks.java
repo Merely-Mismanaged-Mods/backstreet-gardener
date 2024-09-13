@@ -1,9 +1,6 @@
 package io.github.maloryware.backstreet_gardener.block;
 
-import io.github.maloryware.backstreet_gardener.block.crop.CokePlant;
-import io.github.maloryware.backstreet_gardener.block.crop.OpiumPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.TobaccoPlant;
-import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.CropBlock;
@@ -26,17 +23,6 @@ public class BSGBlocks {
 		return (CropBlock) Registry.register(Registries.BLOCK, Identifier.of("backstreet_gardener", blockName), block);
 	}
 
-	// i could probably simply do a for loop but like, lol, imagine using
-	// good coding practices
-
-	public static final CropBlock COKE_CROP = registerCropBlock("coke_crop",
-		new CokePlant(defaultCropSettings));
-
-	public static final CropBlock OPIUM_CROP = registerCropBlock("opium_crop",
-		new OpiumPlant(defaultCropSettings));
-
-	public static final CropBlock CANNABIS_CROP = registerCropBlock("cannabis_crop",
-		new WeedPlant(defaultCropSettings));
 
 	public static final CropBlock TOBACCO_CROP = registerCropBlock("tobacco_crop",
 		new TobaccoPlant(defaultCropSettings));

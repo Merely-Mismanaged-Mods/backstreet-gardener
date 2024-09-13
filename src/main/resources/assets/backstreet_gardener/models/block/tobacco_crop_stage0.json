@@ -1,9 +1,9 @@
 {
 	"credit": "Made by Agro",
 	"textures": {
-		"0": "backstreet_gardener:block/weed_stalk_0",
-		"4": "backstreet_gardener:block/weed_leaves_0",
-		"particle": "backstreet_gardener:block/weed_stalk_0"
+		"0": "backstreet_gardener:block/tobacco_stalk_0",
+		"4": "backstreet_gardener:block/tobacco_leaves_0",
+		"particle": "backstreet_gardener:block/tobacco_stalk_0"
 	},
 	"elements": [
 		{
