@@ -36,9 +36,9 @@
   "overrides": [
     {
       "predicate": {
-        "moking": 1
+        "backstreet_gardener:moking": 1
       },
-      "model": "backstreet_gardening:item/cigarette_moking"
+      "model": "backstreet_gardener:item/cigarette_moking"
     }
   ]
 }

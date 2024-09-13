@@ -14,5 +14,6 @@ public class BackstreetGardenerDatagen implements DataGeneratorEntrypoint {
 		pack.addProvider(ModelProvider::new);
 		pack.addProvider(RecipeProvider::new);
 		pack.addProvider(TranslationProvider::new);
+
 	}
 }
