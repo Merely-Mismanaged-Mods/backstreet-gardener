@@ -1,0 +1,56 @@
+{
+	"credit": "Made by Agro",
+	"textures": {
+		"2": "backstreet_gardener:block/tobacco/tobacco_leaves_small",
+		"3": "backstreet_gardener:block/tobacco/tobacco_stalk_0",
+		"particle": "backstreet_gardener:block/tobacco/tobacco_leaves_large"
+	},
+	"elements": [
+		{
+			"from": [8, -1, 0],
+			"to": [8, 18, 16],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#3"}
+			}
+		},
+		{
+			"from": [8, -1, 0],
+			"to": [8, 18, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#3"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#3"}
+			}
+		},
+		{
+			"from": [0, 3, 8],
+			"to": [16, 3, 16],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 3, 8]},
+			"faces": {
+				"up": {"uv": [8, 16, 16, 0], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [8, 0, 16, 16], "rotation": 270, "texture": "#2"}
+			}
+		},
+		{
+			"from": [0, 3, 0],
+			"to": [16, 3, 8],
+			"rotation": {"angle": 45, "axis": "x", "origin": [8, 3, 8]},
+			"faces": {
+				"up": {"uv": [0, 16, 8, 0], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [0, 0, 8, 16], "rotation": 270, "texture": "#2"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		1,
+		{
+			"name": "large leaves",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [2, 3]
+		}
+	]
+}

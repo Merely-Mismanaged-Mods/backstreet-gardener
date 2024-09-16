@@ -1,0 +1,80 @@
+{
+	"credit": "Made by Agro",
+	"textures": {
+		"2": "backstreet_gardener:block/tobacco/tobacco_leaves_small",
+		"4": "backstreet_gardener:block/tobacco/tobacco_stalk_1",
+		"particle": "backstreet_gardener:block/tobacco/tobacco_leaves_large"
+	},
+	"elements": [
+		{
+			"from": [8, -1, 0],
+			"to": [8, 18, 16],
+			"rotation": {"angle": -45, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#4"}
+			}
+		},
+		{
+			"from": [8, -1, 0],
+			"to": [8, 18, 16],
+			"rotation": {"angle": 45, "axis": "y", "origin": [8, 0, 8]},
+			"faces": {
+				"east": {"uv": [0, 0, 16, 16], "texture": "#4"},
+				"west": {"uv": [0, 0, 16, 16], "texture": "#4"}
+			}
+		},
+		{
+			"from": [0, 2, 8],
+			"to": [16, 2, 17],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 2, 8]},
+			"faces": {
+				"up": {"uv": [8, 0, 16, 16], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [8, 16, 16, 0], "rotation": 270, "texture": "#2"}
+			}
+		},
+		{
+			"from": [0, 2, -1],
+			"to": [16, 2, 8],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 2, 8]},
+			"faces": {
+				"up": {"uv": [0, 0, 8, 16], "rotation": 90, "texture": "#2"},
+				"down": {"uv": [0, 16, 8, 0], "rotation": 270, "texture": "#2"}
+			}
+		},
+		{
+			"from": [8, 5, 0],
+			"to": [8, 13, 16],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [8, 5, 8]},
+			"faces": {
+				"east": {"uv": [8, 16, 16, 0], "rotation": 270, "texture": "#2"},
+				"west": {"uv": [8, 0, 16, 16], "rotation": 270, "texture": "#2"}
+			}
+		},
+		{
+			"from": [8, 5, 0],
+			"to": [16, 5, 16],
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 5, 8]},
+			"faces": {
+				"up": {"uv": [0, 16, 8, 0], "rotation": 180, "texture": "#2"},
+				"down": {"uv": [0, 0, 8, 16], "rotation": 180, "texture": "#2"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		1,
+		{
+			"name": "large leaves",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [2, 3]
+		},
+		{
+			"name": "large leaves",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [4, 5]
+		}
+	]
+}

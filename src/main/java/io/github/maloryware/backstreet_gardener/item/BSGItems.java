@@ -23,28 +23,28 @@ public class BSGItems {
 
 
 
-	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.EPIC));
+	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.RARE));
 
-	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.EPIC));
+	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item CIGARETTE_BUTT = new Item(new Item.Settings().maxCount(8));
 
 	public static final Item BLUNT = new SmokableItem(
 		new Item.Settings()
-			.rarity(Rarity.EPIC)
+			.rarity(Rarity.RARE)
 			.maxDamage(255).maxCount(1)
 			.component(IS_LIT, false),
 		null);
 
 	public static final Item JOINT = new SmokableItem(
 		new Item.Settings()
-			.rarity(Rarity.EPIC)
+			.rarity(Rarity.RARE)
 			.maxDamage(255).maxCount(1)
 			.component(IS_LIT, false),
 		null);
 
 	public static final Item CIGARETTE = new SmokableItem(
 		new Item.Settings()
-			.rarity(Rarity.EPIC)
+			.rarity(Rarity.RARE)
 			.maxDamage(255).maxCount(1)
 			.component(IS_LIT, false),
 		CIGARETTE_BUTT);
@@ -52,22 +52,27 @@ public class BSGItems {
 
 	public static final Item BONG = new BongItem(
 		new Item.Settings()
-			.rarity(Rarity.EPIC)
+			.rarity(Rarity.RARE)
 			.component(
 				BSGComponents.BONG_COMPONENT, BSGComponents.BongDefaultComponent
 			)
 	);
 
-	public static final Item PERUVIAN_COCA_SEED = new AliasedBlockItem(BSGBlocks.COKE_CROP, new Item.Settings().rarity(Rarity.UNCOMMON));
-	public static final Item POPPY_SEED = new AliasedBlockItem(BSGBlocks.OPIUM_CROP,new Item.Settings().rarity(Rarity.UNCOMMON));
-	public static final Item CANNABIS_SEED = new AliasedBlockItem(BSGBlocks.CANNABIS_CROP,new Item.Settings().rarity(Rarity.UNCOMMON));
-	public static final Item TOBACCO_SEED = new AliasedBlockItem(BSGBlocks.TOBACCO_CROP,new Item.Settings().rarity(Rarity.UNCOMMON));
+	public static final Item PERUVIAN_COCA_SEED = new AliasedBlockItem(BSGBlocks.COKE_CROP, new Item.Settings().rarity(Rarity.COMMON));
+	public static final Item POPPY_SEED = new AliasedBlockItem(BSGBlocks.OPIUM_CROP,new Item.Settings().rarity(Rarity.COMMON));
+	public static final Item CANNABIS_SEED = new AliasedBlockItem(BSGBlocks.CANNABIS_CROP,new Item.Settings().rarity(Rarity.COMMON));
+	public static final Item TOBACCO_SEED = new AliasedBlockItem(BSGBlocks.TOBACCO_CROP,new Item.Settings().rarity(Rarity.COMMON));
 
-	public static final Item COCA_LEAF = new Item(new Item.Settings().rarity(Rarity.RARE));
-	public static final Item OPIUM_LEAF = new Item(new Item.Settings().rarity(Rarity.RARE));
-	public static final Item CANNABIS_LEAF = new Item(new Item.Settings().rarity(Rarity.RARE));
-	public static final Item TOBACCO_LEAF = new Item(new Item.Settings().rarity(Rarity.RARE));
+	public static final Item COCA_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
+	public static final Item OPIUM_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
+	public static final Item CANNABIS_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
+	public static final Item TOBACCO_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
 
+
+	public static final Item DRIED_COCA_LEAF = new Item(new Item.Settings().rarity(Rarity.UNCOMMON));
+	public static final Item DRIED_OPIUM_LEAF = new Item(new Item.Settings().rarity(Rarity.UNCOMMON));
+	public static final Item DRIED_CANNABIS_LEAF = new Item(new Item.Settings().rarity(Rarity.UNCOMMON));
+	public static final Item DRIED_TOBACCO_LEAF = new Item(new Item.Settings().rarity(Rarity.UNCOMMON));
 
 	public static void initialize(){
 
@@ -86,6 +91,12 @@ public class BSGItems {
 		register("opium_leaf", OPIUM_LEAF);
 		register("cannabis_leaf", CANNABIS_LEAF);
 		register("tobacco_leaf", TOBACCO_LEAF);
+
+		register("dried_cocaine_leaf", DRIED_COCA_LEAF);
+		register("dried_opium_leaf", DRIED_OPIUM_LEAF);
+		register("dried_cannabis_leaf", DRIED_CANNABIS_LEAF);
+		register("dried_tobacco_leaf", DRIED_TOBACCO_LEAF);
+
 
 		register("bong", BONG);
 
