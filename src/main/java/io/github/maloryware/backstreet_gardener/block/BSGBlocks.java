@@ -4,6 +4,7 @@ import io.github.maloryware.backstreet_gardener.block.crop.CokePlant;
 import io.github.maloryware.backstreet_gardener.block.crop.OpiumPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.TobaccoPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
+import io.github.maloryware.backstreet_gardener.block.custom.DryingRackBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.CropBlock;
@@ -26,6 +27,11 @@ public class BSGBlocks {
 		return (CropBlock) Registry.register(Registries.BLOCK, Identifier.of("backstreet_gardener", blockName), block);
 	}
 
+	public static <T extends Block> T register(String blockName, T block){
+		Registry.register(Registries.BLOCK, Identifier.of("backstreet_gardener", blockName), block);
+		return block;
+	}
+
 	// i could probably simply do a for loop but like, lol, imagine using
 	// good coding practices
 
@@ -41,6 +47,6 @@ public class BSGBlocks {
 	public static final CropBlock TOBACCO_CROP = registerCropBlock("tobacco_crop",
 		new TobaccoPlant(defaultCropSettings));
 
-
+	public static final DryingRackBlock DRYING_RACK = register("drying_rack", new DryingRackBlock(AbstractBlock.Settings.create()));
 
 }

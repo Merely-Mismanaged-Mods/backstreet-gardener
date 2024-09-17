@@ -3,6 +3,7 @@ package io.github.maloryware.backstreet_gardener.item;
 import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.custom.BongItem;
+import io.github.maloryware.backstreet_gardener.item.custom.ProcessableLeafItem;
 import io.github.maloryware.backstreet_gardener.item.custom.SmokableItem;
 import net.minecraft.item.AliasedBlockItem;
 import net.minecraft.item.Item;
@@ -65,7 +66,7 @@ public class BSGItems {
 
 	public static final Item COCA_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
 	public static final Item OPIUM_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
-	public static final Item CANNABIS_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
+	public static final Item CANNABIS_LEAF = new ProcessableLeafItem(new Item.Settings().rarity(Rarity.COMMON));
 	public static final Item TOBACCO_LEAF = new Item(new Item.Settings().rarity(Rarity.COMMON));
 
 
