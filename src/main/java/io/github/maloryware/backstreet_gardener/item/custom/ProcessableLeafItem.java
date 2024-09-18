@@ -12,13 +12,17 @@ import java.util.List;
 
 public class ProcessableLeafItem extends Item {
 	public ProcessableLeafItem(Settings settings) {
-		super(settings
-			.component(BSGComponents.PROGRESS, 0));
+		super(settings);
 	}
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		super.appendTooltip(stack, context, tooltip, type);
+		var component = stack.getOrDefault(BSGComponents.PROGRESS, 0);
+		if(component > 0){
+			double val = (((float)component) / 13) * 100;
+			tooltip.add(Text.of(String.format("§o§7Feels drier than usual. Progress: %d", val).concat("%")));
+		}
 	}
 
 	@Override
@@ -30,7 +34,8 @@ public class ProcessableLeafItem extends Item {
 	@Override
 	public boolean isItemBarVisible(ItemStack stack) {
 		// if processing progress > 0
-		return stack.getOrDefault(BSGComponents.PROGRESS, 0) != 0;
+		return stack.getOrDefault(BSGComponents.PROGRESS, 0) > 0;
+
 	}
 
 	@Override

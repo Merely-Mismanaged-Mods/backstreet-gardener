@@ -35,9 +35,11 @@ public class BSGItemGroup {
 			itemStackCollector.add(OPIUM);
 			itemStackCollector.add(BONG);
 
+			itemStackCollector.add(DRYING_RACK_ITEM);
+
 		})).build();
 
-	public static void register(){
+	public static void initialize(){
 		BSGLOGGER.info("Registering item groups for {}", BackstreetGardener.ID);
 		Registry.register(Registries.ITEM_GROUP, Identifier.of(BackstreetGardener.ID, "substances"), BSG_TAB);
 	}

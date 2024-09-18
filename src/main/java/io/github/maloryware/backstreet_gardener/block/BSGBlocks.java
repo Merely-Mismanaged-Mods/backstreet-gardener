@@ -5,9 +5,11 @@ import io.github.maloryware.backstreet_gardener.block.crop.OpiumPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.TobaccoPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
 import io.github.maloryware.backstreet_gardener.block.custom.DryingRackBlock;
+import io.github.maloryware.backstreet_gardener.block.custom.DryingRackBottomBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.CropBlock;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
@@ -23,30 +25,40 @@ public class BSGBlocks {
 		.breakInstantly()
 		.sounds(BlockSoundGroup.CROP);
 
-	public static CropBlock registerCropBlock(String blockName, Block block){
-		return (CropBlock) Registry.register(Registries.BLOCK, Identifier.of("backstreet_gardener", blockName), block);
-	}
-
-	public static <T extends Block> T register(String blockName, T block){
+	public static void registerCropBlock(String blockName, Block block){
 		Registry.register(Registries.BLOCK, Identifier.of("backstreet_gardener", blockName), block);
-		return block;
 	}
 
-	// i could probably simply do a for loop but like, lol, imagine using
-	// good coding practices
+	public static <T extends Block> void register(String blockName, T block){
+		Registry.register(Registries.BLOCK, Identifier.of("backstreet_gardener", blockName), block);
+	}
 
-	public static final CropBlock COKE_CROP = registerCropBlock("coke_crop",
-		new CokePlant(defaultCropSettings));
 
-	public static final CropBlock OPIUM_CROP = registerCropBlock("opium_crop",
-		new OpiumPlant(defaultCropSettings));
+	public static final CropBlock COKE_CROP = new CokePlant(defaultCropSettings);
+	public static final CropBlock OPIUM_CROP = new OpiumPlant(defaultCropSettings);
+	public static final CropBlock CANNABIS_CROP = new WeedPlant(defaultCropSettings);
+	public static final CropBlock TOBACCO_CROP = new TobaccoPlant(defaultCropSettings);
 
-	public static final CropBlock CANNABIS_CROP = registerCropBlock("cannabis_crop",
-		new WeedPlant(defaultCropSettings));
+	public static final DryingRackBlock DRYING_RACK = new DryingRackBlock(
+		AbstractBlock.Settings.create()
+			.breakInstantly()
+			.pistonBehavior(PistonBehavior.DESTROY));
 
-	public static final CropBlock TOBACCO_CROP = registerCropBlock("tobacco_crop",
-		new TobaccoPlant(defaultCropSettings));
+	public static final DryingRackBottomBlock DRYING_RACK_BOTTOM = new DryingRackBottomBlock(AbstractBlock
+		.Settings.create()
+		.breakInstantly()
+		.pistonBehavior(PistonBehavior.DESTROY));
 
-	public static final DryingRackBlock DRYING_RACK = register("drying_rack", new DryingRackBlock(AbstractBlock.Settings.create()));
+	public static void initialize(){
+
+		registerCropBlock("coke_crop", COKE_CROP);
+		registerCropBlock("opium_crop", OPIUM_CROP);
+		registerCropBlock("cannabis_crop", CANNABIS_CROP);
+		registerCropBlock("tobacco_crop", TOBACCO_CROP);
+		register("drying_rack", DRYING_RACK);
+		register("drying_rack_bottom", DRYING_RACK_BOTTOM);
+
+
+	}
 
 }

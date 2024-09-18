@@ -2,6 +2,7 @@ package io.github.maloryware.backstreet_gardener;
 
 
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
+import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.BSGItemGroup;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
@@ -27,12 +28,12 @@ public class BackstreetGardener implements ModInitializer {
 	// initialized classes were the friends we made along the way
 	@Override
 	public void onInitialize() {
-		//iriri
 
 		BSGBlockEntityTypes.initialize();
-		BSGComponents.register();
+		BSGComponents.initialize();
 		BSGItems.initialize();
-		BSGItemGroup.register();
+		BSGItemGroup.initialize();
 		BSGSounds.initialize();
+		BSGBlocks.initialize();
 	}
 }

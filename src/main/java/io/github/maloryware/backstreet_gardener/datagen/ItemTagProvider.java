@@ -22,6 +22,7 @@ public class ItemTagProvider extends FabricTagProvider<Item> {
 
 	public ItemTagProvider(FabricDataOutput output, RegistryKey<? extends Registry<Item>> registryKey, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
 		super(output, registryKey, registriesFuture);
+
 	}
 
 	@Override
