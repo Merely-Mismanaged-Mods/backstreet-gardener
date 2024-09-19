@@ -32,6 +32,7 @@ public class TranslationProvider extends FabricLanguageProvider {
 		translationBuilder.add(OPIUM_LEAF, "Opium Leaf");
 		translationBuilder.add(CANNABIS_LEAF, "Cannabis Leaf");
 		translationBuilder.add(TOBACCO_LEAF, "Tobacco Leaf");
+		translationBuilder.add(DRY_TOBACCO_LEAF, "Dry Tobacco Leaf");
 
 
 

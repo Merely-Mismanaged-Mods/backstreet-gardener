@@ -4,8 +4,8 @@ import io.github.maloryware.backstreet_gardener.block.crop.CokePlant;
 import io.github.maloryware.backstreet_gardener.block.crop.OpiumPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.TobaccoPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
-import io.github.maloryware.backstreet_gardener.block.custom.DryingRackBlock;
-import io.github.maloryware.backstreet_gardener.block.custom.DryingRackBottomBlock;
+import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBlock;
+import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBottomBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.CropBlock;
@@ -42,12 +42,14 @@ public class BSGBlocks {
 	public static final DryingRackBlock DRYING_RACK = new DryingRackBlock(
 		AbstractBlock.Settings.create()
 			.breakInstantly()
-			.pistonBehavior(PistonBehavior.DESTROY));
+			.pistonBehavior(PistonBehavior.DESTROY)
+			.nonOpaque());
 
 	public static final DryingRackBottomBlock DRYING_RACK_BOTTOM = new DryingRackBottomBlock(AbstractBlock
 		.Settings.create()
 		.breakInstantly()
-		.pistonBehavior(PistonBehavior.DESTROY));
+		.pistonBehavior(PistonBehavior.DESTROY)
+		.nonOpaque());
 
 	public static void initialize(){
 

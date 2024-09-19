@@ -20,8 +20,8 @@ public class ProcessableLeafItem extends Item {
 		super.appendTooltip(stack, context, tooltip, type);
 		var component = stack.getOrDefault(BSGComponents.PROGRESS, 0);
 		if(component > 0){
-			double val = (((float)component) / 13) * 100;
-			tooltip.add(Text.of(String.format("§o§7Feels drier than usual. Progress: %d", val).concat("%")));
+			double val = (((double)component) / 13) * 100;
+			tooltip.add(Text.of(String.format("§o§i§7Feels drier than usual. Progress: %2f", val).concat("%")));
 		}
 	}
 

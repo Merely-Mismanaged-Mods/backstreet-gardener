@@ -1,7 +1,6 @@
 package io.github.maloryware.backstreet_gardener.item;
 
 import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
-import io.github.maloryware.backstreet_gardener.block.crop.TobaccoPlant;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.custom.BongItem;
 import io.github.maloryware.backstreet_gardener.item.custom.ProcessableLeafItem;
@@ -14,7 +13,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
-import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.DRYING_RACK;
 import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.DRYING_RACK_BOTTOM;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 
@@ -73,7 +71,7 @@ public class BSGItems {
 	public static final Item CANNABIS_LEAF = new Item(new Item.Settings());
 	public static final Item TOBACCO_LEAF = new ProcessableLeafItem(new Item.Settings());
 
-	public static final Item DRIED_TOBACCO_LEAF = new Item(new Item.Settings()
+	public static final Item DRY_TOBACCO_LEAF = new Item(new Item.Settings()
 		.component(BSGComponents.PROGRESS, 0)
 		.rarity(Rarity.UNCOMMON));
 
@@ -100,7 +98,7 @@ public class BSGItems {
 		register("opium_leaf", OPIUM_LEAF);
 		register("cannabis_leaf", CANNABIS_LEAF);
 		register("tobacco_leaf", TOBACCO_LEAF);
-		register("dried_tobacco_leaf", DRIED_TOBACCO_LEAF);
+		register("dry_tobacco_leaf", DRY_TOBACCO_LEAF);
 		//etc
 		register("drying_rack_item", DRYING_RACK_ITEM);
 

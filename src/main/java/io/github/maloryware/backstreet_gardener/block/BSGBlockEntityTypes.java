@@ -1,7 +1,6 @@
 package io.github.maloryware.backstreet_gardener.block;
 
-import io.github.maloryware.backstreet_gardener.block.custom.DryingRackBlock;
-import io.github.maloryware.backstreet_gardener.block.custom.DryingRackBlockEntity;
+import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;

@@ -1,28 +1,28 @@
-package io.github.maloryware.backstreet_gardener.block.custom;
+package io.github.maloryware.backstreet_gardener.block.custom.drying_rack;
 
 import com.mojang.serialization.MapCodec;
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
-import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
-import io.github.maloryware.backstreet_gardener.item.custom.ProcessableLeafItem;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
@@ -30,11 +30,19 @@ import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOG
 public class DryingRackBlock extends BlockWithEntity {
 	public DryingRackBlock(Settings settings) {
 		super(settings);
+		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
+	protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
+
 	@Override
-	protected MapCodec<? extends BlockWithEntity> getCodec() {
-		return createCodec(DryingRackBlock::new);
+	protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+		var facing = state.get(Properties.HORIZONTAL_FACING);
+		if(facing == Direction.NORTH || facing ==Direction.SOUTH) {
+				return Block.createCuboidShape(1, 0, 5, 15, 19, 11);
+		}
+		else return Block.createCuboidShape(5, 0, 1, 11, 19, 15);
+
 	}
 
 	@Override
@@ -59,6 +67,17 @@ public class DryingRackBlock extends BlockWithEntity {
 
 		//player.dropItem(BSGItems.DRYING_RACK_ITEM.getDefaultStack(), true);
 		return super.onBreak(world, pos, state, player);
+	}
+	public static final MapCodec<DryingRackBlock> CODEC = Block.createCodec(DryingRackBlock::new);
+
+	@Override
+	protected MapCodec<? extends DryingRackBlock> getCodec() {
+		return CODEC;
+	}
+
+	@Override
+	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+		builder.add(Properties.HORIZONTAL_FACING);
 	}
 
 	@Override

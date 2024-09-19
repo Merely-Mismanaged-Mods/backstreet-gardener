@@ -24,6 +24,8 @@ public class ModelProvider extends FabricModelProvider {
 		gen.registerCrop(COKE_CROP, CokePlant.AGE, 0, 1, 2, 3, 4, 5);
 	}
 
+
+
 	@Override
 	public void generateItemModels(ItemModelGenerator gen) {
 		// so... turns out this isn't needed because AliasedBlockItems already register the
