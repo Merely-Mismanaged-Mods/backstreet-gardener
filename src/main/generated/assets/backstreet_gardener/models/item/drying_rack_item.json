@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "backstreet_gardener:item/drying_rack_item"
+  }
+}

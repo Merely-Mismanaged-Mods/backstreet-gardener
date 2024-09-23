@@ -17,10 +17,12 @@ public class TranslationProvider extends FabricLanguageProvider {
 	public void generateTranslations(RegistryWrapper.WrapperLookup registryLookup, TranslationBuilder translationBuilder) {
 
 		translationBuilder.add(CIGARETTE, "Cigarette");
+		translationBuilder.add(CIGARETTE_BUTT, "Cigarette Butt");
+
 		translationBuilder.add(TOBACCO_SEED, "Tobacco Plant Seeds");
 
 		translationBuilder.add(TOBACCO_LEAF, "Tobacco Leaf");
-		translationBuilder.add(CIGARETTE_BUTT, "Cigarette Butt");
+		translationBuilder.add(DRY_TOBACCO_LEAF, "Dry Tobacco Leaf");
 
 		translationBuilder.add("substances","Backstreet Gardener");
 		translationBuilder.add("backstreet_gardener","Backstreet Gardener");

@@ -20,6 +20,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 
 	@Override
 	public void generate() {
+		addDrop(BSGBlocks.DRYING_RACK, BSGItems.DRYING_RACK_ITEM);
 
 		BlockStatePropertyLootCondition.Builder moker =
 			BlockStatePropertyLootCondition.builder(BSGBlocks.TOBACCO_CROP)

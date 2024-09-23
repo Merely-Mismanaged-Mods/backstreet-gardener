@@ -28,6 +28,16 @@
         0.56,
         0.56
       ]
+    },
+    "thirdperson_righthand": {
+      "rotation": [-63, -52, 0],
+      "translation": [-0.5, 0, 0],
+      "scale": [0.23, 0.23, 0.23]
+    },
+    "thirdperson_lefthand": {
+      "rotation": [-63, 145, 0],
+      "translation": [-0.5, 0, 0],
+      "scale": [0.23, 0.23, 0.23]
     }
-	}
+  }
 }

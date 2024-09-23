@@ -1,6 +1,8 @@
 package io.github.maloryware.backstreet_gardener;
 
 
+import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
+import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.BSGItemGroup;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
@@ -24,14 +26,14 @@ public class BackstreetGardener implements ModInitializer {
 	// implementation method and realistically speaking it doesn't really matter
 	// so yeah. some are initialized here, some aren't, but rest assured the true
 	// initialized classes were the friends we made along the way
-
 	@Override
 	public void onInitialize() {
-		//riri
 
-		BSGComponents.register();
+		BSGBlockEntityTypes.initialize();
+		BSGComponents.initialize();
 		BSGItems.initialize();
-		BSGItemGroup.register();
+		BSGItemGroup.initialize();
 		BSGSounds.initialize();
+		BSGBlocks.initialize();
 	}
 }

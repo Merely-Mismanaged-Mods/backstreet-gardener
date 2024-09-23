@@ -24,9 +24,11 @@ public class BSGItemGroup {
 			itemStackCollector.add(CIGARETTE);
 			itemStackCollector.add(CIGARETTE_BUTT);
 
+			itemStackCollector.add(DRYING_RACK_ITEM);
+
 		})).build();
 
-	public static void register(){
+	public static void initialize(){
 		BSGLOGGER.info("Registering item groups for {}", BackstreetGardener.ID);
 		Registry.register(Registries.ITEM_GROUP, Identifier.of(BackstreetGardener.ID, "substances"), BSG_TAB);
 	}
