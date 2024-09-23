@@ -16,12 +16,14 @@ public class ModelProvider extends FabricModelProvider {
 		super(output);
 	}
 
+
 	@Override
 	public void generateBlockStateModels(BlockStateModelGenerator gen) {
 
 		// this is redundant and stupid but whatever
 		gen.registerCrop(OPIUM_CROP, OpiumPlant.AGE, 0, 1, 2, 3, 4, 5);
 		gen.registerCrop(COKE_CROP, CokePlant.AGE, 0, 1, 2, 3, 4, 5);
+
 	}
 
 

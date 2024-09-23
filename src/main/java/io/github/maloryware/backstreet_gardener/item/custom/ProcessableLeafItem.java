@@ -1,8 +1,6 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
-import net.minecraft.component.ComponentType;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -21,7 +19,7 @@ public class ProcessableLeafItem extends Item {
 		var component = stack.getOrDefault(BSGComponents.PROGRESS, 0);
 		if(component > 0){
 			double val = (((double)component) / 13) * 100;
-			tooltip.add(Text.of(String.format("§o§i§7Feels drier than usual. Progress: %2f", val).concat("%")));
+			tooltip.add(Text.of(String.format("§o§i§7Feels drier than usual. Progress: %.2f", val).concat("%")));
 		}
 	}
 

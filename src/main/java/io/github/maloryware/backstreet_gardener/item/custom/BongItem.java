@@ -33,20 +33,19 @@ public class BongItem extends Item {
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 
-		var comp = stack.get(BSGComponents.BONG_COMPONENT);
-		tooltip.add(Text.of("§o§7Time to get fucked up."));
+			var comp = stack.get(BSGComponents.BONG_COMPONENT);
+			tooltip.add(Text.of("§o§7Time to get fucked up."));
 
-		assert comp != null;
+			assert comp != null;
 
-		var hasWater = comp.hasWater()
-			? tooltip.add(Text.of(String.format("§o§Water cleanliness: %s", comp.waterPurity())))
-			: tooltip.add(Text.of(("§o§7All outta water."))) ;
+			var hasWater = comp.hasWater()
+				? tooltip.add(Text.of(String.format("§o§7Water cleanliness: %s", (double) comp.waterPurity())))
+				: tooltip.add(Text.of(("§o§7All outta water."))) ;
 
 
-		var hasZa = comp.resourceQuantity() == 0
-			? tooltip.add(Text.of("§o§7All outta za."))
-			: tooltip.add(Text.of(String.format("§o§7Remaining za: %s", comp.resourceQuantity())));
-
+			var hasZa = comp.resourceQuantity() == 0
+				? tooltip.add(Text.of("§o§7All outta za."))
+				: tooltip.add(Text.of(String.format("§o§7Remaining za: %s", (double) comp.resourceQuantity())));
 
 		super.appendTooltip(stack, context, tooltip, type);
 	}
@@ -66,22 +65,23 @@ public class BongItem extends Item {
 			var newWaterPurity = comp.waterPurity();
 			var newResourceQuantity = comp.resourceQuantity();
 
-			BongComponent updateComp = BongComponent.of(comp.hasWater(),--newWaterPurity, --newResourceQuantity);
+			if(--newResourceQuantity > 0){
+				BongComponent updateComp = BongComponent.of(comp.hasWater(),--newWaterPurity, --newResourceQuantity);
+				if(!world.isClient) {
+					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
+					user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
 
-			// hold cauldron up and slow down, like when drawing a bow
-			// on tick, remainingWaterPurity-- and remainingResource--
+				}
 
-			if(!world.isClient) {
-				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
-				user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
-
+				return TypedActionResult.success(user.getStackInHand(hand), false);
 			}
+			else return TypedActionResult.fail(user.getStackInHand(hand));
 
-			return TypedActionResult.success(user.getStackInHand(hand), false);
+
 
 		}
 		else user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
-		return TypedActionResult.pass(user.getStackInHand(hand));
+		return TypedActionResult.success(user.getStackInHand(hand));
 	}
 
 

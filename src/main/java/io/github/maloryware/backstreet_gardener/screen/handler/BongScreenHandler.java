@@ -19,9 +19,6 @@ import net.minecraft.util.Hand;
 public class BongScreenHandler extends ScreenHandler {
 
 	private final ItemStack itemStack;
-	private final Hand hand;
-	private final PlayerInventory playerInventory;
-	private final ScreenHandlerContext context;
 	private final SimpleInventory inventory;
 	private final CauldronResourceSlot resourceSlot;
 	private final CauldronWaterSlot waterSlot;
@@ -76,8 +73,6 @@ public class BongScreenHandler extends ScreenHandler {
 		// what a fucking headache
 
 		super(BackstreetGardenerClient.BONG_SCREEN_HANDLER_TYPE, syncId);
-		this.playerInventory = playerInventory;
-		this.context = context;
 
 
 		this.inventory = new SimpleInventory(2){
@@ -103,7 +98,7 @@ public class BongScreenHandler extends ScreenHandler {
 		}
 
 		itemStack = stack;
-		hand = h;
+		Hand hand = h;
 
 		this.waterSlot = new CauldronWaterSlot(this, this.inventory, 1, 52, 10);
 		this.resourceSlot = new CauldronResourceSlot(this, this.inventory, 0, 25, 50);
@@ -168,33 +163,41 @@ public class BongScreenHandler extends ScreenHandler {
 
 		if(sourceSlot.hasStack()){
 
+			// THE ACTUAL REFERENCE SLOTS ARE THE ONES MARKED "H"
+			//
+			//
+			//
+			//
+			// READ THAT, MORON
+
 			ItemStack fromStack = sourceSlot.getStack();
 			leftoverStack = fromStack.copy();
 
 			switch(slotIndex){
 				case 0, 1 -> {
-					if(!this.insertItem(fromStack,3,38,true)) return ItemStack.EMPTY;
+					// in either of the custom slots
+					if(!this.insertItem(fromStack,2,38,false)) return ItemStack.EMPTY;
+					else if (!this.insertItem(fromStack, 2, 38, false)) {
+						// moving out of an input slot, failed to move to player inventory
+						return ItemStack.EMPTY;
+					}
 					sourceSlot.onQuickTransfer(fromStack, leftoverStack);
 				}
 				default -> {
 					if (fromStack.isOf(Items.WATER_BUCKET)){
-						if (!this.insertItem(fromStack,1,1,true)) return ItemStack.EMPTY;
-						else return leftoverStack;
+						if (!this.insertItem(fromStack,0,1,false)) return ItemStack.EMPTY;
 					}
 					if (fromStack.isOf(BSGItems.CANNABIS_LEAF)){
-						if (!this.insertItem(fromStack,0,0,true)) return ItemStack.EMPTY;
-						else return leftoverStack;
+						if (!this.insertItem(fromStack,1,2,false)) return ItemStack.EMPTY;
 					}
 
-					else if (slotIndex >= 28 && slotIndex < 38 && !this.insertItem(fromStack, 1, 28, false)) {
+					else if (slotIndex > 28 && slotIndex < 38 && !this.insertItem(fromStack, 2, 29, false)) {
 						// in player inventory hotbar and successfully moved everything to non-hotbar (combined index check and trying to move because it's last in this branch)
 						return ItemStack.EMPTY;
 					}
+					else if(!this.insertItem(fromStack, 29, 38, false)) return ItemStack.EMPTY;
 
-					else if (!this.insertItem(fromStack, 3, 38, false)) {
-						// moving out of an input slot, failed to move to player inventory
-						return ItemStack.EMPTY;
-					}
+
 				}
 			}
 

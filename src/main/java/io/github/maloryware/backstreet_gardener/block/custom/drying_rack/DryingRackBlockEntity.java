@@ -68,8 +68,10 @@ public class DryingRackBlockEntity extends BlockEntity implements SimplerInvento
 				if (blockEntity.items.get(n).isOf(BSGItems.TOBACCO_LEAF)) {
 					int current = component.getOrDefault(BSGComponents.PROGRESS, 0);
 
-
-					blockEntity.items.get(n).set(BSGComponents.PROGRESS, current + 1);
+					//temporary bandaid fix for a third degree burn but whatever
+					if(Math.random() > 0.4) {
+						blockEntity.items.get(n).set(BSGComponents.PROGRESS, current + 1);
+					}
 					if (current == 13){
 						blockEntity.items.set(n, BSGItems.DRY_TOBACCO_LEAF.getDefaultStack());
 						BSGLOGGER.info("Ticked at slot {} - finalized cooking, {} can now be retrieved", n, blockEntity.items.get(n));

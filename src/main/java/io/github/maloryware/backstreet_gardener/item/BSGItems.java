@@ -55,6 +55,7 @@ public class BSGItems {
 
 	public static final Item BONG = new BongItem(
 		new Item.Settings()
+			.maxCount(1)
 			.rarity(Rarity.RARE)
 			.component(
 				BSGComponents.BONG_COMPONENT, BSGComponents.BongDefaultComponent

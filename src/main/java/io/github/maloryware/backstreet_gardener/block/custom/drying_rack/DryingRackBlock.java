@@ -10,9 +10,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.StateManager;
-import net.minecraft.state.property.DirectionProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.state.property.Property;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
@@ -24,6 +22,8 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 
@@ -101,18 +101,38 @@ public class DryingRackBlock extends BlockWithEntity {
 			if(!wasEmpty) player.sendMessage(Text.literal("The rack is full."));
 		}
 		else {
-			boolean containedLeaf = false;
-			for(int n = 0; n<6; n++) {
-				if (!blockEntity.getStack(n).isEmpty()) {
-					containedLeaf = true;
-					BSGLOGGER.info("Retrieved {} from slot {}", blockEntity.getStack(n), n);
+            boolean containedLeaf = false;
+            boolean hadDryLeaves = false;
+			List<Integer> dryLeavesIndexes = new java.util.ArrayList<>(List.of());
+            for (int n = 0; n < 6; n++) {
+                if (blockEntity.getStack(n).isOf(BSGItems.DRY_TOBACCO_LEAF)){
+					hadDryLeaves = true;
+					dryLeavesIndexes.add(n);
+				}
+            }
+            if (!hadDryLeaves) {
+                for (int n = 0; n < 6; n++) {
+                    if (!blockEntity.getStack(n).isEmpty()) {
+                        containedLeaf = true;
+                        BSGLOGGER.info("Retrieved {} from slot {}", blockEntity.getStack(n), n);
+                        player.getInventory().offerOrDrop(blockEntity.getStack(n));
+                        if (!player.isSneaking()) break;
+                    }
+                }
+				if (!containedLeaf) player.sendMessage(Text.of("The rack is empty."));
+            }
+			else {
+				while(!dryLeavesIndexes.isEmpty()){
+					var n = dryLeavesIndexes.getFirst();
 					player.getInventory().offerOrDrop(blockEntity.getStack(n));
-					if(!player.isSneaking()) break;
+					dryLeavesIndexes.remove(n);
+					if (!player.isSneaking()) break;
+					if (dryLeavesIndexes.isEmpty()) break;
 				}
 			}
-			if(!containedLeaf) player.sendMessage(Text.of("The rack is empty."));
 
-		}
+
+        }
 		blockEntity.markDirty();
 		return ItemActionResult.SUCCESS;
 	}
