@@ -4,23 +4,31 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
+import io.wispforest.owo.particles.ClientParticles;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import java.util.List;
 
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
+import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 import static net.minecraft.util.Hand.MAIN_HAND;
 import static net.minecraft.util.Hand.OFF_HAND;
 
@@ -29,6 +37,8 @@ public class BongItem extends Item {
 	public BongItem(Settings settings) {
 		super(settings);
 	}
+	int smokingDuration = 0;
+	int randTick = 0;
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
@@ -50,43 +60,94 @@ public class BongItem extends Item {
 		super.appendTooltip(stack, context, tooltip, type);
 	}
 
-	private ItemStack getInactiveStack(PlayerEntity player) {
-		return player.getStackInHand(player.getActiveHand() == MAIN_HAND ? OFF_HAND : MAIN_HAND);
-	}
-
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-		if (getInactiveStack(user).isOf(Items.FLINT_AND_STEEL)) {
+		var temp = user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT);
+		BSGLOGGER.info("Began using bong. Current data: \nHAS_WATER: {}\nWATER_PURITY: {}\nRESOURCE_QUANTITY: {}\n",
+			temp.hasWater(),
+			temp.waterPurity(),
+			temp.resourceQuantity());
 
-			user.setCurrentHand(hand);
-
-			BongComponent comp = this.getComponents().get(BSGComponents.BONG_COMPONENT);
-			assert comp != null; // null pointer deez nuts you fucking moron
-			var newWaterPurity = comp.waterPurity();
-			var newResourceQuantity = comp.resourceQuantity();
-
-			if(--newResourceQuantity > 0){
-				BongComponent updateComp = BongComponent.of(comp.hasWater(),--newWaterPurity, --newResourceQuantity);
-				if(!world.isClient) {
-					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
-					user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
+		if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL) && user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT).resourceQuantity() > 0) {
+			if (!world.isClient) {
+				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
+				if (Math.random() < 0.1F) {
+					ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
+					ClientParticles.setParticleCount(8);
+					ClientParticles.spawn(ParticleTypes.FLAME, world, user.getEyePos(), 0.01);
+					return TypedActionResult.success(user.getStackInHand(hand), false);
 
 				}
-
-				return TypedActionResult.success(user.getStackInHand(hand), false);
 			}
-			else return TypedActionResult.fail(user.getStackInHand(hand));
-
-
-
+			user.setCurrentHand(hand);
+			return TypedActionResult.success(user.getStackInHand(hand), false);
+		}
+		else if (hand == OFF_HAND)
+		{
+			user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
+			return TypedActionResult.fail(user.getStackInHand(hand));
 		}
 		else user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
 		return TypedActionResult.success(user.getStackInHand(hand));
 	}
 
+	int consumption = 0;
+	@Override
+	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+		super.usageTick(world, user, stack, remainingUseTicks);
+		if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL)){
+			smokingDuration++;
+			do {
+				consumption++;
+			} while (Math.random() < 0.3D);
+		}
+	}
 
-	protected NamedScreenHandlerFactory createScreenHandlerFactory(World world, BlockPos pos, ItemStack stack)
-	{
+	@Override
+	public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+		var lookingAt = user.getRotationVector().normalize().multiply(0.5);
+		var particleSpawnPos = new Vec3d(user.getX() + lookingAt.x, user.getEyeY() - 0.3, user.getZ() + lookingAt.z);
+		var particleCount = (int) ((Math.random()+0.2) * smokingDuration + 12);
+		if(world.isClient()) {
+			ClientParticles.setParticleCount(1);
+
+			ClientParticles.persist();
+
+			for(int count = 0; count < particleCount; count++){
+				ClientParticles.setVelocity(
+					new Vec3d(
+						lookingAt.x * 0.3 + 0.05 * (Math.random() - Math.random()),
+						lookingAt.y * 0.3 + 0.05 * (Math.random() - Math.random()),
+						lookingAt.z * 0.3 + 0.05 * (Math.random() - Math.random())
+					));
+				ClientParticles.spawnWithMaxAge(ParticleTypes.CAMPFIRE_COSY_SMOKE, particleSpawnPos, 60);
+
+			}
+			ClientParticles.reset();
+
+		}
+		else {
+			BongComponent comp = this.getComponents().get(BSGComponents.BONG_COMPONENT);
+			assert comp != null; // null pointer deez nuts you fucking moron
+			int newWaterPurity = (int) (comp.waterPurity() - 0.01 * consumption);
+			int newResourceQuantity = (int) (comp.resourceQuantity() - 0.01 * consumption);
+
+			if (--newResourceQuantity > 0) {
+				BongComponent updateComp = BongComponent.of(comp.hasWater(), newWaterPurity, newResourceQuantity);
+				user.getActiveItem().remove(BSGComponents.BONG_COMPONENT);
+				user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
+
+			}
+		}
+		// BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}", smokingDuration, particleCount);
+		smokingDuration = 0	 ;
+
+		super.onStoppedUsing(stack, world, user, remainingUseTicks);
+	}
+
+
+
+	protected NamedScreenHandlerFactory createScreenHandlerFactory(World world, BlockPos pos, ItemStack stack) {
 		return new SimpleNamedScreenHandlerFactory((i, playerInventory, player) ->
 			new BongScreenHandler(
 				i,
@@ -94,6 +155,7 @@ public class BongItem extends Item {
 				ScreenHandlerContext.create(world, pos)
 			), stack.getName());
 	}
+
 }
 	// the following code was based off of WispForest's OutTheDoor mod
 	// special thanks to Glisco for providing me with this!

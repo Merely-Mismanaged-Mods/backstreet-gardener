@@ -1,6 +1,7 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
+import io.github.maloryware.backstreet_gardener.utils.ColorCodes;
 import io.wispforest.owo.particles.ClientParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -9,14 +10,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import static io.github.maloryware.backstreet_gardener.utils.ColorCodes.*;
+
+import java.awt.*;
+import java.util.List;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
@@ -29,6 +36,21 @@ import static net.minecraft.util.Hand.OFF_HAND;
 public class SmokableItem extends Item {
 
 	private final Item stubItem;
+
+	@Override
+	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+		super.appendTooltip(stack, context, tooltip, type);
+
+		tooltip.add(Text.of(ITALIC + "Secret areas can typically only be\nunlocked by " +
+			DARK_RED + BOLD + ITALIC + "chiefing a fat dart" +
+			RESET + ITALIC + ", which can \nonly be gained through " +
+			GREEN + BOLD + ITALIC + "child labour" +
+			RESET + ITALIC + ", which is\n" +
+			DARK_RED + BOLD + ITALIC + "bad" +
+			RESET + ITALIC +".\n\n" +
+			DARK_GRAY + "(it's good, actually)"
+		));
+	}
 
 	public SmokableItem(Settings settings, Item stubItem) {
 		super(settings.maxDamage(255).maxCount(1).component(IS_LIT, false));

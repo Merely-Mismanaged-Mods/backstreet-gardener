@@ -61,7 +61,7 @@ public class DryingRackBlockEntity extends BlockEntity implements SimplerInvento
 		int maxProgressTick = world.getBiome(pos) == BiomeKeys.DESERT ? 60 : 80;
 
 		if(blockEntity.nextProgressTick == maxProgressTick) {
-			BSGLOGGER.info("Ticked!");
+			// BSGLOGGER.info("Ticked!");
 
 			for (int n = 0; n < 6; n++) {
 				var component = blockEntity.items.get(n);
@@ -74,9 +74,9 @@ public class DryingRackBlockEntity extends BlockEntity implements SimplerInvento
 					}
 					if (current == 13){
 						blockEntity.items.set(n, BSGItems.DRY_TOBACCO_LEAF.getDefaultStack());
-						BSGLOGGER.info("Ticked at slot {} - finalized cooking, {} can now be retrieved", n, blockEntity.items.get(n));
+						// BSGLOGGER.info("Ticked at slot {} - finalized cooking, {} can now be retrieved", n, blockEntity.items.get(n));
 					}
-					else BSGLOGGER.info("Ticked {} at slot {}, current progress: {}", blockEntity.items.get(n), n, blockEntity.items.get(n).get(BSGComponents.PROGRESS));
+					// else BSGLOGGER.info("Ticked {} at slot {}, current progress: {}", blockEntity.items.get(n), n, blockEntity.items.get(n).get(BSGComponents.PROGRESS));
 				}
 			}
 			blockEntity.markDirty();
