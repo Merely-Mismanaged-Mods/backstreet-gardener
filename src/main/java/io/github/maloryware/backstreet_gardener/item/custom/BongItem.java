@@ -1,10 +1,14 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
 import io.wispforest.owo.particles.ClientParticles;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -21,8 +25,12 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -62,6 +70,7 @@ public class BongItem extends Item {
 
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+
 		var temp = user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT);
 		BSGLOGGER.info("Began using bong. Current data: \nHAS_WATER: {}\nWATER_PURITY: {}\nRESOURCE_QUANTITY: {}\n",
 			temp.hasWater(),
@@ -82,9 +91,20 @@ public class BongItem extends Item {
 			user.setCurrentHand(hand);
 			return TypedActionResult.success(user.getStackInHand(hand), false);
 		}
+		else if (!temp.hasWater())
+			{
+				var hitResult = user.raycast(4, 0, true);
+
+				if(hitResult.getType() == HitResult.Type.BLOCK
+					&& world.getBlockState(BlockPos.ofFloored(hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z)).getBlock().equals(Blocks.WATER)){
+
+					user.getStackInHand(hand).set(BSGComponents.BONG_COMPONENT, BongComponent.of(true, 255, temp.resourceQuantity()));
+
+				}
+
+			}
 		else if (hand == OFF_HAND)
 		{
-			user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(OFF_HAND)));
 			return TypedActionResult.fail(user.getStackInHand(hand));
 		}
 		else user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
@@ -127,10 +147,10 @@ public class BongItem extends Item {
 
 		}
 		else {
-			BongComponent comp = this.getComponents().get(BSGComponents.BONG_COMPONENT);
+			BongComponent comp = stack.get(BSGComponents.BONG_COMPONENT);
 			BSGLOGGER.info("Precheck\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", comp.waterPurity(), comp.resourceQuantity(), comp.hasWater(), consumption);
-			int newWaterPurity = (int) (comp.waterPurity() - 0.01 * consumption);
-			int newResourceQuantity = (int) (comp.resourceQuantity() - 0.01 * consumption);
+			int newWaterPurity = (int) (comp.waterPurity() - 0.1 * consumption);
+			int newResourceQuantity = (int) (comp.resourceQuantity() - 0.1 * consumption);
 			BSGLOGGER.info("Finished using bong. Removing:\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", newWaterPurity, newResourceQuantity, comp.hasWater(), consumption);
 
 			if (newResourceQuantity < 0) {
@@ -138,7 +158,6 @@ public class BongItem extends Item {
 			}
 			BongComponent updateComp = BongComponent.of(comp.hasWater(), newWaterPurity, newResourceQuantity);
 			BSGLOGGER.info("Updated component:\n{}", updateComp);
-			user.getActiveItem().remove(BSGComponents.BONG_COMPONENT);
 			user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
 
 
