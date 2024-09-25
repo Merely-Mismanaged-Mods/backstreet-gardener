@@ -84,7 +84,7 @@ public class BongItem extends Item {
 		}
 		else if (hand == OFF_HAND)
 		{
-			user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
+			user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(OFF_HAND)));
 			return TypedActionResult.fail(user.getStackInHand(hand));
 		}
 		else user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
@@ -128,19 +128,24 @@ public class BongItem extends Item {
 		}
 		else {
 			BongComponent comp = this.getComponents().get(BSGComponents.BONG_COMPONENT);
-			assert comp != null; // null pointer deez nuts you fucking moron
+			BSGLOGGER.info("Precheck\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", comp.waterPurity(), comp.resourceQuantity(), comp.hasWater(), consumption);
 			int newWaterPurity = (int) (comp.waterPurity() - 0.01 * consumption);
 			int newResourceQuantity = (int) (comp.resourceQuantity() - 0.01 * consumption);
+			BSGLOGGER.info("Finished using bong. Removing:\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", newWaterPurity, newResourceQuantity, comp.hasWater(), consumption);
 
-			if (--newResourceQuantity > 0) {
-				BongComponent updateComp = BongComponent.of(comp.hasWater(), newWaterPurity, newResourceQuantity);
-				user.getActiveItem().remove(BSGComponents.BONG_COMPONENT);
-				user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
-
+			if (newResourceQuantity < 0) {
+			newResourceQuantity = 0;
 			}
+			BongComponent updateComp = BongComponent.of(comp.hasWater(), newWaterPurity, newResourceQuantity);
+			BSGLOGGER.info("Updated component:\n{}", updateComp);
+			user.getActiveItem().remove(BSGComponents.BONG_COMPONENT);
+			user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
+
+
 		}
-		// BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}", smokingDuration, particleCount);
-		smokingDuration = 0	 ;
+		BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}\nConsumption: {}", smokingDuration, particleCount, consumption);
+		smokingDuration = 0	;
+		consumption = 0;
 
 		super.onStoppedUsing(stack, world, user, remainingUseTicks);
 	}

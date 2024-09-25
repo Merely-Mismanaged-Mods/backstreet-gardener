@@ -16,7 +16,9 @@ public class OwoScreenExtras {
 
 
 
+	public static void resetShaderColors(){
 
+	}
 
 
 
@@ -74,21 +76,19 @@ public class OwoScreenExtras {
 			switch (param){
 				case GRADIENT:
 				{
-					super.draw(context, mouseX, mouseY, partialTicks, delta);
+
 					/* TODO */
 					break;
 				}
 
 				case FIXED:
 				{
-					super.draw(context, mouseX, mouseY, partialTicks, delta);
 					RenderSystem.setShaderColor(this.COLOR_FIXED.red(), this.COLOR_FIXED.green(), this.COLOR_FIXED.blue(), this.COLOR_FIXED.alpha());
 					break;
 				}
-
 			}
+			super.draw(context, mouseX, mouseY, partialTicks, delta);
+			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}
-
-
 }

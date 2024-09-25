@@ -32,6 +32,15 @@ public record BongComponent(boolean hasWater, int waterPurity, int resourceQuant
 	}
 
 	@Override
+	public String toString() {
+		return "BongComponent{" +
+			"hasWater=" + hasWater +
+			", waterPurity=" + waterPurity +
+			", resourceQuantity=" + resourceQuantity +
+			'}';
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;

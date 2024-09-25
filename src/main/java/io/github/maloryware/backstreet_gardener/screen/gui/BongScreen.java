@@ -49,17 +49,23 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 		var comp = player.getStackInHand(Hand.MAIN_HAND).get(BSGComponents.BONG_COMPONENT);
 		var za = comp.resourceQuantity();
 		var water = comp.waterPurity();
+		var hasw = comp.hasWater();
 
 		stack.child(
 				Components.texture(GUI, 0, 0, 176, 166))
 			.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER)
 			.zIndex(0);
 
+		PositionedRectangle waterVisibleArea =
+			hasw ?
+				PositionedRectangle.of(0, 0, (int) (water * 0.10196078431372549019607843137255), 9) :
+				PositionedRectangle.of(0, 0, Size.zero());
 		stack.child(
+
 			OwoScreenExtras.ColorableTextureComponent.texture(WATER, 0, 0, 26, 9, 32, 512)
 				.setZIndex(1)
 				.setColor(Color.ofDye(DyeColor.CYAN))
-				.visibleArea(PositionedRectangle.of(0, 0, (int) (water * 0.10196078431372549019607843137255), 9))
+				.visibleArea(waterVisibleArea)
 				.blend(false)
 				.positioning(Positioning.absolute(143, 11))
 				.zIndex(1)
