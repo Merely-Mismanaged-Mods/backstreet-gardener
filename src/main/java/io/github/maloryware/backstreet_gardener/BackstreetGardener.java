@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class BackstreetGardener implements ModInitializer {
+public class BackstreetGardener implements ModInitializer, O {
     public static final Logger BSGLOGGER = LoggerFactory.getLogger("Backstreet Gardener");
 	public static final String ID = "backstreet_gardener";
 

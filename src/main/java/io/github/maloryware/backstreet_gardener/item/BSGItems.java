@@ -13,6 +13,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
+import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.COCAINE_BLOCK;
 import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.DRYING_RACK_BOTTOM;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 
@@ -30,6 +31,7 @@ public class BSGItems {
 
 	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item CIGARETTE_BUTT = new Item(new Item.Settings().maxCount(8));
+
 
 	public static final Item BLUNT = new SmokableItem(
 		new Item.Settings()
@@ -67,6 +69,7 @@ public class BSGItems {
 	public static final Item CANNABIS_SEED = new AliasedBlockItem(BSGBlocks.CANNABIS_CROP,new Item.Settings());
 	public static final Item TOBACCO_SEED = new AliasedBlockItem(BSGBlocks.TOBACCO_CROP,new Item.Settings());
 
+
 	public static final Item COCA_LEAF = new Item(new Item.Settings());
 	public static final Item OPIUM_LEAF = new Item(new Item.Settings());
 	public static final Item CANNABIS_LEAF = new Item(new Item.Settings());
@@ -76,7 +79,8 @@ public class BSGItems {
 		.component(BSGComponents.PROGRESS, 0)
 		.rarity(Rarity.UNCOMMON));
 
-	public static final Item DRYING_RACK_ITEM = new BlockItem(DRYING_RACK_BOTTOM, new Item.Settings());
+	public static final Item DRYING_RACK_ITEM = new AliasedBlockItem(DRYING_RACK_BOTTOM, new Item.Settings());
+	public static final Item COKE_BAGGIE = new AliasedBlockItem(COCAINE_BLOCK, new Item.Settings());
 
 	public static void initialize(){
 		//smokable containers
@@ -102,7 +106,7 @@ public class BSGItems {
 		register("dry_tobacco_leaf", DRY_TOBACCO_LEAF);
 		//etc
 		register("drying_rack_item", DRYING_RACK_ITEM);
-
+		register("coke_baggie", COKE_BAGGIE);
 
 
 	}

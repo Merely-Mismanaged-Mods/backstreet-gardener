@@ -1,9 +1,12 @@
 package io.github.maloryware.backstreet_gardener.utils;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.wispforest.owo.ui.base.BaseComponent;
 import io.wispforest.owo.ui.component.TextureComponent;
 import io.wispforest.owo.ui.core.*;
 import net.minecraft.util.Identifier;
+
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 
 public class OwoScreenExtras {
 
@@ -18,21 +21,38 @@ public class OwoScreenExtras {
 
 
 		private int tickDelta;
-		private final int sectionCount;
 		private boolean loop;
-		private final int originalY;
+		private PositionedRectangle originalVisibleArea;
+		private Positioning originalPositioning;
 		private final int sectionY;
 		private int currentStep;
 		private final int maxStep;
 
-		protected AnimatedTextureComponent(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight) {
+
+		public static AnimatedTextureComponent texture(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, int portionY){
+			return new AnimatedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, portionY);
+		}
+
+		protected AnimatedTextureComponent(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, int portionY) {
 			super(texture, 0, 0, regionWidth, regionHeight, textureWidth, textureHeight);
-			this.sectionY = regionHeight;
-			this.maxStep = sectionCount = (int) (textureHeight / regionHeight);
+			this.sectionY = portionY;
+			this.maxStep = (int) (textureHeight / sectionY) - (textureHeight % sectionY);
 			this.loop = true;
 			this.currentStep = 0;
-			this.originalY = this.positioning().get().y;
 
+		}
+
+		@Override
+		public AnimatedTextureComponent visibleArea(PositionedRectangle visibleArea) {
+			super.visibleArea(visibleArea);
+			this.originalVisibleArea = visibleArea;
+			return this;
+		}
+
+		@Override
+		public AnimatedTextureComponent positioning(Positioning positioning) {
+			this.originalPositioning = positioning;
+			return this;
 		}
 
 		public AnimatedTextureComponent setTickDelta(int i){
@@ -48,17 +68,30 @@ public class OwoScreenExtras {
 		@Override
 		public void draw(OwoUIDrawContext context, int mouseX, int mouseY, float partialTicks, float delta) {
 			super.draw(context, mouseX, mouseY, partialTicks, delta);
-			if(currentStep < maxStep) {
-				this.positioning(Positioning.absolute(this.positioning().get().x, this.positioning().get().y - sectionY));
-				this.visibleArea(PositionedRectangle.of(this.visibleArea().get().x(), this.visibleArea().get().y() + sectionY, this.visibleArea.get().width(), this.visibleArea().get().height()));
-				currentStep++;
-			}
-			else if (loop) {
-				currentStep = 0;
-				this.positioning(Positioning.absolute(this.positioning().get().x, this.originalY));
-				this.visibleArea(PositionedRectangle.of(this.visibleArea().get().x(), 0, this.visibleArea.get().width(), this.visibleArea().get().height()));
+
+			if (currentStep == 1) {
+				super.positioning(originalPositioning);
+				super.visibleArea(originalVisibleArea);
+				this.update(delta, mouseX, mouseY);
+				this.visibleArea.update(delta);
+
 
 			}
+
+			if(currentStep < maxStep) {
+				BSGLOGGER.info("\nIterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());
+				super.positioning(Positioning.absolute(positioning.get().x, positioning.get().y - sectionY));
+				super.visibleArea(PositionedRectangle.of(visibleArea.get().x(), visibleArea.get().y() + sectionY, visibleArea.get().width(), visibleArea.get().height()));
+				currentStep++;
+
+			}
+			else if(loop){
+				BSGLOGGER.info("\nLoop enabled - finished iterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());
+				currentStep = 1;
+			}
+
+
+
 			this.update(delta, mouseX, mouseY);
 			this.visibleArea.update(delta);
 

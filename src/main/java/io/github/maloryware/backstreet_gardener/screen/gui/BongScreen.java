@@ -61,11 +61,11 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 				PositionedRectangle.of(0, 0, (int) (water * 0.10196078431372549019607843137255), 9) :
 				PositionedRectangle.of(0, 0, Size.zero());
 
-		PositionedRectangle resourceVisibleArea = PositionedRectangle.of(0, 0, (int) (resource * 0.18039215686274509803921568627451), 9);
+		PositionedRectangle resourceVisibleArea = PositionedRectangle.of(0, 0, (int) (resource * 0.18039215686274509803921568627451), 8);
 
 
 		// resource texture
-		stack.child(
+		/*stack.child(
 			OwoScreenExtras.ColorableTextureComponent.texture(WATER, 0, 0, 46, 8, 32, 512)
 				.setZIndex(1)
 				.setColor(Color.ofDye(DyeColor.GREEN))
@@ -75,6 +75,8 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 				.zIndex(1)
 				.tooltip(Text.of("Test")));
 
+
+		 */
 		// water texture
 		stack.child(
 			OwoScreenExtras.ColorableTextureComponent.texture(WATER, 0, 0, 26, 9, 32, 512)
@@ -86,6 +88,16 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 				.zIndex(1)
 				.tooltip(Text.of("Test")));
 
+
+		stack.child(
+			OwoScreenExtras.AnimatedTextureComponent.texture(WATER, 46, 512, 32, 512, 8)
+				.loop(true)
+				.setTickDelta(1000)
+				.visibleArea(resourceVisibleArea)
+				.blend(false)
+				.positioning(Positioning.absolute(123, 28))
+				.zIndex(1)
+				.tooltip(Text.of("Test")));
 
 
 		this.waterPurityMeter = rootComponent.childById(TextureComponent.class, "water_purity");

@@ -1,5 +1,6 @@
 package io.github.maloryware.backstreet_gardener.mixin;
 
+import io.github.maloryware.backstreet_gardener.item.custom.BongItem;
 import io.github.maloryware.backstreet_gardener.item.custom.SmokableItem;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.BipedEntityModel;
@@ -20,6 +21,10 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
 	@Final
 	public ModelPart rightArm;
 
+	@Shadow
+	@Final
+	public ModelPart leftArm;
+
 	@Inject(method = "positionRightArm", at = @At("HEAD"), cancellable = true)
 	private void customArmPositions(T entity, CallbackInfo ci){
 		if(entity instanceof PlayerEntity player){
@@ -27,6 +32,13 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
 			if(activeItem.getItem() instanceof SmokableItem) {
 				this.rightArm.pitch = -1.5f;
 				this.rightArm.yaw = -0.5f;
+				ci.cancel();
+			}
+			if(activeItem.getItem() instanceof BongItem){
+				this.rightArm.pitch = 0;
+				this.rightArm.yaw = 0;
+				this.leftArm.pitch = 0;
+				this.leftArm.yaw = 0;
 				ci.cancel();
 			}
 		}

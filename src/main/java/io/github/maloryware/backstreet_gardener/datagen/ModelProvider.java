@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.BlockStateModelGenerator;
 import net.minecraft.data.client.ItemModelGenerator;
+
 import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.COKE_CROP;
 import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.OPIUM_CROP;
 import static io.github.maloryware.backstreet_gardener.item.BSGItems.*;
@@ -43,6 +44,7 @@ public class ModelProvider extends FabricModelProvider {
 		gen.register(CIGARETTE_BUTT, HANDHELD);
 		gen.register(TOBACCO_LEAF, HANDHELD);
 		gen.register(CANNABIS_LEAF, HANDHELD);
+		gen.register(COKE_BAGGIE, HANDHELD);
 		/*
 		gen.register(, Models.HANDHELD);
 		gen.register(, Models.HANDHELD);
