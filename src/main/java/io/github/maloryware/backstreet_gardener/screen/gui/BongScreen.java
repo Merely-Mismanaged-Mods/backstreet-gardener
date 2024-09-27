@@ -18,8 +18,6 @@ import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
-
 public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandler> {
 
 	private static PlayerEntity player;
@@ -46,6 +44,11 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 	@Override
 	protected void build(FlowLayout rootComponent) {
 
+		for(Component c : rootComponent.children()){
+			rootComponent.onChildMutated(c);
+		}
+
+		rootComponent.onChildMutated(stack);
 
 		var comp = player.getStackInHand(player.getActiveHand()).get(BSGComponents.BONG_COMPONENT);
 		var resource = comp.resourceQuantity();
@@ -58,17 +61,17 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 			.zIndex(0);
 
 		PositionedRectangle waterVisibleArea =
-			/* hasw ? */ PositionedRectangle.of(0, 0, 32, 32);
-				//: PositionedRectangle.of(0, 0, Size.zero());
+			player.getStackInHand(player.getActiveHand()).get(BSGComponents.BONG_COMPONENT).hasWater() ? PositionedRectangle.of(0, 0, 32, 32)
+				: PositionedRectangle.of(0, 0, Size.zero());
 
 		PositionedRectangle resourceVisibleArea = PositionedRectangle.of(0, 0, (int) (resource * 0.18039215686274509803921568627451), 8);
 
 		stack.child(
-			OwoScreenExtras.AdvancedTextureComponent.texture(WATER, 32, 32, 32, 1024, 32, OwoScreenExtras.ColorParams.FIXED, OwoScreenExtras.AnimParams.ANIMATED)
+			OwoScreenExtras.AdvancedTextureComponent.texture(WATER, 32, 1024, 32, 1024, 32, OwoScreenExtras.ColorParams.FIXED, OwoScreenExtras.AnimParams.ANIMATED)
 				.setColor(Color.ofDye(DyeColor.CYAN))
 				.loop(true)
 				.visibleArea(waterVisibleArea)
-				.positioning(Positioning.absolute(0, 0))
+				.positioning(Positioning.absolute(120, 41))
 				.blend(true)
 				.zIndex(1)
 				.tooltip(Text.of("Test"))
@@ -88,7 +91,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 		);
 
 		 */
-		/*
+
 		stack.child(
 			Components.texture(BONG, 0, 0, 176, 166)
 				.blend(true)
@@ -96,8 +99,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 				.zIndex(2)
 		);
 
-		 */
-		BSGLOGGER.info("Stack: {}", stack.children());
+
 
 
 		/*
@@ -118,7 +120,6 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 			.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 
 		rootComponent.child(stack);
-
 
 		rootComponent.surface(Surface.VANILLA_TRANSLUCENT);
 

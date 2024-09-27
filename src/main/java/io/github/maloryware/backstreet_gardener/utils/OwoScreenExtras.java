@@ -7,8 +7,6 @@ import net.minecraft.util.Identifier;
 
 import java.util.Objects;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
-
 @SuppressWarnings({"FieldCanBeLocal, ", "unused"})
 public class OwoScreenExtras {
 
@@ -68,7 +66,7 @@ public class OwoScreenExtras {
 			this.sectionY = portionY;
 			this.maxStep = (textureHeight / sectionY) - (textureHeight % sectionY);
 			this.loop = true;
-			this.currentStep = 0;
+			this.currentStep = 1;
 
 		}
 
@@ -143,41 +141,45 @@ public class OwoScreenExtras {
 
 		@Override
 		public void draw(OwoUIDrawContext context, int mouseX, int mouseY, float partialTicks, float delta) {
-
+			super.draw(context, mouseX, mouseY, partialTicks, 20);
 			if (this.visibleArea().get() == null) this.visibleArea(PositionedRectangle.of(0, 0, Size.of(256, 256)));
 
 			if (Objects.requireNonNull(this.anim) == AnimParams.ANIMATED) {
 				if (currentStep == 1) {
-					super.positioning(originalPositioning);
+					// so this works... but super.positioning() doesn't. amazing. i love programming so much it definitely DOESN'T MAKE ME WANT TO LEVER MY FUCKING NAILS OFF WITH A SPOON
+					positioning.set(originalPositioning);
 					super.visibleArea(originalVisibleArea);
-					this.update(delta, mouseX, mouseY);
-					this.visibleArea.update(delta);
+					this.update(20, mouseX, mouseY);
+					this.visibleArea.update(20);
 
 
 				}
 
 				if (currentStep < maxStep) {
-					BSGLOGGER.info("\nIterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());
-					super.positioning(Positioning.absolute(positioning.get().x, positioning.get().y - sectionY));
+					//BSGLOGGER.info("\nIterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());
+					positioning.set(Positioning.absolute(positioning.get().x, positioning.get().y - sectionY));
 					super.visibleArea(PositionedRectangle.of(visibleArea.get().x(), visibleArea.get().y() + sectionY, visibleArea.get().width(), visibleArea.get().height()));
 					currentStep++;
 
 				} else if (loop) {
-					BSGLOGGER.info("\nLoop enabled - finished iterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());
+					//BSGLOGGER.info("\nLoop enabled - finished iterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());
 					currentStep = 1;
 				}
 			}
+			/*
 			else {
 				BSGLOGGER.info("Something that wasn't supposed to happen, happened.");
 			}
 
+			 */
+
 			if (Objects.requireNonNull(this.color) == ColorParams.FIXED) {
 				RenderSystem.setShaderColor(this.COLOR_FIXED.red(), this.COLOR_FIXED.green(), this.COLOR_FIXED.blue(), this.COLOR_FIXED.alpha());
-				BSGLOGGER.info("Color: {}", this.color.toString());
+				//BSGLOGGER.info("Color: {}", this.color.toString());
 			}
-			this.update(delta, mouseX, mouseY);
-			this.visibleArea.update(delta);
-			super.draw(context, mouseX, mouseY, partialTicks, delta);
+			this.update(20, mouseX, mouseY);
+			this.visibleArea.update(20);
+			super.draw(context, mouseX, mouseY, partialTicks, 20);
 			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}

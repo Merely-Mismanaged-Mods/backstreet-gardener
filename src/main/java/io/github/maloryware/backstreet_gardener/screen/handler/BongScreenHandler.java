@@ -52,6 +52,7 @@ public class BongScreenHandler extends ScreenHandler {
 
 		public CauldronWaterSlot(final BongScreenHandler handler, final Inventory inventory, final int index, final int x, final int y) {
 			super(inventory, index, x, y);
+
 		}
 		@Override
 		public boolean canInsert(ItemStack stack) {
@@ -127,7 +128,9 @@ public class BongScreenHandler extends ScreenHandler {
 
 			}
 
+
 		);
+
 
 		// draw player inventory //
 
@@ -185,6 +188,7 @@ public class BongScreenHandler extends ScreenHandler {
 				}
 				default -> {
 					if (fromStack.isOf(Items.WATER_BUCKET)){
+
 						if (!this.insertItem(fromStack,0,1,false)) return ItemStack.EMPTY;
 					}
 					if (fromStack.isOf(BSGItems.CANNABIS_LEAF)){

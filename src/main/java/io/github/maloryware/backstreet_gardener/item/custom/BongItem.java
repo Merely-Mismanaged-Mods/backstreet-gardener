@@ -17,6 +17,7 @@ import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -83,7 +84,7 @@ public class BongItem extends Item {
 			user.setCurrentHand(hand);
 			return TypedActionResult.success(user.getStackInHand(hand), false);
 		}
-		else if (!temp.hasWater())
+		if (!temp.hasWater())
 			{
 				var hitResult = user.raycast(4, 0, true);
 
@@ -91,15 +92,24 @@ public class BongItem extends Item {
 					&& world.getBlockState(BlockPos.ofFloored(hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z)).getBlock().equals(Blocks.WATER)){
 
 					user.getStackInHand(hand).set(BSGComponents.BONG_COMPONENT, BongComponent.of(true, 255, temp.resourceQuantity()));
-
+					return TypedActionResult.success(user.getStackInHand(hand));
 				}
 
+
 			}
+		else if(user.isSneaking()){
+			user.getStackInHand(hand).set(BSGComponents.BONG_COMPONENT, BongComponent.of(false, 0, temp.resourceQuantity()));
+			if(!world.isClient()){
+				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS);
+			}
+			return TypedActionResult.success(user.getStackInHand(hand));
+
+		}
 		else if (hand == OFF_HAND)
 		{
 			return TypedActionResult.fail(user.getStackInHand(hand));
 		}
-		else user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
+		user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
 		return TypedActionResult.success(user.getStackInHand(hand));
 	}
 
