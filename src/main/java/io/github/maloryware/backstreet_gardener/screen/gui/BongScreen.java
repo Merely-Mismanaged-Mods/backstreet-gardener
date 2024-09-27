@@ -11,21 +11,22 @@ import io.wispforest.owo.ui.container.Containers;
 import io.wispforest.owo.ui.container.FlowLayout;
 import io.wispforest.owo.ui.container.StackLayout;
 import io.wispforest.owo.ui.core.*;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.network.ClientCommonNetworkHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
+
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 
 public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandler> {
 
 	private static PlayerEntity player;
-	private static final Identifier GUI = Identifier.of(BackstreetGardener.ID, "textures/gui/temp.png");
-	private static final Identifier WATER = Identifier.of(BackstreetGardener.ID, "textures/gui/water_still.png");
+	private static final Identifier GUI = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_gui.png");
+	private static final Identifier WATER = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_water.png");
+	private static final Identifier BONG = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_overlay.png");
+
 	private TextureComponent waterPurityMeter;
 	private TextureComponent resourceMeter;
 	private int currentPos;
@@ -57,51 +58,62 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 			.zIndex(0);
 
 		PositionedRectangle waterVisibleArea =
-			hasw ?
-				PositionedRectangle.of(0, 0, (int) (water * 0.10196078431372549019607843137255), 9) :
-				PositionedRectangle.of(0, 0, Size.zero());
+			/* hasw ? */ PositionedRectangle.of(0, 0, 32, 32);
+				//: PositionedRectangle.of(0, 0, Size.zero());
 
 		PositionedRectangle resourceVisibleArea = PositionedRectangle.of(0, 0, (int) (resource * 0.18039215686274509803921568627451), 8);
 
+		stack.child(
+			OwoScreenExtras.AdvancedTextureComponent.texture(WATER, 32, 32, 32, 1024, 32, OwoScreenExtras.ColorParams.FIXED, OwoScreenExtras.AnimParams.ANIMATED)
+				.setColor(Color.ofDye(DyeColor.CYAN))
+				.loop(true)
+				.visibleArea(waterVisibleArea)
+				.positioning(Positioning.absolute(0, 0))
+				.blend(true)
+				.zIndex(1)
+				.tooltip(Text.of("Test"))
+		);
 
-		// resource texture
-		/*stack.child(
-			OwoScreenExtras.ColorableTextureComponent.texture(WATER, 0, 0, 46, 8, 32, 512)
-				.setZIndex(1)
+
+		/*
+		stack.child(
+			Components.texture(WATER, 0, 0, 32, 32, 32, 1024)
+				//.setColor(Color.ofDye(DyeColor.CYAN))
+				//.loop(true)
+				.visibleArea(waterVisibleArea)
+				.positioning(Positioning.absolute(121, 41))
+				//.blend(true)
+				.zIndex(5)
+				.tooltip(Text.of("Test"))
+		);
+
+		 */
+		/*
+		stack.child(
+			Components.texture(BONG, 0, 0, 176, 166)
+				.blend(true)
+				.positioning(Positioning.absolute(0, 0))
+				.zIndex(2)
+		);
+
+		 */
+		BSGLOGGER.info("Stack: {}", stack.children());
+
+
+		/*
+		stack.child(
+			OwoScreenExtras.AdvancedTextureComponent.texture(WATER, 46, 512, 32, 512, 8, OwoScreenExtras.ColorParams.FIXED, OwoScreenExtras.AnimParams.ANIMATED)
+				.loop(true)
 				.setColor(Color.ofDye(DyeColor.GREEN))
 				.visibleArea(resourceVisibleArea)
 				.blend(false)
 				.positioning(Positioning.absolute(123, 28))
-				.zIndex(1)
+				.zIndex(5)
 				.tooltip(Text.of("Test")));
+		*/
 
 
-		 */
-		// water texture
-		stack.child(
-			OwoScreenExtras.ColorableTextureComponent.texture(WATER, 0, 0, 26, 9, 32, 512)
-				.setZIndex(1)
-				.setColor(Color.ofDye(DyeColor.CYAN))
-				.visibleArea(waterVisibleArea)
-				.blend(false)
-				.positioning(Positioning.absolute(143, 11))
-				.zIndex(1)
-				.tooltip(Text.of("Test")));
 
-
-		stack.child(
-			OwoScreenExtras.AnimatedTextureComponent.texture(WATER, 46, 512, 32, 512, 8)
-				.loop(true)
-				.setTickDelta(1000)
-				.visibleArea(resourceVisibleArea)
-				.blend(false)
-				.positioning(Positioning.absolute(123, 28))
-				.zIndex(1)
-				.tooltip(Text.of("Test")));
-
-
-		this.waterPurityMeter = rootComponent.childById(TextureComponent.class, "water_purity");
-		this.resourceMeter = rootComponent.childById(TextureComponent.class, "resource_amount");
 		rootComponent
 			.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 

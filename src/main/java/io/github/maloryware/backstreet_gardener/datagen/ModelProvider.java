@@ -44,7 +44,7 @@ public class ModelProvider extends FabricModelProvider {
 		gen.register(CIGARETTE_BUTT, HANDHELD);
 		gen.register(TOBACCO_LEAF, HANDHELD);
 		gen.register(CANNABIS_LEAF, HANDHELD);
-		gen.register(COKE_BAGGIE, HANDHELD);
+		// gen.register(COKE_BAGGIE, HANDHELD);
 		/*
 		gen.register(, Models.HANDHELD);
 		gen.register(, Models.HANDHELD);

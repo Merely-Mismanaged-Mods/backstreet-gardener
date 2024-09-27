@@ -6,14 +6,12 @@ import io.github.maloryware.backstreet_gardener.item.custom.BongItem;
 import io.github.maloryware.backstreet_gardener.item.custom.ProcessableLeafItem;
 import io.github.maloryware.backstreet_gardener.item.custom.SmokableItem;
 import net.minecraft.item.AliasedBlockItem;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
-import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.COCAINE_BLOCK;
 import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.DRYING_RACK_BOTTOM;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 
@@ -80,7 +78,7 @@ public class BSGItems {
 		.rarity(Rarity.UNCOMMON));
 
 	public static final Item DRYING_RACK_ITEM = new AliasedBlockItem(DRYING_RACK_BOTTOM, new Item.Settings());
-	public static final Item COKE_BAGGIE = new AliasedBlockItem(COCAINE_BLOCK, new Item.Settings());
+//	public static final Item COKE_BAGGIE = new AliasedBlockItem(COCAINE_BLOCK, new Item.Settings());
 
 	public static void initialize(){
 		//smokable containers
@@ -106,7 +104,7 @@ public class BSGItems {
 		register("dry_tobacco_leaf", DRY_TOBACCO_LEAF);
 		//etc
 		register("drying_rack_item", DRYING_RACK_ITEM);
-		register("coke_baggie", COKE_BAGGIE);
+		//register("coke_baggie", COKE_BAGGIE);
 
 
 	}

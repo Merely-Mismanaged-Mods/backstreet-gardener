@@ -100,8 +100,8 @@ public class BongScreenHandler extends ScreenHandler {
 		itemStack = stack;
 		Hand hand = h;
 
-		this.waterSlot = new CauldronWaterSlot(this, this.inventory, 1, 52, 10);
-		this.resourceSlot = new CauldronResourceSlot(this, this.inventory, 0, 25, 50);
+		this.waterSlot = new CauldronWaterSlot(this, this.inventory, 1, 98, 54);
+		this.resourceSlot = new CauldronResourceSlot(this, this.inventory, 0, 98, 22);
 
 		this.addSlot(waterSlot);
 		this.addSlot(resourceSlot);

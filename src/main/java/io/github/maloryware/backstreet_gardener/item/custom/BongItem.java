@@ -1,13 +1,10 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
 import io.wispforest.owo.particles.ClientParticles;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,25 +16,18 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 
 import java.util.List;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
-import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
-import static net.minecraft.util.Hand.MAIN_HAND;
 import static net.minecraft.util.Hand.OFF_HAND;
 
 public class BongItem extends Item {
@@ -72,10 +62,12 @@ public class BongItem extends Item {
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
 		var temp = user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT);
-		BSGLOGGER.info("Began using bong. Current data: \nHAS_WATER: {}\nWATER_PURITY: {}\nRESOURCE_QUANTITY: {}\n",
+		/*BSGLOGGER.info("Began using bong. Current data: \nHAS_WATER: {}\nWATER_PURITY: {}\nRESOURCE_QUANTITY: {}\n",
 			temp.hasWater(),
 			temp.waterPurity(),
 			temp.resourceQuantity());
+
+		 */
 
 		if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL) && user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT).resourceQuantity() > 0) {
 			if (!world.isClient) {
