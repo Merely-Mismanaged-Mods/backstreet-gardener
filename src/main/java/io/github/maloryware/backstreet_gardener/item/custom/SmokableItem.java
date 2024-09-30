@@ -107,6 +107,12 @@ public class SmokableItem extends Item {
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
 		super.usageTick(world, user, stack, remainingUseTicks);
+
+		if(smokingDuration > 80){
+			smokingDuration = 0;
+			user.clearActiveItem();
+		}
+
 		if(user.getMainHandStack().getOrDefault(IS_LIT, false)){
 			smokingDuration++;
 			while(Math.random() < 0.3D){

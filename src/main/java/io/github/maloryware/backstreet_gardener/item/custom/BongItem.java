@@ -5,6 +5,8 @@ import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
 import io.wispforest.owo.particles.ClientParticles;
+import io.wispforest.owo.ui.core.PositionedRectangle;
+import io.wispforest.owo.ui.core.Size;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,6 +31,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
+import static io.github.maloryware.backstreet_gardener.screen.gui.BongScreen.bongWaterComponent;
 import static net.minecraft.util.Hand.OFF_HAND;
 
 public class BongItem extends Item {
@@ -98,8 +101,10 @@ public class BongItem extends Item {
 
 			}
 		else if(user.isSneaking()){
+			bongWaterComponent.visibleArea(PositionedRectangle.of(0,0, Size.zero()));
 			user.getStackInHand(hand).set(BSGComponents.BONG_COMPONENT, BongComponent.of(false, 0, temp.resourceQuantity()));
-			if(!world.isClient()){
+			bongWaterComponent.visibleArea(PositionedRectangle.of(0,0, Size.zero()));
+			if(world.isClient()){
 				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.PLAYERS);
 			}
 			return TypedActionResult.success(user.getStackInHand(hand));

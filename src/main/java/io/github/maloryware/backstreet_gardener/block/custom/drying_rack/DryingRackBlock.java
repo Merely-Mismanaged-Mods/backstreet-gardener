@@ -33,8 +33,6 @@ public class DryingRackBlock extends BlockWithEntity {
 		setDefaultState(getDefaultState().with(Properties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
-	protected static final VoxelShape SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 7.0, 16.0);
-
 	@Override
 	protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		var facing = state.get(Properties.HORIZONTAL_FACING);
@@ -65,7 +63,6 @@ public class DryingRackBlock extends BlockWithEntity {
 	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
 		world.removeBlock(pos.down(), false);
 
-		//player.dropItem(BSGItems.DRYING_RACK_ITEM.getDefaultStack(), true);
 		return super.onBreak(world, pos, state, player);
 	}
 	public static final MapCodec<DryingRackBlock> CODEC = Block.createCodec(DryingRackBlock::new);

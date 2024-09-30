@@ -3,9 +3,13 @@ package io.github.maloryware.backstreet_gardener.utils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.wispforest.owo.ui.component.TextureComponent;
 import io.wispforest.owo.ui.core.*;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 
 @SuppressWarnings({"FieldCanBeLocal, ", "unused"})
 public class OwoScreenExtras {
@@ -26,7 +30,7 @@ public class OwoScreenExtras {
 	}
 
 
-	public static class AdvancedTextureComponent extends TextureComponent {
+	public static class AdvancedTextureComponent extends TextureComponent{
 
 		private Color COLOR_GRADIENT_FADE_START;
 		private Color COLOR_GRADIENT_FADE_END;
@@ -41,6 +45,7 @@ public class OwoScreenExtras {
 		private final int sectionY;
 		private int currentStep;
 		private final int maxStep;
+		private float animSpeed;
 
 
 		public static AdvancedTextureComponent texture(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, ColorParams param) {
@@ -67,6 +72,7 @@ public class OwoScreenExtras {
 			this.maxStep = (textureHeight / sectionY) - (textureHeight % sectionY);
 			this.loop = true;
 			this.currentStep = 1;
+			this.animSpeed = 1;
 
 		}
 
@@ -113,6 +119,18 @@ public class OwoScreenExtras {
 			return this;
 		}
 
+		@Override
+		public AdvancedTextureComponent tooltip(@NotNull Text tooltip) {
+			super.tooltip(tooltip);
+			return this;
+		}
+
+		@Override
+		public AdvancedTextureComponent blend(boolean blend) {
+			super.blend(blend);
+			return this;
+		}
+
 		/**
 		 * Sets the default position of the component, for first render and for all subsequent loops.
 		 *
@@ -126,6 +144,10 @@ public class OwoScreenExtras {
 			return this;
 		}
 
+		public AdvancedTextureComponent animationSpeed(float mult){
+			this.animSpeed = mult;
+			return this;
+		}
 
 		public AdvancedTextureComponent loop(boolean bl) {
 			this.loop = bl;
@@ -141,16 +163,20 @@ public class OwoScreenExtras {
 
 		@Override
 		public void draw(OwoUIDrawContext context, int mouseX, int mouseY, float partialTicks, float delta) {
-			super.draw(context, mouseX, mouseY, partialTicks, 20);
-			if (this.visibleArea().get() == null) this.visibleArea(PositionedRectangle.of(0, 0, Size.of(256, 256)));
+			delta *= animSpeed;
+			partialTicks /= animSpeed;
+			if (this.visibleArea().get() == null){
+				this.visibleArea(PositionedRectangle.of(0, 0, Size.of(256, 256)));
+				BSGLOGGER.info("Visible area was null - setting to 256x256");
+			}
 
 			if (Objects.requireNonNull(this.anim) == AnimParams.ANIMATED) {
 				if (currentStep == 1) {
 					// so this works... but super.positioning() doesn't. amazing. i love programming so much it definitely DOESN'T MAKE ME WANT TO LEVER MY FUCKING NAILS OFF WITH A SPOON
 					positioning.set(originalPositioning);
 					super.visibleArea(originalVisibleArea);
-					this.update(20, mouseX, mouseY);
-					this.visibleArea.update(20);
+					this.update(delta, mouseX, mouseY);
+					this.visibleArea.update(delta);
 
 
 				}
@@ -177,9 +203,9 @@ public class OwoScreenExtras {
 				RenderSystem.setShaderColor(this.COLOR_FIXED.red(), this.COLOR_FIXED.green(), this.COLOR_FIXED.blue(), this.COLOR_FIXED.alpha());
 				//BSGLOGGER.info("Color: {}", this.color.toString());
 			}
-			this.update(20, mouseX, mouseY);
-			this.visibleArea.update(20);
-			super.draw(context, mouseX, mouseY, partialTicks, 20);
+			//this.update(delta, mouseX, mouseY);
+			//this.visibleArea.update(delta);
+			super.draw(context, mouseX, mouseY, partialTicks, delta);
 			RenderSystem.setShaderColor(1, 1, 1, 1);
 		}
 	}

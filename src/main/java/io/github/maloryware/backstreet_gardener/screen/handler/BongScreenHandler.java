@@ -5,6 +5,8 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.datagen.ItemTagProvider;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
+import io.wispforest.owo.ui.core.PositionedRectangle;
+import io.wispforest.owo.ui.core.Size;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -14,7 +16,10 @@ import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
+
+import static io.github.maloryware.backstreet_gardener.screen.gui.BongScreen.bongWaterComponent;
 
 public class BongScreenHandler extends ScreenHandler {
 
@@ -178,6 +183,8 @@ public class BongScreenHandler extends ScreenHandler {
 
 			switch(slotIndex){
 				case 0, 1 -> {
+
+
 					// in either of the custom slots
 					if(!this.insertItem(fromStack,2,38,false)) return ItemStack.EMPTY;
 					else if (!this.insertItem(fromStack, 2, 38, false)) {
@@ -190,9 +197,19 @@ public class BongScreenHandler extends ScreenHandler {
 					if (fromStack.isOf(Items.WATER_BUCKET)){
 
 						if (!this.insertItem(fromStack,0,1,false)) return ItemStack.EMPTY;
+						else {
+							bongWaterComponent.visibleArea(
+								player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater()
+									? PositionedRectangle.of(0, 0, 32, 32)
+									: PositionedRectangle.of(0, 0, Size.zero())
+
+							);
+							player.playSound(SoundEvents.ITEM_BUCKET_FILL,1,1);
+						}
 					}
 					if (fromStack.isOf(BSGItems.CANNABIS_LEAF)){
 						if (!this.insertItem(fromStack,1,2,false)) return ItemStack.EMPTY;
+						else player.playSound(SoundEvents.BLOCK_WET_GRASS_STEP, 1,1);
 					}
 
 					else if (slotIndex > 28 && slotIndex < 38 && !this.insertItem(fromStack, 2, 29, false)) {
