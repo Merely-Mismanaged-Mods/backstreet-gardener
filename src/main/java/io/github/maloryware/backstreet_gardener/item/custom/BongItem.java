@@ -75,7 +75,6 @@ public class BongItem extends Item {
 
 		if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL) && user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT).resourceQuantity() > 0) {
 			if (!world.isClient) {
-				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 				if (Math.random() < 0.1F) {
 					ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
 					ClientParticles.setParticleCount(8);
@@ -84,11 +83,11 @@ public class BongItem extends Item {
 
 				}
 			}
+			else world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 			user.setCurrentHand(hand);
 			return TypedActionResult.success(user.getStackInHand(hand), false);
 		}
-		if (!temp.hasWater())
-			{
+		if (!temp.hasWater()) {
 				var hitResult = user.raycast(4, 0, true);
 
 				if(hitResult.getType() == HitResult.Type.BLOCK

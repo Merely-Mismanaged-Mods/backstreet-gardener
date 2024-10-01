@@ -35,10 +35,10 @@ public class BipedEntityModelMixin<T extends LivingEntity> {
 				ci.cancel();
 			}
 			if(activeItem.getItem() instanceof BongItem){
-				this.rightArm.pitch = 0;
-				this.rightArm.yaw = 0;
-				this.leftArm.pitch = 0;
-				this.leftArm.yaw = 0;
+				this.rightArm.pitch = -1f;
+				this.rightArm.yaw = -0.5f;
+				this.leftArm.pitch = -0.6f;
+				this.leftArm.yaw = 0.5f;
 				ci.cancel();
 			}
 		}

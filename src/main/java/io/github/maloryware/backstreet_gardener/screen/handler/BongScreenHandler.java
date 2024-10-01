@@ -17,6 +17,8 @@ import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 import static io.github.maloryware.backstreet_gardener.screen.gui.BongScreen.bongWaterComponent;
 
 public class BongScreenHandler extends ScreenHandler {
@@ -94,30 +96,43 @@ public class BongScreenHandler extends ScreenHandler {
 		this.addSlot(waterSlot);
 		this.addSlot(resourceSlot);
 
-		BongComponent component = stack.get(BSGComponents.BONG_COMPONENT);
+		AtomicReference<BongComponent> component = new AtomicReference<>(stack.get(BSGComponents.BONG_COMPONENT));
+		var player = playerInventory.player;
 
 		this.inventory.addListener(sender -> {
-			if(!playerInventory.player.getWorld().isClient()){
-				if(!component.havesWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(Items.WATER_BUCKET)){
+
+			if(!component.get().hasWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(Items.WATER_BUCKET)){
+
+				if(!player.getWorld().isClient()) {
 					bongWaterComponent.visibleArea(
 						PositionedRectangle.of(0, 0, 32, 32)
 					);
-					playerInventory.player.playSound(SoundEvents.ITEM_BUCKET_FILL,1,1);
 
-					playerInventory.getMainHandStack().set(
+					player.getMainHandStack().set(
 						BSGComponents.BONG_COMPONENT,
-						BongComponent.of(true,255, component.resourceQuantity()));
+						BongComponent.of(true, 255, component.get().resourceQuantity()));
 					BongScreenHandler.this.waterSlot.setStack(Items.BUCKET.getDefaultStack());
+
 				}
-
-
-				if(component.resourceQuantity() == 0 && resourceSlot.hasStack() && resourceSlot.getStack().isOf(BSGItems.CANNABIS_LEAF) ){
-					playerInventory.getMainHandStack().set(
-						BSGComponents.BONG_COMPONENT,
-						BongComponent.of(component.hasWater(), component.waterPurity(), 255));
-					BongScreenHandler.this.resourceSlot.setStack(Items.CHARCOAL.getDefaultStack());
+				else {
+					playerInventory.player.playSound(SoundEvents.ITEM_BUCKET_FILL, (float) Math.random(), (float) Math.random());
 				}
 			}
+
+
+			if(component.get().resourceQuantity() == 0 && resourceSlot.hasStack() && resourceSlot.getStack().isOf(BSGItems.CANNABIS_LEAF) ){
+				if(!player.getWorld().isClient()) {
+					player.getMainHandStack().set(
+						BSGComponents.BONG_COMPONENT,
+						BongComponent.of(component.get().hasWater(), component.get().waterPurity(), 255));
+					BongScreenHandler.this.resourceSlot.setStack(Items.CHARCOAL.getDefaultStack());
+				}
+				else{
+					playerInventory.player.playSound(SoundEvents.BLOCK_WET_GRASS_STEP, (float) Math.random(), (float) Math.random());
+				}
+
+			}
+			component.set(stack.get(BSGComponents.BONG_COMPONENT));
 
 		});
 
@@ -151,7 +166,6 @@ public class BongScreenHandler extends ScreenHandler {
 	@Override
 	public ItemStack quickMove(PlayerEntity player, int slotIndex) {
 
-		var bongStack = player.getMainHandStack();
 		ItemStack leftoverStack = ItemStack.EMPTY;
 		Slot sourceSlot = this.slots.get(slotIndex);
 
@@ -185,7 +199,6 @@ public class BongScreenHandler extends ScreenHandler {
 					}
 					if (fromStack.isOf(BSGItems.CANNABIS_LEAF)){
 						if (!this.insertItem(fromStack,1,2,false)) return ItemStack.EMPTY;
-						/* TODO: move this to the inventory listener */ else player.playSound(SoundEvents.BLOCK_WET_GRASS_STEP, 1,1);
 					}
 
 					else if (slotIndex > 28 && slotIndex < 38 && !this.insertItem(fromStack, 2, 29, false)) {

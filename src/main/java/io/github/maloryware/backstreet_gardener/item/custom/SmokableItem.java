@@ -1,7 +1,6 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
-import io.github.maloryware.backstreet_gardener.utils.ColorCodes;
 import io.wispforest.owo.particles.ClientParticles;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
@@ -20,9 +19,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import static io.github.maloryware.backstreet_gardener.utils.ColorCodes.*;
 
-import java.awt.*;
 import java.util.List;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
@@ -40,7 +37,7 @@ public class SmokableItem extends Item {
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
 		super.appendTooltip(stack, context, tooltip, type);
-
+		/*
 		tooltip.add(Text.of(ITALIC + "Secret areas can typically only be\nunlocked by " +
 			DARK_RED + BOLD + ITALIC + "chiefing a fat dart" +
 			RESET + ITALIC + ", which can \nonly be gained through " +
@@ -50,6 +47,8 @@ public class SmokableItem extends Item {
 			RESET + ITALIC +".\n\n" +
 			DARK_GRAY + "(it's good, actually)"
 		));
+
+		 */
 	}
 
 	public SmokableItem(Settings settings, Item stubItem) {
@@ -75,7 +74,6 @@ public class SmokableItem extends Item {
 		if(!(user.getMainHandStack().getOrDefault(IS_LIT, false))){
 			if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL)){
 				if(!world.isClient) {
-					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 					if(Math.random() < 0.1F){
 						user.getMainHandStack().set(IS_LIT, true);
 						ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
@@ -89,6 +87,9 @@ public class SmokableItem extends Item {
 					}
 
 
+				}
+				else{
+					world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 				}
 				return TypedActionResult.success(user.getStackInHand(hand), false);
 
@@ -128,9 +129,6 @@ public class SmokableItem extends Item {
 						(ServerWorld) world, (ServerPlayerEntity) user,
 						item -> user.setStackInHand(MAIN_HAND, stubItem.getDefaultStack()));
 
-			}
-			else {
-				world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 			}
 
 		}

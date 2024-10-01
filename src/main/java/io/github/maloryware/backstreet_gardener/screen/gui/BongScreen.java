@@ -15,12 +15,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 
 public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandler> {
 
+	private final World world;
 	private final PlayerEntity player;
 	private static final Identifier GUI = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_gui.png");
 	private static final Identifier WATER = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_water.png");
@@ -31,6 +33,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 	public BongScreen(BongScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
 		player = inventory.player;
+		world = player.getWorld();
 	}
 
 
@@ -82,6 +85,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 				.zIndex(2)
 		);
 		rootComponent.child(stack);
+
 		rootComponent.alignment(HorizontalAlignment.CENTER, VerticalAlignment.CENTER);
 		rootComponent.surface(Surface.VANILLA_TRANSLUCENT);
 

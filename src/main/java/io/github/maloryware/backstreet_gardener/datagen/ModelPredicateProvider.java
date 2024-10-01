@@ -16,14 +16,13 @@ public class ModelPredicateProvider extends ModelPredicateProviderRegistry {
 
 		ClampedModelPredicateProvider moking = (itemStack, clientWorld, livingEntity, seed) ->
 		{
-			if(livingEntity != null) return livingEntity.isUsingItem()
-				&& livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
+			if(livingEntity != null) return livingEntity.getActiveItem() == itemStack ? 1.0F : 0.0F;
 			else return 0.0F;
 		};
 
 		ClampedModelPredicateProvider lit = (itemStack, clientWorld, livingEntity, seed) ->
 		{
-			if(livingEntity != null) return livingEntity.getActiveItem() != itemStack && itemStack.getDamage() > 0 ? 1.0F : 0.0F;
+			if(livingEntity != null) return itemStack.getDamage() > 0 ? 1.0F : 0.0F;
 			else return 0.0F;
 		};
 
