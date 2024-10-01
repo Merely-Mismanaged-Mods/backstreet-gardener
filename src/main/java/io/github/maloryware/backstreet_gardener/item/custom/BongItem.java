@@ -2,7 +2,6 @@ package io.github.maloryware.backstreet_gardener.item.custom;
 
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
-import io.github.maloryware.backstreet_gardener.screen.gui.BongScreen;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
 import io.wispforest.owo.particles.ClientParticles;
@@ -33,7 +32,6 @@ import java.util.List;
 
 import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 import static io.github.maloryware.backstreet_gardener.screen.gui.BongScreen.bongWaterComponent;
-import static io.github.maloryware.backstreet_gardener.screen.gui.BongScreen.waterModifiedExternally;
 import static net.minecraft.util.Hand.OFF_HAND;
 
 public class BongItem extends Item {
@@ -103,7 +101,6 @@ public class BongItem extends Item {
 
 			}
 		else if(user.isSneaking()){
-			waterModifiedExternally = true;
 			if(!world.isClient()) {
 				user.getStackInHand(hand).set(BSGComponents.BONG_COMPONENT, BongComponent.of(false, 0, temp.resourceQuantity()));
 				bongWaterComponent.visibleArea(PositionedRectangle.of(0, 0, Size.zero()));
