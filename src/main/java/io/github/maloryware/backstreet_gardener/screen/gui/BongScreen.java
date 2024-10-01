@@ -28,8 +28,6 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 	private static PositionedRectangle waterVisibleArea = PositionedRectangle.of(0, 0, Size.zero());
 
 
-	public static StackLayout stack = Containers.stack(Sizing.fixed(176), Sizing.fixed(166));
-
 	public BongScreen(BongScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
 		player = inventory.player;
@@ -45,8 +43,9 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 
 	@Override
 	protected void build(FlowLayout rootComponent) {
+		StackLayout stack = Containers.stack(Sizing.fixed(176), Sizing.fixed(166));
 
-
+		player.getMainHandStack();
 		waterVisibleArea =
 			player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater()
 				? PositionedRectangle.of(0, 0, 32, 32)
@@ -59,15 +58,12 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 			.visibleArea(waterVisibleArea)
 			.positioning(Positioning.absolute(120, 41))
 			.setZIndex(1)
+			.id("bongWater")
 			.animationSpeed(0.01F)
 			.blend(true)
 			.tooltip(Text.of("Test"));
 
-		stack.child(bongWaterComponent).onChildMutated(bongWaterComponent);
-
-		stack.onChildMutated(bongWaterComponent);
-
-		rootComponent.onChildMutated(stack);
+		stack.child(bongWaterComponent);
 
 		stack.child(
 				Components.texture(GUI, 0, 0, 176, 166))

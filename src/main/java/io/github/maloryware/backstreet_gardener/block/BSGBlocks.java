@@ -5,6 +5,7 @@ import io.github.maloryware.backstreet_gardener.block.crop.OpiumPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.TobaccoPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.WeedPlant;
 // import io.github.maloryware.backstreet_gardener.block.custom.SniffableBlock;
+import io.github.maloryware.backstreet_gardener.block.custom.SniffableBlock;
 import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBlock;
 import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBottomBlock;
 import net.minecraft.block.AbstractBlock;
@@ -52,11 +53,11 @@ public class BSGBlocks {
 		.pistonBehavior(PistonBehavior.DESTROY)
 		.nonOpaque());
 
-//	public static final SniffableBlock COCAINE_BLOCK = new SniffableBlock(
-//		AbstractBlock.Settings.create()
-//			.breakInstantly()
-//			.nonOpaque()
-//	);
+	public static final SniffableBlock COCAINE_BLOCK = new SniffableBlock(
+		AbstractBlock.Settings.create()
+		.breakInstantly()
+		.nonOpaque()
+	);
 
 	public static void initialize(){
 
@@ -66,6 +67,7 @@ public class BSGBlocks {
 		registerCropBlock("tobacco_crop", TOBACCO_CROP);
 		register("drying_rack", DRYING_RACK);
 		register("drying_rack_bottom", DRYING_RACK_BOTTOM);
+		register("cocaine_pile", COCAINE_BLOCK);
 
 
 	}

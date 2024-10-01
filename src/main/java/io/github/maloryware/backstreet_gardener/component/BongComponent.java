@@ -31,6 +31,10 @@ public record BongComponent(boolean hasWater, int waterPurity, int resourceQuant
 		return new BongComponent(hasWater, waterPurity, resourceQuantity);
 	}
 
+	public boolean havesWater(){
+		return this.hasWater;
+	}
+
 	@Override
 	public String toString() {
 		return "BongComponent{" +
