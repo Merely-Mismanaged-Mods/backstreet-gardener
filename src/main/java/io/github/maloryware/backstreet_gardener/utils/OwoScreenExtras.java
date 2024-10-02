@@ -171,8 +171,6 @@ public class OwoScreenExtras {
 
 		@Override
 		public void draw(OwoUIDrawContext context, int mouseX, int mouseY, float partialTicks, float delta) {
-			delta *= animSpeed;
-			partialTicks *= animSpeed;
 			if (this.visibleArea().get() == null){
 				this.visibleArea(PositionedRectangle.of(0, 0, Size.of(256, 256)));
 				BSGLOGGER.info("Visible area was null - setting to 256x256");
