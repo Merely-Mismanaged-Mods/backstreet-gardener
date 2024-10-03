@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "lines=0": {
+      "model": "backstreet_gardener:block/cocaine/cocaine_pile_0"
+    },
+    "lines=1": {
+      "model": "backstreet_gardener:block/cocaine/cocaine_pile_1"
+    },
+    "lines=2": {
+      "model": "backstreet_gardener:block/cocaine/cocaine_pile_2"
+    },
+    "lines=3": {
+      "model": "backstreet_gardener:block/cocaine/cocaine_pile_3"
+    },
+    "lines=4": {
+      "model": "backstreet_gardener:block/cocaine/cocaine_pile_4"
+    },
+    "lines=5": {
+      "model": "backstreet_gardener:block/cocaine/cocaine_pile_5"
+    }
+  }
+}

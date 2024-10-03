@@ -55,14 +55,20 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 				: PositionedRectangle.of(0, 0, Size.zero());
 		BSGLOGGER.info("waterVisibleArea: {}, {}, {}, {}\n, hasWater:{}", waterVisibleArea.x(), waterVisibleArea.y(), waterVisibleArea.width(),  waterVisibleArea.height(), player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater());
 
-		bongWaterComponent = OwoScreenExtras.AdvancedTextureComponent.texture(WATER, 32, 1024, 32, 1024, 32, OwoScreenExtras.ColorParams.FIXED, OwoScreenExtras.AnimParams.ANIMATED)
+		bongWaterComponent = OwoScreenExtras.AdvancedTextureComponent.texture(
+						WATER,
+				32, 1024,
+				32, 1024,
+				32,
+				OwoScreenExtras.ColorParams.FIXED,
+				OwoScreenExtras.AnimParams.ANIMATED)
 			.setColor(Color.ofDye(DyeColor.CYAN))
 			.loop(true)
 			.visibleArea(waterVisibleArea)
 			.positioning(Positioning.absolute(120, 41))
 			.setZIndex(1)
 			.id("bongWater")
-			.animationSpeed(0.01F)
+			.speed(OwoScreenExtras.AnimSpeed.SLOW)
 			.blend(true)
 			.tooltip(Text.of("Test"));
 

@@ -15,9 +15,11 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
@@ -38,10 +40,23 @@ public class SniffableBlock extends Block {
 
 	 */
 
+	public VoxelShape[] LINES_TO_SHAPE = {
+		VoxelShapes.combine(
+			Block.createCuboidShape(0, 0, 0, 16, 3, 16),
+			Block.createCuboidShape(4, 3, 4, 8, 3, 8),
+			BooleanBiFunction.OR
+		),
+		Block.createCuboidShape(0, 0, 0, 16,3, 3),
+		Block.createCuboidShape(0, 0, 0, 16,3, 6),
+		Block.createCuboidShape(0, 0, 0, 16,3, 9),
+		Block.createCuboidShape(0, 0, 0, 16,3, 12),
+		Block.createCuboidShape(0, 0, 0, 16, 3, 15)
+	};
+
 
 	public static final MapCodec<SniffableBlock> CODEC = createCodec(SniffableBlock::new);
-	public static final BooleanProperty PILED = Properties.ENABLED;
-	public static final IntProperty LINES = Properties.BITES;
+	public static final BooleanProperty PILED = BooleanProperty.of("piled");
+	public static final IntProperty LINES = IntProperty.of("lines", 0, 5);
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
@@ -58,13 +73,13 @@ public class SniffableBlock extends Block {
 		setDefaultState(getDefaultState()
 			.with(LINES, 0)
 			.with(PILED, false));
-		BSGLOGGER.info("Created new block -> {}", this);
+		// BSGLOGGER.info("Created new block -> {}", this);
 	}
 
 	@Override
 	protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
 		/* TODO */
-		return super.getOutlineShape(state, world, pos, context);
+		return LINES_TO_SHAPE[state.get(LINES)];
 
 	}
 
@@ -76,7 +91,7 @@ public class SniffableBlock extends Block {
 					.with(PILED, true)
 					.with(LINES, 5)
 			);
-			BSGLOGGER.info("Used on block with item-> \n{}\n{}\n{}", state.getProperties(), state.get(PILED), state.get(LINES));
+			// BSGLOGGER.info("Used on block with item-> \n{}\n{}\n{}", state.getProperties(), state.get(PILED), state.get(LINES));
 			return ItemActionResult.SUCCESS;
 
 		}
@@ -86,7 +101,7 @@ public class SniffableBlock extends Block {
 
 			}
 			*/
-		if(!state.get(PILED)) BSGLOGGER.info("FAILED!!!!\n Used on block with item-> \n{}\n{}\n{}", state.getProperties(), state.get(PILED), state.get(LINES));
+		// if(!state.get(PILED)) BSGLOGGER.info("FAILED!!!!\n Used on block with item-> \n{}\n{}\n{}", state.getProperties(), state.get(PILED), state.get(LINES));
 		return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 	}
 
@@ -94,7 +109,7 @@ public class SniffableBlock extends Block {
 	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
 		if(!world.isClient){
 			if(state.get(PILED).equals(true)){
-				BSGLOGGER.info("Used - removing one line");
+				// BSGLOGGER.info("Used - removing one line");
 				int i = state.get(LINES);
 				if (i > 1){
 					i--;
@@ -108,7 +123,7 @@ public class SniffableBlock extends Block {
 			}
 
 		}
-		BSGLOGGER.info("Used on block -> \n{}\n{}\n{}", state.getProperties(), state.get(PILED), state.get(LINES));
+		// BSGLOGGER.info("Used on block -> \n{}\n{}\n{}", state.getProperties(), state.get(PILED), state.get(LINES));
 
 		return ActionResult.SUCCESS;
 

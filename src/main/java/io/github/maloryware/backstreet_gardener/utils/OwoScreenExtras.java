@@ -25,6 +25,11 @@ public class OwoScreenExtras {
 		STATIC,
 		ANIMATED
 	}
+	public enum AnimSpeed{
+		FAST,
+		SLOW,
+		DEFAULT
+	}
 
 	public static int fitTo(int ref, int boxSize, int maxValue){
 		return (ref * boxSize/maxValue);
@@ -39,33 +44,34 @@ public class OwoScreenExtras {
 		private Color COLOR_FIXED;
 		protected ColorParams color;
 		protected AnimParams anim;
+		protected AnimSpeed speed;
 
+		private int buffer = 0;
 		private boolean loop;
 		private PositionedRectangle originalVisibleArea;
 		private Positioning originalPositioning;
-		private final int sectionY;
+		private int sectionY;
 		private int currentStep;
 		private final int maxStep;
-		private float animSpeed;
 
 
 		public static AdvancedTextureComponent texture(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, ColorParams param) {
-			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, textureHeight, param, AnimParams.STATIC);
+			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, textureHeight, param, AnimParams.STATIC, AnimSpeed.DEFAULT);
 		}
 
 		public static AdvancedTextureComponent texture(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, int portionY, AnimParams param) {
-			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, portionY, ColorParams.DEFAULT, param);
+			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, portionY, ColorParams.DEFAULT, param, AnimSpeed.DEFAULT);
 		}
 
 		public static AdvancedTextureComponent texture(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, int portionY) {
-			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, portionY, ColorParams.DEFAULT, AnimParams.STATIC);
+			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, portionY, ColorParams.DEFAULT, AnimParams.STATIC, AnimSpeed.DEFAULT);
 		}
 
 		public static AdvancedTextureComponent texture(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, int portionY, ColorParams color, AnimParams anim) {
-			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, portionY, color, anim);
+			return new AdvancedTextureComponent(texture, regionWidth, regionHeight, textureWidth, textureHeight, portionY, color, anim, AnimSpeed.DEFAULT);
 		}
 
-		protected AdvancedTextureComponent(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, int portionY, ColorParams color, AnimParams anim) {
+		protected AdvancedTextureComponent(Identifier texture, int regionWidth, int regionHeight, int textureWidth, int textureHeight, int portionY, ColorParams color, AnimParams anim, AnimSpeed speed) {
 			super(texture, 0, 0, regionWidth, regionHeight, textureWidth, textureHeight);
 			this.color = color;
 			this.anim = anim;
@@ -73,8 +79,13 @@ public class OwoScreenExtras {
 			this.maxStep = (textureHeight / sectionY) - (textureHeight % sectionY);
 			this.loop = true;
 			this.currentStep = 1;
-			this.animSpeed = 1;
+			this.speed = speed;
 
+		}
+
+		public AdvancedTextureComponent speed(AnimSpeed speed){
+			this.speed = speed;
+			return this;
 		}
 
 		@Override
@@ -152,11 +163,6 @@ public class OwoScreenExtras {
 			return this;
 		}
 
-		public AdvancedTextureComponent animationSpeed(float mult){
-			this.animSpeed = mult;
-			return this;
-		}
-
 		public AdvancedTextureComponent loop(boolean bl) {
 			this.loop = bl;
 			return this;
@@ -171,12 +177,17 @@ public class OwoScreenExtras {
 
 		@Override
 		public void draw(OwoUIDrawContext context, int mouseX, int mouseY, float partialTicks, float delta) {
+
+
 			if (this.visibleArea().get() == null){
 				this.visibleArea(PositionedRectangle.of(0, 0, Size.of(256, 256)));
 				BSGLOGGER.info("Visible area was null - setting to 256x256");
 			}
 
 			if (Objects.requireNonNull(this.anim) == AnimParams.ANIMATED) {
+
+
+
 				if (currentStep == 1) {
 					// so this works... but super.positioning() doesn't. amazing. i love programming so much it definitely DOESN'T MAKE ME WANT TO LEVER MY FUCKING NAILS OFF WITH A SPOON
 					positioning.set(originalPositioning);
@@ -187,11 +198,22 @@ public class OwoScreenExtras {
 
 				}
 
+				switch (this.speed){
+					case FAST -> sectionY*=2;
+					case SLOW -> buffer++;
+				}
+
 				if (currentStep < maxStep) {
 					//BSGLOGGER.info("\nIterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());
+
 					positioning.set(Positioning.absolute(positioning.get().x, positioning.get().y - sectionY));
 					super.visibleArea(PositionedRectangle.of(visibleArea.get().x(), visibleArea.get().y() + sectionY, visibleArea.get().width(), visibleArea.get().height()));
 					currentStep++;
+
+					switch(buffer){
+						case 1 -> buffer++;
+						case 2 -> buffer--;
+					}
 
 				} else if (loop) {
 					//BSGLOGGER.info("\nLoop enabled - finished iterating.\ncurrentStep:{},\nmaxStep:{},\npositioning:{}, {},\nvisibleArea: x-{}, y-{}, w-{}, h-{}", currentStep, maxStep, positioning.get().x, positioning.get().y, visibleArea.get().x(), visibleArea.get().y(), visibleArea.get().width(), visibleArea.get().height());

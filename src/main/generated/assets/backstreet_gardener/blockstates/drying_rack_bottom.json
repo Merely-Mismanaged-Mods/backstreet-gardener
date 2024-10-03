@@ -1,8 +1,0 @@
-{
-  "variants": {
-    "facing=north": { "model": "backstreet_gardener:block/drying_rack_bottom", "uvlock": true },
-    "facing=east":  { "model": "backstreet_gardener:block/drying_rack_bottom", "y":  90, "uvlock": true },
-    "facing=south": { "model": "backstreet_gardener:block/drying_rack_bottom", "y": 180, "uvlock": true },
-    "facing=west":  { "model": "backstreet_gardener:block/drying_rack_bottom", "y": 270, "uvlock": true }
-  }
-}

@@ -114,6 +114,7 @@ public class BongScreenHandler extends ScreenHandler {
 					BongScreenHandler.this.waterSlot.setStack(Items.BUCKET.getDefaultStack());
 
 				}
+
 				else {
 					playerInventory.player.playSound(SoundEvents.ITEM_BUCKET_FILL, (float) Math.random(), (float) Math.random());
 				}
