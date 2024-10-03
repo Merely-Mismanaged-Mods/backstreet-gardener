@@ -1,15 +1,17 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "io.github.maloryware.backstreet_gardener.mixin",
-    "compatibilityLevel": "JAVA_21",
-    "mixins": [],
-    "client": [
-        "TitleScreenMixin",
-        "BipedEntityModelMixin",
-        "HudDebugValuesMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.github.maloryware.backstreet_gardener.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ZekoSpecialMixin"
+  ],
+  "client": [
+    "BipedEntityModelMixin",
+    "HudDebugValuesMixin",
+    "TitleScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
     }
 }
