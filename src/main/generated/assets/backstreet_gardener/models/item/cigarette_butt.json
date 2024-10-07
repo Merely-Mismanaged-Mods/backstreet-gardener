@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "backstreet_gardener:item/cigarette_butt"
+    "layer0": "backstreet_gardener:item/cigarette/cigarette_butt"
   }
 }

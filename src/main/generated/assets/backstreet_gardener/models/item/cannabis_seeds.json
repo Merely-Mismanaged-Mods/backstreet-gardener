@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/handheld",
   "textures": {
-    "layer0": "backstreet_gardener:item/cannabis_seeds"
+    "layer0": "backstreet_gardener:item/cannabis/cannabis_seeds"
   }
 }

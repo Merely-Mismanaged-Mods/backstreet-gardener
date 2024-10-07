@@ -1,10 +1,10 @@
 {
 	"credit": "Made by Agro",
 	"textures": {
-		"0": "backstreet_gardener:block/zaza/weed_stalk_1",
-		"3": "backstreet_gardener:block/zaza/weed_leaves_1",
-		"4": "backstreet_gardener:block/zaza/weed_leaves_0",
-		"particle": "backstreet_gardener:block/zaza/weed_stalk_1"
+		"0": "backstreet_gardener:block/cannabis/weed_stalk_1",
+		"3": "backstreet_gardener:block/cannabis/weed_leaves_1",
+		"4": "backstreet_gardener:block/cannabis/weed_leaves_0",
+		"particle": "backstreet_gardener:block/cannabis/weed_stalk_1"
 	},
 	"elements": [
 		{

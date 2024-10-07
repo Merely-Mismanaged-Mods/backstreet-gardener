@@ -2,8 +2,8 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "backstreet_gardener:item/cigarette",
-		"particle": "backstreet_gardener:item/cigarette"
+		"layer0": "backstreet_gardener:item/cigarette/cigarette",
+		"particle": "backstreet_gardener:item/cigarette/cigarette"
 	},
 	"display": {
 		"thirdperson_righthand": {
