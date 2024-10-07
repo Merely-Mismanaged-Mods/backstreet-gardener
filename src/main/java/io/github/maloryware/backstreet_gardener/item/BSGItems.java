@@ -81,8 +81,6 @@ public class BSGItems {
 //	public static final Item COKE_BAGGIE = new AliasedBlockItem(COCAINE_BLOCK, new Item.Settings());
 
 	public static void initialize(){
-		//smokable containers
-		register("bong", BONG);
 		//smokables
 		register("blunt", BLUNT);
 		register("joint", JOINT);
@@ -105,7 +103,8 @@ public class BSGItems {
 		//etc
 		register("drying_rack_item", DRYING_RACK_ITEM);
 		//register("coke_baggie", COKE_BAGGIE);
-
+		//smokable containers
+		register("bong", BONG);
 
 	}
 

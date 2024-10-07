@@ -4,10 +4,15 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
+import io.github.maloryware.backstreet_gardener.sound.moving.BubblingSoundInstance;
+import io.github.maloryware.backstreet_gardener.utils.ClientUtils;
 import io.wispforest.owo.particles.ClientParticles;
 import io.wispforest.owo.ui.core.PositionedRectangle;
 import io.wispforest.owo.ui.core.Size;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -65,6 +70,9 @@ public class BongItem extends Item {
 	@Override
 	public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
+		var offHandStack = user.getOffHandStack();
+		var stack = user.getStackInHand(hand);
+
 		var temp = user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT);
 		/*BSGLOGGER.info("Began using bong. Current data: \nHAS_WATER: {}\nWATER_PURITY: {}\nRESOURCE_QUANTITY: {}\n",
 			temp.hasWater(),
@@ -73,19 +81,23 @@ public class BongItem extends Item {
 
 		 */
 
-		if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL) && user.getStackInHand(hand).get(BSGComponents.BONG_COMPONENT).resourceQuantity() > 0) {
+		if(offHandStack.isOf(Items.FLINT_AND_STEEL) && stack.get(BSGComponents.BONG_COMPONENT).resourceQuantity() > 0) {
 			if (!world.isClient) {
 				if (Math.random() < 0.1F) {
 					ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
 					ClientParticles.setParticleCount(8);
 					ClientParticles.spawn(ParticleTypes.FLAME, world, user.getEyePos(), 0.01);
-					return TypedActionResult.success(user.getStackInHand(hand), false);
+					return TypedActionResult.success(stack, false);
 
 				}
 			}
-			else world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
+			else {
+				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
+				// TODO: replace this!!! this will 100% crash every godforsaken server - it is NOT a good idea to keep it
+				ClientUtils.playSoundInstance(ClientUtils.Sounds.BUBBLING, user);
+			}
 			user.setCurrentHand(hand);
-			return TypedActionResult.success(user.getStackInHand(hand), false);
+			return TypedActionResult.success(stack, false);
 		}
 		if (!temp.hasWater()) {
 				var hitResult = user.raycast(4, 0, true);
@@ -94,14 +106,14 @@ public class BongItem extends Item {
 					&& world.getBlockState(BlockPos.ofFloored(hitResult.getPos().x, hitResult.getPos().y, hitResult.getPos().z)).getBlock().equals(Blocks.WATER)){
 
 					user.getStackInHand(hand).set(BSGComponents.BONG_COMPONENT, BongComponent.of(true, 255, temp.resourceQuantity()));
-					return TypedActionResult.success(user.getStackInHand(hand));
+					return TypedActionResult.success(stack);
 				}
 
 
 			}
 		else if(user.isSneaking()){
 			if(!world.isClient()) {
-				user.getStackInHand(hand).set(BSGComponents.BONG_COMPONENT, BongComponent.of(false, 0, temp.resourceQuantity()));
+				stack.set(BSGComponents.BONG_COMPONENT, BongComponent.of(false, 0, temp.resourceQuantity()));
 				bongWaterComponent.visibleArea(PositionedRectangle.of(0, 0, Size.zero()));
 			}
 			if(world.isClient()){
@@ -112,10 +124,10 @@ public class BongItem extends Item {
 		}
 		else if (hand == OFF_HAND)
 		{
-			return TypedActionResult.fail(user.getStackInHand(hand));
+			return TypedActionResult.fail(stack);
 		}
-		user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), user.getStackInHand(hand)));
-		return TypedActionResult.success(user.getStackInHand(hand));
+		user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), stack));
+		return TypedActionResult.success(stack);
 	}
 
 	int consumption = 0;
