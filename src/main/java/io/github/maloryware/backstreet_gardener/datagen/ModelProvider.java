@@ -23,8 +23,7 @@ public class ModelProvider extends FabricModelProvider {
 		// this is redundant and stupid but whatever
 		gen.registerCrop(OPIUM_CROP, OpiumPlant.AGE, 0, 1, 2, 3, 4, 5);
 		gen.registerCrop(COKE_CROP, CokePlant.AGE, 0, 1, 2, 3, 4, 5);
-		gen.registerSimpleState(DRYING_RACK);
-		gen.registerSimpleState(DRYING_RACK_BOTTOM);
+
 	}
 
 
@@ -33,7 +32,6 @@ public class ModelProvider extends FabricModelProvider {
 	public void generateItemModels(ItemModelGenerator gen) {
 		// so... turns out this isn't needed because AliasedBlockItems already register the
 		// item model?? weird...
-		// either way uncommenting this code *will* cause the datagenerator to crash
 
 		/*
 		gen.register(BSGItems.PERUVIAN_COCA_SEED, Models.HANDHELD);

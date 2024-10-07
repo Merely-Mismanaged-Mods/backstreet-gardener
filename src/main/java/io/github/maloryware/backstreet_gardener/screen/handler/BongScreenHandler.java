@@ -1,6 +1,6 @@
 package io.github.maloryware.backstreet_gardener.screen.handler;
 
-import io.github.maloryware.backstreet_gardener.BackstreetGardenerClient;
+import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.datagen.ItemTagProvider;
@@ -77,7 +77,8 @@ public class BongScreenHandler extends ScreenHandler {
 
 		// what a fucking headache
 
-		super(BackstreetGardenerClient.BONG_SCREEN_HANDLER_TYPE, syncId);
+		super(BackstreetGardener.BONG_SCREEN_HANDLER_TYPE, syncId);
+
 
 
 		this.inventory = new SimpleInventory(2){
@@ -103,21 +104,23 @@ public class BongScreenHandler extends ScreenHandler {
 
 			if(!component.get().hasWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(Items.WATER_BUCKET)){
 
-				if(!player.getWorld().isClient()) {
+				if(player.getWorld().isClient()) {
 					bongWaterComponent.visibleArea(
 						PositionedRectangle.of(0, 0, 32, 32)
 					);
-
-					player.getMainHandStack().set(
-						BSGComponents.BONG_COMPONENT,
-						BongComponent.of(true, 255, component.get().resourceQuantity()));
-					BongScreenHandler.this.waterSlot.setStack(Items.BUCKET.getDefaultStack());
-
 				}
-
-				else {
+				else{
+						player.getMainHandStack().set(
+							BSGComponents.BONG_COMPONENT,
+							BongComponent.of(true, 255, component.get().resourceQuantity()));
+						BongScreenHandler.this.waterSlot.setStack(Items.BUCKET.getDefaultStack());
 					playerInventory.player.playSound(SoundEvents.ITEM_BUCKET_FILL, (float) Math.random(), (float) Math.random());
+
 				}
+
+
+
+
 			}
 
 
@@ -127,10 +130,10 @@ public class BongScreenHandler extends ScreenHandler {
 						BSGComponents.BONG_COMPONENT,
 						BongComponent.of(component.get().hasWater(), component.get().waterPurity(), 255));
 					BongScreenHandler.this.resourceSlot.setStack(Items.CHARCOAL.getDefaultStack());
-				}
-				else{
 					playerInventory.player.playSound(SoundEvents.BLOCK_WET_GRASS_STEP, (float) Math.random(), (float) Math.random());
+
 				}
+
 
 			}
 			component.set(stack.get(BSGComponents.BONG_COMPONENT));
@@ -232,6 +235,10 @@ public class BongScreenHandler extends ScreenHandler {
 
 	}
 
+	@Override
+	public void onContentChanged(Inventory inventory) {
+		super.onContentChanged(inventory);
+	}
 
 	@Override
 	public void onClosed(PlayerEntity player) {

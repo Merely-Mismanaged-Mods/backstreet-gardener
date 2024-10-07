@@ -4,15 +4,11 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
-import io.github.maloryware.backstreet_gardener.sound.moving.BubblingSoundInstance;
 import io.github.maloryware.backstreet_gardener.utils.ClientUtils;
 import io.wispforest.owo.particles.ClientParticles;
 import io.wispforest.owo.ui.core.PositionedRectangle;
 import io.wispforest.owo.ui.core.Size;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -87,14 +83,13 @@ public class BongItem extends Item {
 					ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
 					ClientParticles.setParticleCount(8);
 					ClientParticles.spawn(ParticleTypes.FLAME, world, user.getEyePos(), 0.01);
+					ClientUtils.playSoundInstance(ClientUtils.Sounds.BUBBLING, user);
 					return TypedActionResult.success(stack, false);
 
 				}
 			}
 			else {
 				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
-				// TODO: replace this!!! this will 100% crash every godforsaken server - it is NOT a good idea to keep it
-				ClientUtils.playSoundInstance(ClientUtils.Sounds.BUBBLING, user);
 			}
 			user.setCurrentHand(hand);
 			return TypedActionResult.success(stack, false);
@@ -126,7 +121,10 @@ public class BongItem extends Item {
 		{
 			return TypedActionResult.fail(stack);
 		}
-		user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), stack));
+
+		if(!world.isClient){
+			user.openHandledScreen(createScreenHandlerFactory(world, user.getBlockPos(), stack));
+		}
 		return TypedActionResult.success(stack);
 	}
 
@@ -139,6 +137,7 @@ public class BongItem extends Item {
 			do {
 				consumption++;
 			} while (Math.random() < 0.3D);
+
 		}
 	}
 
@@ -190,7 +189,7 @@ public class BongItem extends Item {
 
 
 
-	protected NamedScreenHandlerFactory createScreenHandlerFactory(World world, BlockPos pos, ItemStack stack) {
+	public static NamedScreenHandlerFactory createScreenHandlerFactory(World world, BlockPos pos, ItemStack stack) {
 		return new SimpleNamedScreenHandlerFactory((i, playerInventory, player) ->
 			new BongScreenHandler(
 				i,

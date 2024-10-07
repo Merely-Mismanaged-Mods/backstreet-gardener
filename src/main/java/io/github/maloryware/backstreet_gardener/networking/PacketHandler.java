@@ -9,6 +9,5 @@ public class PacketHandler {
 	public static void initialize(){
 
 		PayloadTypeRegistry.playS2C().register(S2CSoundPayload.ID, S2CSoundPayload.CODEC);
-
 	}
 }

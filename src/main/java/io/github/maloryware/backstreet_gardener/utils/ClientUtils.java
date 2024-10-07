@@ -27,4 +27,11 @@ public class ClientUtils {
 		}
 
 	}
+	/*
+	public static void openOwoHandledScreen(BaseOwoHandledScreen<> handledScreen, PlayerEntity player){
+		ServerPlayNetworking.send(player, new S2COwoScreenPayload());
+
+	}
+
+	 */
 }

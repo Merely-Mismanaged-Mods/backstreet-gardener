@@ -15,15 +15,16 @@ public class ClientPacketHandler {
 	private static SoundInstance soundToPlay;
 	public static void initialize(){
 
-		ClientPlayNetworking.registerGlobalReceiver(S2CSoundPayload.ID, ((payload, context) -> {
+		ClientPlayNetworking.registerGlobalReceiver(S2CSoundPayload.ID, ((payload, context) ->
 			context.client().execute(() -> {
 				if(payload.sound() == BUBBLING.getId()){
 					soundToPlay = new BubblingSoundInstance((PlayerEntity) context.client().world.getEntityById(payload.sourceId()));
 				}
 				context.client().getSoundManager().play(soundToPlay);
 				}
-			);
-		}));
+			))
+		);
+
 
 	}
 }

@@ -47,8 +47,10 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 	@Override
 	protected void build(FlowLayout rootComponent) {
 		StackLayout stack = Containers.stack(Sizing.fixed(176), Sizing.fixed(166));
+		if(!world.isClient()) {
+			player.getMainHandStack();
+		}
 
-		player.getMainHandStack();
 		waterVisibleArea =
 			player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater()
 				? PositionedRectangle.of(0, 0, 32, 32)
