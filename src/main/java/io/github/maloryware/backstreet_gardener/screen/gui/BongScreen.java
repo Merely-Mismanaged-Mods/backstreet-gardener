@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -64,16 +65,22 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 				32,
 				OwoScreenExtras.ColorParams.FIXED,
 				OwoScreenExtras.AnimParams.ANIMATED)
-			.setColor(Color.ofDye(DyeColor.CYAN))
+			.setColor(
+				Color.ofArgb(ColorHelper.Argb.lerp(
+					(float) player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).waterPurity() / 255,
+					Color.ofDye(DyeColor.GREEN).argb(),
+					Color.ofDye(DyeColor.LIGHT_BLUE).argb())))
 			.loop(true)
 			.visibleArea(waterVisibleArea)
 			.positioning(Positioning.absolute(120, 41))
 			.setZIndex(1)
 			.id("bongWater")
-			.speed(OwoScreenExtras.AnimSpeed.SLOW)
+			.speed(OwoScreenExtras.AnimSpeed.SLOWEST)
 			.blend(true)
 			.tooltip(Text.of("Test"));
-
+		BSGLOGGER.info("color - {}, purity -> {}, percent -> {}", Color.ofArgb(ColorHelper.Argb.lerp(
+			100,
+			Color.ofDye(DyeColor.LIGHT_BLUE).argb(), Color.ofDye(DyeColor.RED).argb())), (float) player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).waterPurity(), (float) player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).waterPurity() / 255);
 		stack.child(bongWaterComponent);
 
 		stack.child(

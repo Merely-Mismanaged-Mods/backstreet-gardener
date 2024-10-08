@@ -42,6 +42,7 @@ public class BongItem extends Item {
 	}
 	int smokingDuration = 0;
 	int randTick = 0;
+	int consumption = 0;
 
 	@Override
 	public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
@@ -77,12 +78,16 @@ public class BongItem extends Item {
 
 		 */
 
-		if(offHandStack.isOf(Items.FLINT_AND_STEEL) && stack.get(BSGComponents.BONG_COMPONENT).resourceQuantity() > 0) {
+		if(offHandStack.isOf(Items.FLINT_AND_STEEL)
+			&& stack.get(BSGComponents.BONG_COMPONENT).resourceQuantity() > 0
+			&& stack.get(BSGComponents.BONG_COMPONENT).waterPurity() > 0
+		) {
 			if (!world.isClient) {
 				if (Math.random() < 0.1F) {
+
 					ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
 					ClientParticles.setParticleCount(8);
-					ClientParticles.spawn(ParticleTypes.FLAME, world, user.getEyePos(), 0.01);
+					ClientParticles.spawnWithMaxAge(ParticleTypes.FLAME, user.getEyePos(), 120);
 					ClientUtils.playSoundInstance(ClientUtils.Sounds.BUBBLING, user);
 					return TypedActionResult.success(stack, false);
 
@@ -128,17 +133,16 @@ public class BongItem extends Item {
 		return TypedActionResult.success(stack);
 	}
 
-	int consumption = 0;
+
 	@Override
 	public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
-		super.usageTick(world, user, stack, remainingUseTicks);
-		if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL)){
-			smokingDuration++;
-			do {
-				consumption++;
-			} while (Math.random() < 0.3D);
 
-		}
+		//if(user.getOffHandStack().isOf(Items.FLINT_AND_STEEL)){
+		++smokingDuration;
+		++consumption;
+
+		//}
+		super.usageTick(world, user, stack, remainingUseTicks);
 	}
 
 	@Override
@@ -177,12 +181,12 @@ public class BongItem extends Item {
 			BongComponent updateComp = BongComponent.of(comp.hasWater(), newWaterPurity, newResourceQuantity);
 			BSGLOGGER.info("Updated component:\n{}", updateComp);
 			user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
-
+			smokingDuration = 0	;
+			consumption = 0;
 
 		}
 		BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}\nConsumption: {}", smokingDuration, particleCount, consumption);
-		smokingDuration = 0	;
-		consumption = 0;
+
 
 		super.onStoppedUsing(stack, world, user, remainingUseTicks);
 	}

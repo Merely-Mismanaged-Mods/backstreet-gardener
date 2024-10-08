@@ -5,6 +5,7 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.datagen.ItemTagProvider;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
+import io.wispforest.owo.ui.core.Color;
 import io.wispforest.owo.ui.core.PositionedRectangle;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -16,6 +17,7 @@ import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.DyeColor;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -102,9 +104,10 @@ public class BongScreenHandler extends ScreenHandler {
 
 		this.inventory.addListener(sender -> {
 
-			if(!component.get().hasWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(Items.WATER_BUCKET)){
+  				if(!component.get().hasWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(Items.WATER_BUCKET)){
 
 				if(player.getWorld().isClient()) {
+					bongWaterComponent.setColor(Color.ofDye(DyeColor.LIGHT_BLUE));
 					bongWaterComponent.visibleArea(
 						PositionedRectangle.of(0, 0, 32, 32)
 					);

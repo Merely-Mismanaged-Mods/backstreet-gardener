@@ -27,7 +27,9 @@ public class OwoScreenExtras {
 	}
 	public enum AnimSpeed{
 		FAST,
+		FASTEST,
 		SLOW,
+		SLOWEST,
 		DEFAULT
 	}
 
@@ -199,8 +201,10 @@ public class OwoScreenExtras {
 				}
 
 				switch (this.speed){
+					case FASTEST -> sectionY*=3;
 					case FAST -> sectionY*=2;
 					case SLOW -> buffer++;
+					case SLOWEST -> buffer += 2;
 				}
 
 				if (currentStep < maxStep) {
