@@ -169,7 +169,7 @@ public class BongItem extends Item {
 
 			}
 			ClientParticles.reset();
-			world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.BLOWING, SoundCategory.PLAYERS);
+			world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.BLOWING, SoundCategory.PLAYERS, 0.7F, (float) Math.clamp(Math.random(), 0.4F, 0.7F));
 
 
 		}

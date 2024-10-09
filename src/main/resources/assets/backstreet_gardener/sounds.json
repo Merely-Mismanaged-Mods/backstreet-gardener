@@ -12,6 +12,12 @@
       "backstreet_gardener:smoking"
     ]
   },
+  "blowing": {
+    "subtitle": "sound.backstreet_gardener.blowing",
+    "sounds": [
+      "backstreet_gardener:blowing"
+    ]
+  },
   "bong_bubbling": {
     "subtitle": "sound.backstreet_gardener.bong_bubbling",
     "sounds": [
