@@ -37,11 +37,15 @@ public class BubblingSoundInstance extends MovingSoundInstance {
 	@Override
 	public void tick() {
 
+		this.x = player.getPos().getX();
+		this.y = player.getPos().getY() + 1.00;
+		this.z = player.getPos().getZ();
+
 		if(!player.getMainHandStack().isOf(BSGItems.BONG) || player.getMainHandStack() != player.getActiveItem()){
 			this.setDone();
 		}
 		else {
-			this.volume = 0.75f;
+			this.volume = 0.35f;
 		}
 
 	}

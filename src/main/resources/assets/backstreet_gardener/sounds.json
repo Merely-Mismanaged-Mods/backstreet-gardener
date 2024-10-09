@@ -11,5 +11,11 @@
     "sounds": [
       "backstreet_gardener:smoking"
     ]
+  },
+  "bong_bubbling": {
+    "subtitle": "sound.backstreet_gardener.bong_bubbling",
+    "sounds": [
+      "backstreet_gardener:bong_bubbling"
+    ]
   }
 }

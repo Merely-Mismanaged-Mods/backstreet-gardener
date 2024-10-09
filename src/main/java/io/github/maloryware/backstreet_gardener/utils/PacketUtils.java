@@ -9,7 +9,7 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
 @SuppressWarnings("DuplicateBranchesInSwitch")
-public class ClientUtils {
+public class PacketUtils {
 
 	private static Identifier soundId;
 	public enum Sounds {
@@ -20,11 +20,13 @@ public class ClientUtils {
 	public static void playSoundInstance(Sounds sound, PlayerEntity user){
 		switch (sound){
 			case BUBBLING -> soundId = BSGSoundsClient.BUBBLING.getId();
+			// placeholder
 			case BLOWING_SMOKE -> soundId = BSGSoundsClient.BUBBLING.getId();
 		}
 		for (ServerPlayerEntity player : PlayerLookup.tracking(user)) {
 			ServerPlayNetworking.send(player, new S2CSoundPayload(user.getId(), soundId));
 		}
+		ServerPlayNetworking.send((ServerPlayerEntity) user, new S2CSoundPayload(user.getId(), soundId));
 
 	}
 	/*

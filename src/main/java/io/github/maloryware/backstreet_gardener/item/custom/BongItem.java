@@ -4,7 +4,7 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
-import io.github.maloryware.backstreet_gardener.utils.ClientUtils;
+import io.github.maloryware.backstreet_gardener.utils.PacketUtils;
 import io.wispforest.owo.particles.ClientParticles;
 import io.wispforest.owo.ui.core.PositionedRectangle;
 import io.wispforest.owo.ui.core.Size;
@@ -83,15 +83,18 @@ public class BongItem extends Item {
 			&& stack.get(BSGComponents.BONG_COMPONENT).waterPurity() > 0
 		) {
 			if (!world.isClient) {
-				if (Math.random() < 0.1F) {
 
+
+					/*
 					ClientParticles.setVelocity(new Vec3d(0, 0.005, 0));
 					ClientParticles.setParticleCount(8);
-					ClientParticles.spawnWithMaxAge(ParticleTypes.FLAME, user.getEyePos(), 120);
-					ClientUtils.playSoundInstance(ClientUtils.Sounds.BUBBLING, user);
+					ClientParticles.spawn(ParticleTypes.FLAME, world, user.getEyePos());
+					 */
+
+					PacketUtils.playSoundInstance(PacketUtils.Sounds.BUBBLING, user);
 					return TypedActionResult.success(stack, false);
 
-				}
+				// }
 			}
 			else {
 				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
@@ -166,6 +169,8 @@ public class BongItem extends Item {
 
 			}
 			ClientParticles.reset();
+			world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.BLOWING, SoundCategory.PLAYERS);
+
 
 		}
 		else {
