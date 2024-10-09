@@ -4,6 +4,7 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
+import io.github.maloryware.backstreet_gardener.sound.BSGSoundsClient;
 import io.github.maloryware.backstreet_gardener.utils.PacketUtils;
 import io.wispforest.owo.particles.ClientParticles;
 import io.wispforest.owo.ui.core.PositionedRectangle;
@@ -153,7 +154,7 @@ public class BongItem extends Item {
 		var lookingAt = user.getRotationVector().normalize().multiply(0.5);
 		var particleSpawnPos = new Vec3d(user.getX() + lookingAt.x, user.getEyeY() - 0.3, user.getZ() + lookingAt.z);
 		var particleCount = (int) ((Math.random()+0.2) * smokingDuration + 12);
-		if(world.isClient()) {
+		if(world.isClient) {
 			ClientParticles.setParticleCount(1);
 
 			ClientParticles.persist();
@@ -169,11 +170,11 @@ public class BongItem extends Item {
 
 			}
 			ClientParticles.reset();
-			world.playSound((PlayerEntity) user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.BLOWING, SoundCategory.PLAYERS, 0.7F, (float) Math.clamp(Math.random(), 0.4F, 0.6F));
 
 
 		}
 		else {
+			PacketUtils.playSoundInstance(PacketUtils.Sounds.BLOWING_SMOKE, (PlayerEntity) user);
 			BongComponent comp = stack.get(BSGComponents.BONG_COMPONENT);
 			BSGLOGGER.info("Precheck\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", comp.waterPurity(), comp.resourceQuantity(), comp.hasWater(), consumption);
 			int newWaterPurity = (int) (comp.waterPurity() - 0.1 * consumption);
@@ -191,9 +192,6 @@ public class BongItem extends Item {
 
 		}
 		BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}\nConsumption: {}", smokingDuration, particleCount, consumption);
-
-
-		super.onStoppedUsing(stack, world, user, remainingUseTicks);
 	}
 
 

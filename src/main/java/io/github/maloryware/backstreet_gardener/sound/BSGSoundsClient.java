@@ -15,7 +15,7 @@ public class BSGSoundsClient {
 			SoundEvent.of(Identifier.of(BackstreetGardener.ID,id)));
 	}
 
-
+	public static final SoundEvent BLOWING = register("blowing");
 	public static final SoundEvent BUBBLING = register("bong_bubbling");
 	public static void initialize(){
 

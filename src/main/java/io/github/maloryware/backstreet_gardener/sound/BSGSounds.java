@@ -17,7 +17,7 @@ public class BSGSounds {
 
 	public static final SoundEvent LIGHTER_FLICKING = register("lighter_flicking");
 	public static final SoundEvent SMOKING = register("smoking");
-	public static final SoundEvent BLOWING = register("blowing");
+
 
 	// TODO: go somewhere with this if noelle accepts the request
 	public static final SoundEvent FEMTANYL = register("femtanyl");

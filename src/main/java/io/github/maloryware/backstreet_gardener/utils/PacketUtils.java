@@ -8,7 +8,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-@SuppressWarnings("DuplicateBranchesInSwitch")
 public class PacketUtils {
 
 	private static Identifier soundId;
@@ -20,8 +19,7 @@ public class PacketUtils {
 	public static void playSoundInstance(Sounds sound, PlayerEntity user){
 		switch (sound){
 			case BUBBLING -> soundId = BSGSoundsClient.BUBBLING.getId();
-			// placeholder
-			case BLOWING_SMOKE -> soundId = BSGSoundsClient.BUBBLING.getId();
+			case BLOWING_SMOKE -> soundId = BSGSoundsClient.BLOWING.getId();
 		}
 		for (ServerPlayerEntity player : PlayerLookup.tracking(user)) {
 			ServerPlayNetworking.send(player, new S2CSoundPayload(user.getId(), soundId));
@@ -29,11 +27,5 @@ public class PacketUtils {
 		ServerPlayNetworking.send((ServerPlayerEntity) user, new S2CSoundPayload(user.getId(), soundId));
 
 	}
-	/*
-	public static void openOwoHandledScreen(BaseOwoHandledScreen<> handledScreen, PlayerEntity player){
-		ServerPlayNetworking.send(player, new S2COwoScreenPayload());
 
-	}
-
-	 */
 }
