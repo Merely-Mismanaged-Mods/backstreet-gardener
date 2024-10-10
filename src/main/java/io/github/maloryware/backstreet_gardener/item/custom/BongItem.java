@@ -4,7 +4,6 @@ import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
-import io.github.maloryware.backstreet_gardener.sound.BSGSoundsClient;
 import io.github.maloryware.backstreet_gardener.utils.PacketUtils;
 import io.wispforest.owo.particles.ClientParticles;
 import io.wispforest.owo.ui.core.PositionedRectangle;
@@ -115,6 +114,7 @@ public class BongItem extends Item {
 
 
 			}
+
 		else if(user.isSneaking()){
 			if(!world.isClient()) {
 				stack.set(BSGComponents.BONG_COMPONENT, BongComponent.of(false, 0, temp.resourceQuantity()));
@@ -205,6 +205,11 @@ public class BongItem extends Item {
 			), stack.getName());
 	}
 
+	@Override
+	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+		if(!world.isClient) PacketUtils.playSoundInstance(PacketUtils.Sounds.BLOWING_SMOKE, (PlayerEntity) user);
+		return super.finishUsing(stack, world, user);
+	}
 }
 	// the following code was based off of WispForest's OutTheDoor mod
 	// special thanks to Glisco for providing me with this!
