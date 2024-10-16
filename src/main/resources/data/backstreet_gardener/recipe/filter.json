@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "BSG_component",
+  "ingredients": [
+    {
+      "item": "backstreet_gardener:weaved_cotton"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "backstreet_gardener:weaved_cotton"
+    }
+  ],
+  "result": {
+    "id": "backstreet_gardener:filter",
+    "count": 16
+  }
+}

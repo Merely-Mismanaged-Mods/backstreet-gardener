@@ -93,7 +93,6 @@ public class BongItem extends Item {
 					 */
 
 					PacketUtils.playSoundInstance(PacketUtils.Sounds.BUBBLING, user);
-					return TypedActionResult.success(stack, false);
 
 				// }
 			}

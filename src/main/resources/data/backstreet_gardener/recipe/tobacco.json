@@ -1,0 +1,25 @@
+
+
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "BSG_drugs",
+  "ingredients": [
+    {
+      "item": "minecraft:shears"
+    },
+    {
+      "item": "backstreet_gardener:dry_tobacco_leaf"
+    }
+  ],
+  "result": {
+    "id": "backstreet_gardener:tobacco",
+    "count": 3
+  },
+  "owo:remainders": {
+    "minecraft:shears": "minecraft:shears"
+  }
+}
+
+
+
+

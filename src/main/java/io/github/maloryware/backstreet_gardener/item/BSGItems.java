@@ -30,24 +30,26 @@ public class BSGItems {
 	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item CIGARETTE_BUTT = new Item(new Item.Settings().maxCount(8));
 
-
+	// weed, tobacco, wrap, filter
 	public static final Item BLUNT = new SmokableItem(
 		new Item.Settings()
-			.rarity(Rarity.RARE)
+			.rarity(Rarity.UNCOMMON)
 			.maxDamage(255).maxCount(1)
 			.component(IS_LIT, false),
 		null);
 
+
+	// weed, wrap, filter
 	public static final Item JOINT = new SmokableItem(
 		new Item.Settings()
-			.rarity(Rarity.RARE)
+			.rarity(Rarity.UNCOMMON)
 			.maxDamage(255).maxCount(1)
 			.component(IS_LIT, false),
 		null);
 
 	public static final Item CIGARETTE = new SmokableItem(
 		new Item.Settings()
-			.rarity(Rarity.RARE)
+			.rarity(Rarity.UNCOMMON)
 			.maxDamage(255).maxCount(1)
 			.component(IS_LIT, false),
 		CIGARETTE_BUTT);
@@ -78,7 +80,13 @@ public class BSGItems {
 		.rarity(Rarity.UNCOMMON));
 
 	public static final Item DRYING_RACK_ITEM = new AliasedBlockItem(DRYING_RACK_BOTTOM, new Item.Settings());
-//	public static final Item COKE_BAGGIE = new AliasedBlockItem(COCAINE_BLOCK, new Item.Settings());
+	public static final Item BAGGIE = new Item(new Item.Settings());
+
+	public static final Item WEAVED_COTTON = new Item(new Item.Settings());
+	public static final Item WRAPPER = new Item(new Item.Settings());
+	public static final Item FILTER = new Item(new Item.Settings());
+	public static final Item TOBACCO = new Item(new Item.Settings().rarity(Rarity.RARE));
+	public static final Item WEED = new Item(new Item.Settings().rarity(Rarity.RARE));
 
 	public static void initialize(){
 		//smokables
@@ -102,9 +110,14 @@ public class BSGItems {
 		register("dry_tobacco_leaf", DRY_TOBACCO_LEAF);
 		//etc
 		register("drying_rack_item", DRYING_RACK_ITEM);
-		//register("coke_baggie", COKE_BAGGIE);
+		register("tobacco",TOBACCO);
+		register("filter",FILTER);
+		register("wrapper",WRAPPER);
+		register("weaved_cotton",WEAVED_COTTON);
+		register("baggie", BAGGIE);
 		//smokable containers
 		register("bong", BONG);
+		register("weed", WEED);
 
 	}
 

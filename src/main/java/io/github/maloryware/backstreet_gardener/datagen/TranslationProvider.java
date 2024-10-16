@@ -34,6 +34,14 @@ public class TranslationProvider extends FabricLanguageProvider {
 		translationBuilder.add(TOBACCO_LEAF, "Tobacco Leaf");
 		translationBuilder.add(DRY_TOBACCO_LEAF, "Dry Tobacco Leaf");
 
+		translationBuilder.add(DRYING_RACK_ITEM, "Drying Rack");
+
+		translationBuilder.add(WEED, "Weed");
+		translationBuilder.add(TOBACCO, "Tobacco");
+		translationBuilder.add(WRAPPER, "Wrapper");
+		translationBuilder.add(FILTER, "Filter");
+		translationBuilder.add(WEAVED_COTTON, "Weaved Cotton");
+
 
 
 		translationBuilder.add(BONG, "Bong");

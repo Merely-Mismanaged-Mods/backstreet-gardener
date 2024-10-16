@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "BSG_smokable",
+  "pattern": [
+    "AD",
+    "BC"
+  ],
+  "key": {
+    "A": {
+      "item": "backstreet_gardener:tobacco"
+    },
+    "B": {
+      "item": "backstreet_gardener:wrapper"
+    },
+    "C": {
+      "item": "backstreet_gardener:filter"
+    },
+    "D": {
+      "item": "backstreet_gardener:weed"
+    }
+  },
+  "result": {
+    "id": "backstreet_gardener:blunt",
+    "count": 1
+  }
+}

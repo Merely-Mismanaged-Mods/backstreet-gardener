@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "BSG_component",
+  "pattern": [
+    "AB",
+    "BA"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:string"
+    },
+    "B": {
+      "item": "minecraft:charcoal"
+    }
+  },
+  "result": {
+    "id": "backstreet_gardener:weaved_cotton",
+    "count": 8
+  }
+}

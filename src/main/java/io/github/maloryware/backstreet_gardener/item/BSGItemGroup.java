@@ -36,6 +36,11 @@ public class BSGItemGroup {
 			itemStackCollector.add(BONG);
 
 			itemStackCollector.add(DRYING_RACK_ITEM);
+			itemStackCollector.add(WRAPPER);
+			itemStackCollector.add(FILTER);
+			itemStackCollector.add(WEAVED_COTTON);
+			itemStackCollector.add(WEED);
+			itemStackCollector.add(TOBACCO);
 
 		})).build();
 

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "BSG_smokable",
+  "pattern": [
+    "A ",
+    "BC"
+  ],
+  "key": {
+    "A": {
+      "item": "backstreet_gardener:weed"
+    },
+    "B": {
+      "item": "backstreet_gardener:wrapper"
+    },
+    "C": {
+      "item": "backstreet_gardener:filter"
+    }
+  },
+  "result": {
+    "id": "backstreet_gardener:joint",
+    "count": 1
+  }
+}

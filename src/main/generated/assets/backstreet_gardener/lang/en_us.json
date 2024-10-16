@@ -10,11 +10,17 @@
   "item.backstreet_gardener.cocaine_leaf": "Coca Leaf",
   "item.backstreet_gardener.coke_seeds": "Coca Plant Seeds",
   "item.backstreet_gardener.dry_tobacco_leaf": "Dry Tobacco Leaf",
+  "item.backstreet_gardener.drying_rack_item": "Drying Rack",
+  "item.backstreet_gardener.filter": "Filter",
   "item.backstreet_gardener.joint": "Joint",
   "item.backstreet_gardener.opium": "Opium",
   "item.backstreet_gardener.opium_leaf": "Opium Leaf",
   "item.backstreet_gardener.poppy_seeds": "Opiate Poppy Seeds",
+  "item.backstreet_gardener.tobacco": "Tobacco",
   "item.backstreet_gardener.tobacco_leaf": "Tobacco Leaf",
   "item.backstreet_gardener.tobacco_seeds": "Tobacco Plant Seeds",
+  "item.backstreet_gardener.weaved_cotton": "Weaved Cotton",
+  "item.backstreet_gardener.weed": "Weed",
+  "item.backstreet_gardener.wrapper": "Wrapper",
   "substances": "Backstreet Gardener"
 }
