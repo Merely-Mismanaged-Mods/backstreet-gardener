@@ -21,7 +21,6 @@ public class TranslationProvider extends FabricLanguageProvider {
 		translationBuilder.add(CIGARETTE, "Cigarette");
 		translationBuilder.add(CIGARETTE_BUTT, "Cigarette Butt");
 		translationBuilder.add(COKE, "Cocaine");
-		translationBuilder.add(OPIUM, "Opium");
 
 		translationBuilder.add(PERUVIAN_COCA_SEED, "Coca Plant Seeds");
 		translationBuilder.add(POPPY_SEED, "Opiate Poppy Seeds");
@@ -32,15 +31,18 @@ public class TranslationProvider extends FabricLanguageProvider {
 		translationBuilder.add(OPIUM_LEAF, "Opium Leaf");
 		translationBuilder.add(CANNABIS_LEAF, "Cannabis Leaf");
 		translationBuilder.add(TOBACCO_LEAF, "Tobacco Leaf");
-		translationBuilder.add(DRY_TOBACCO_LEAF, "Dry Tobacco Leaf");
 
 		translationBuilder.add(DRYING_RACK_ITEM, "Drying Rack");
+		translationBuilder.add(CURING_STATION_ITEM,"Curing Station");
 
 		translationBuilder.add(WEED, "Weed");
 		translationBuilder.add(TOBACCO, "Tobacco");
 		translationBuilder.add(WRAPPER, "Wrapper");
 		translationBuilder.add(FILTER, "Filter");
 		translationBuilder.add(WEAVED_COTTON, "Weaved Cotton");
+		translationBuilder.add(COKE_PASTE, "Raw Coca Paste");
+		translationBuilder.add(COKE_COMPOSITE, "Unfiltered Cocaine Composite");
+
 
 
 

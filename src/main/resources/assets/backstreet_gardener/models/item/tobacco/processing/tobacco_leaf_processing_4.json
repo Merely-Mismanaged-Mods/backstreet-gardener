@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "backstreet_gardener:item/tobacco/processing/tobacco_leaf_processing_4"
+  }
+}

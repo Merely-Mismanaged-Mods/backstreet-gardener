@@ -1,5 +1,6 @@
 package io.github.maloryware.backstreet_gardener.block;
 
+import io.github.maloryware.backstreet_gardener.block.custom.curing_station.CuringStationBlockEntity;
 import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
@@ -15,6 +16,11 @@ public class BSGBlockEntityTypes {
 	public static final BlockEntityType<DryingRackBlockEntity> DRYING_RACK = register(
 		"drying_rack",
 		BlockEntityType.Builder.create(DryingRackBlockEntity::new, BSGBlocks.DRYING_RACK).build()
+	);
+
+	public static final BlockEntityType<CuringStationBlockEntity> CURING_STATION = register(
+		"curing_station",
+		BlockEntityType.Builder.create(CuringStationBlockEntity::new, BSGBlocks.CURING_STATION_BLOCK).build()
 	);
 
 	public static void initialize(){

@@ -3,6 +3,8 @@ package io.github.maloryware.backstreet_gardener;
 
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
 import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
+import io.github.maloryware.backstreet_gardener.block.custom.curing_station.CuringStationBlockEntity;
+import io.github.maloryware.backstreet_gardener.block.custom.curing_station.CuringStationBlockEntityRenderer;
 import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBlockEntityRenderer;
 import io.github.maloryware.backstreet_gardener.datagen.ModelPredicateProvider;
 import io.github.maloryware.backstreet_gardener.networking.ClientPacketHandler;
@@ -29,8 +31,10 @@ public class BackstreetGardenerClient implements ClientModInitializer {
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BSGBlocks.COKE_CROP);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BSGBlocks.CANNABIS_CROP);
 		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BSGBlocks.TOBACCO_CROP);
+		BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), BSGBlocks.CURING_STATION_BLOCK);
 		HandledScreens.register(BackstreetGardener.BONG_SCREEN_HANDLER_TYPE, BongScreen::new);
 		BlockEntityRendererFactories.register(BSGBlockEntityTypes.DRYING_RACK, DryingRackBlockEntityRenderer::new);
+		BlockEntityRendererFactories.register(BSGBlockEntityTypes.CURING_STATION, CuringStationBlockEntityRenderer::new);
 
 
 	}

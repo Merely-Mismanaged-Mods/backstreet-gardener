@@ -29,6 +29,7 @@ public class BlockLootTableProvider extends FabricBlockLootTableProvider {
 	@Override
 	public void generate() {
 		addDrop(BSGBlocks.DRYING_RACK, BSGItems.DRYING_RACK_ITEM);
+		addDrop(BSGBlocks.CURING_STATION_BLOCK, BSGItems.CURING_STATION_ITEM);
 		// oh boy here comes this huge ass mess!
 		// i'll try to keep it... organized
 

@@ -12,6 +12,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 
+import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.CURING_STATION_BLOCK;
 import static io.github.maloryware.backstreet_gardener.block.BSGBlocks.DRYING_RACK_BOTTOM;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 
@@ -23,11 +24,13 @@ public class BSGItems {
 
 	// TODO: replace null stubitems!!!
 
+	/*
+	 * each item requires:
+	 * - registry
+	 * - model datagen
+	 * - translation datagen
+	 */
 
-
-	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.RARE));
-
-	public static final Item OPIUM = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item CIGARETTE_BUTT = new Item(new Item.Settings().maxCount(8));
 
 	// weed, tobacco, wrap, filter
@@ -72,14 +75,11 @@ public class BSGItems {
 
 	public static final Item COCA_LEAF = new Item(new Item.Settings());
 	public static final Item OPIUM_LEAF = new Item(new Item.Settings());
-	public static final Item CANNABIS_LEAF = new Item(new Item.Settings());
-	public static final Item TOBACCO_LEAF = new ProcessableLeafItem(new Item.Settings());
-
-	public static final Item DRY_TOBACCO_LEAF = new Item(new Item.Settings()
-		.component(BSGComponents.PROGRESS, 0)
-		.rarity(Rarity.UNCOMMON));
+	public static final Item CANNABIS_LEAF = new ProcessableLeafItem(172, new Item.Settings());
+	public static final Item TOBACCO_LEAF = new ProcessableLeafItem(128, new Item.Settings());
 
 	public static final Item DRYING_RACK_ITEM = new AliasedBlockItem(DRYING_RACK_BOTTOM, new Item.Settings());
+	public static final Item CURING_STATION_ITEM = new AliasedBlockItem(CURING_STATION_BLOCK, new Item.Settings());
 	public static final Item BAGGIE = new Item(new Item.Settings());
 
 	public static final Item WEAVED_COTTON = new Item(new Item.Settings());
@@ -88,13 +88,20 @@ public class BSGItems {
 	public static final Item TOBACCO = new Item(new Item.Settings().rarity(Rarity.RARE));
 	public static final Item WEED = new Item(new Item.Settings().rarity(Rarity.RARE));
 
+	public static final Item COKE_PASTE = new Item(new Item.Settings());
+	public static final Item COKE_COMPOSITE = new Item(new Item.Settings());
+	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.RARE));
+
+
 	public static void initialize(){
 		//smokables
 		register("blunt", BLUNT);
 		register("joint", JOINT);
 		register("cigarette", CIGARETTE);
 		register("cocaine", COKE);
-		register("opium", OPIUM);
+		register("coke_paste", COKE_PASTE);
+		register("coke_composite", COKE_COMPOSITE);
+
 		//stubs
 		register("cigarette_butt", CIGARETTE_BUTT);
 		//seeds
@@ -107,9 +114,9 @@ public class BSGItems {
 		register("opium_leaf", OPIUM_LEAF);
 		register("cannabis_leaf", CANNABIS_LEAF);
 		register("tobacco_leaf", TOBACCO_LEAF);
-		register("dry_tobacco_leaf", DRY_TOBACCO_LEAF);
 		//etc
 		register("drying_rack_item", DRYING_RACK_ITEM);
+		register("curing_station_item", CURING_STATION_ITEM);
 		register("tobacco",TOBACCO);
 		register("filter",FILTER);
 		register("wrapper",WRAPPER);

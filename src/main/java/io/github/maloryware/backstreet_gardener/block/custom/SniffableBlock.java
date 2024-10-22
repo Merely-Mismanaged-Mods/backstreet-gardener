@@ -18,6 +18,7 @@ import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
@@ -60,7 +61,10 @@ public class SniffableBlock extends Block {
 
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-		builder.add(PILED).add(LINES);
+		builder
+			.add(PILED)
+			.add(LINES)
+			.add(Properties.HORIZONTAL_FACING);
 	}
 
 	@Override
@@ -72,8 +76,8 @@ public class SniffableBlock extends Block {
 		super(settings);
 		setDefaultState(getDefaultState()
 			.with(LINES, 0)
-			.with(PILED, false));
-		// BSGLOGGER.info("Created new block -> {}", this);
+			.with(PILED, false)
+			.with(Properties.HORIZONTAL_FACING, Direction.NORTH));
 	}
 
 	@Override

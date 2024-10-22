@@ -32,10 +32,11 @@ public class BSGItemGroup {
 			itemStackCollector.add(BLUNT);
 			itemStackCollector.add(JOINT);
 			itemStackCollector.add(COKE);
-			itemStackCollector.add(OPIUM);
+			//itemStackCollector.add(OPIUM);
 			itemStackCollector.add(BONG);
 
 			itemStackCollector.add(DRYING_RACK_ITEM);
+			itemStackCollector.add(CURING_STATION_ITEM);
 			itemStackCollector.add(WRAPPER);
 			itemStackCollector.add(FILTER);
 			itemStackCollector.add(WEAVED_COTTON);

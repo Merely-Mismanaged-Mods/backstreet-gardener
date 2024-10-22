@@ -1,5 +1,3 @@
-
-
 {
   "type": "minecraft:crafting_shapeless",
   "group": "BSG_drugs",
@@ -8,7 +6,14 @@
       "item": "minecraft:shears"
     },
     {
-      "item": "backstreet_gardener:dry_tobacco_leaf"
+      "fabric:type": "fabric:components",
+
+      "base": {
+        "item": "backstreet_gardener:tobacco_leaf"
+      },
+      "components": {
+        "backstreet_gardener:progress": 128
+      }
     }
   ],
   "result": {

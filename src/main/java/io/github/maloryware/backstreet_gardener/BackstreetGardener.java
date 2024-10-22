@@ -38,6 +38,13 @@ public class BackstreetGardener implements ModInitializer {
 	// implementation method and realistically speaking it doesn't really matter
 	// so yeah. some are initialized here, some aren't, but rest assured the true
 	// initialized classes were the friends we made along the way
+
+	// /|\
+	//  |
+	//  |
+	//  |
+	// chat... is that guy retarded?
+
 	@Override
 	public void onInitialize() {
 

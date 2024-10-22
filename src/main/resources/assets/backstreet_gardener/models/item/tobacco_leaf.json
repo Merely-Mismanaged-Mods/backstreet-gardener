@@ -1,0 +1,39 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "backstreet_gardener:item/tobacco/tobacco_leaf"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "backstreet_gardener:dryness": 0.2
+      },
+      "model": "backstreet_gardener:item/tobacco/processing/tobacco_leaf_processing_1"
+    },
+    {
+      "predicate": {
+        "backstreet_gardener:dryness": 0.4
+      },
+      "model": "backstreet_gardener:item/tobacco/processing/tobacco_leaf_processing_2"
+    },
+    {
+      "predicate": {
+        "backstreet_gardener:dryness": 0.6
+      },
+      "model": "backstreet_gardener:item/tobacco/processing/tobacco_leaf_processing_3"
+    },
+    {
+      "predicate": {
+        "backstreet_gardener:dryness": 0.8
+      },
+      "model": "backstreet_gardener:item/tobacco/processing/tobacco_leaf_processing_4"
+    },
+    {
+      "predicate": {
+        "backstreet_gardener:dryness": 1
+      },
+      "model": "backstreet_gardener:item/tobacco/dry_tobacco_leaf"
+    }
+  ]
+}
+

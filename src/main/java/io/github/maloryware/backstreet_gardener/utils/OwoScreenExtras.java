@@ -39,6 +39,9 @@ public class OwoScreenExtras {
 
 
 	// todo: change this to something actually fucking usable holy shit it's BAD
+
+	// note: i threw a fit after being muted for being pissy
+	// and left the Wisp Forest server so this is. unlikely.
 	public static class AdvancedTextureComponent extends TextureComponent{
 
 		private Color COLOR_GRADIENT_FADE_START;

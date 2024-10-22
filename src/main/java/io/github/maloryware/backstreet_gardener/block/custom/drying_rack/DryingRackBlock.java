@@ -2,6 +2,7 @@ package io.github.maloryware.backstreet_gardener.block.custom.drying_rack;
 
 import com.mojang.serialization.MapCodec;
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
+import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -84,6 +85,8 @@ public class DryingRackBlock extends BlockWithEntity {
 		if (!(world.getBlockEntity(pos) instanceof DryingRackBlockEntity blockEntity)) return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
 
 		if (player.getStackInHand(hand).isOf(BSGItems.TOBACCO_LEAF)){
+
+
 			boolean wasEmpty = false;
 			for(int n = 0; n<6; n++){
 				if(blockEntity.getStack(n).isEmpty()){
@@ -102,7 +105,7 @@ public class DryingRackBlock extends BlockWithEntity {
             boolean hadDryLeaves = false;
 			List<Integer> dryLeavesIndexes = new java.util.ArrayList<>(List.of());
             for (int n = 0; n < 6; n++) {
-                if (blockEntity.getStack(n).isOf(BSGItems.DRY_TOBACCO_LEAF)){
+                if (!blockEntity.getStack(n).isEmpty() && blockEntity.getStack(n).get(BSGComponents.PROGRESS).equals(127)){
 					hadDryLeaves = true;
 					dryLeavesIndexes.add(n);
 				}
