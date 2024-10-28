@@ -76,9 +76,9 @@ public class DryingRackBlockEntity extends BlockEntity implements SimplerInvento
 
 				}
 			}
-			blockEntity.markDirty();
 			blockEntity.nextProgressTick = 0;
 		}
+		blockEntity.markDirty();
 		world.updateListeners(pos, state, state, Block.NOTIFY_ALL);
 
 		blockEntity.nextProgressTick++;

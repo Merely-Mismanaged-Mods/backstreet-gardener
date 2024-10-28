@@ -106,14 +106,6 @@ public class CuringStationBlock extends BlockWithEntity {
 	public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
 		return this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
 	}
-	@Override
-	public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-		return super.onBreak(world, pos, state, player);
-	}
-	@Override
-	protected boolean canPlaceAt(BlockState state, WorldView world, BlockPos pos) {
-		return super.canPlaceAt(state, world, pos) && super.canPlaceAt(state, world, pos.up());
-	}
 	//
 	//
 	// boilerplate overrides end
@@ -152,7 +144,7 @@ public class CuringStationBlock extends BlockWithEntity {
 				boolean containedLeaf = false;
 				boolean hadDryLeaves = false;
 				List<Integer> dryLeavesIndexes = new java.util.ArrayList<>(List.of());
-				for (int n = 0; n < 24; n++) {
+				for (int n = 23; n > 0; n--) {
 					var currStack = blockEntity.getStack(n);
 					// second check will b changed when these screen-less stations r updated
 					if (currStack.isOf(BSGItems.CANNABIS_LEAF) && Objects.equals(currStack.get(BSGComponents.PROGRESS), 172)) {
@@ -161,7 +153,7 @@ public class CuringStationBlock extends BlockWithEntity {
 					}
 				}
 				if (!hadDryLeaves) {
-					for (int n = 0; n < 24; n++) {
+					for (int n = 23; n > 0; n--) {
 						var currStack = blockEntity.getStack(n);
 						if (!currStack.isEmpty()) {
 							containedLeaf = true;
@@ -186,9 +178,4 @@ public class CuringStationBlock extends BlockWithEntity {
 		return ItemActionResult.SUCCESS;
 	}
 
-	@Override
-	protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-		if(player.isSneaking()) onUseWithItem(ItemStack.EMPTY, state, world, pos, player, Hand.MAIN_HAND, hit);
-		return super.onUse(state, world, pos, player, hit);
-	}
 }

@@ -26,7 +26,6 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 	public void render(CuringStationBlockEntity entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
 		Direction direction = entity.getCachedState().get(Properties.HORIZONTAL_FACING);
 		DefaultedList<ItemStack> items = entity.getItems();
-		var facing = entity.getCachedState().get(Properties.HORIZONTAL_FACING);
 		int k = (int)entity.getPos().asLong();
 
 		int lightSource = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos());
@@ -39,7 +38,7 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 				// sum 0.06 to the side-varying var, and 0.0378125 to y
 
 				matrices.push();
-				if(facing == Direction.NORTH) {
+				if(direction == Direction.NORTH) {
 
 					if(i < 8) {
 						matrices.translate(0.856875 - 0.09375 * i, 0.5378125, 0.6875);
@@ -54,7 +53,7 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 					matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(40F));
 					matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(30F));
 				}
-				if(facing == Direction.SOUTH ) {
+				if(direction == Direction.SOUTH ) {
 					if(i < 8) {
 						matrices.translate(0.200625 + 0.09375 * i, 0.5378125, 0.2734375);
 					}
@@ -71,7 +70,7 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 				}
 
 
-				if(facing == Direction.EAST ) {
+				if(direction == Direction.EAST ) {
 					if(i < 8) {
 						matrices.translate(0.26171875, 0.5378125, 0.79859375 - 0.09375 * i);
 					}
@@ -86,7 +85,7 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 					matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(20F));
 					matrices.multiply(RotationAxis.POSITIVE_Z.rotationDegrees(50F));
 				}
-				if(facing == Direction.WEST ) {
+				if(direction == Direction.WEST ) {
 
 					// i could have just done this the entire fucking time???????
 					matrices.multiply(RotationAxis.NEGATIVE_Y.rotationDegrees(180f));
@@ -109,10 +108,10 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 
 				}
 				matrices.scale(0.375F, 0.375F, 0.375F);
-
 				this.itemRenderer.renderItem(stack, ModelTransformationMode.GROUND, lightSource, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), k + i);
-				matrices.pop();
+
 			}
+			matrices.pop();
 		}
 
 	}

@@ -25,9 +25,9 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 
 	private final World world;
 	private final PlayerEntity player;
-	private static final Identifier GUI = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_gui.png");
-	private static final Identifier WATER = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_water.png");
-	private static final Identifier BONG = Identifier.of(BackstreetGardener.ID, "textures/gui/bong_overlay_test.png");
+	private static final Identifier GUI = BackstreetGardener.identifier("textures/gui/bong_gui.png");
+	private static final Identifier WATER = BackstreetGardener.identifier("textures/gui/bong_water.png");
+	private static final Identifier BONG = BackstreetGardener.identifier("textures/gui/bong_overlay_test.png");
 	private static PositionedRectangle waterVisibleArea = PositionedRectangle.of(0, 0, Size.zero());
 
 

@@ -122,10 +122,7 @@ public class BongScreenHandler extends ScreenHandler {
 				}
 
 
-
-
 			}
-
 
 			if(component.get().resourceQuantity() == 0 && resourceSlot.hasStack() && resourceSlot.getStack().isOf(BSGItems.CANNABIS_LEAF) ){
 				if(!player.getWorld().isClient()) {
@@ -177,21 +174,13 @@ public class BongScreenHandler extends ScreenHandler {
 		Slot sourceSlot = this.slots.get(slotIndex);
 
 		if(sourceSlot.hasStack()){
-
 			// THE ACTUAL REFERENCE SLOTS ARE THE ONES MARKED "H"
 			//
-			//
-			//
-			//
 			// READ THAT, MORON
-
 			ItemStack fromStack = sourceSlot.getStack();
 			leftoverStack = fromStack.copy();
-
 			switch(slotIndex){
 				case 0, 1 -> {
-
-
 					// in either of the custom slots
 					if(!this.insertItem(fromStack,2,38,false)) return ItemStack.EMPTY;
 					else if (!this.insertItem(fromStack, 2, 38, false)) {
@@ -207,35 +196,26 @@ public class BongScreenHandler extends ScreenHandler {
 					if (fromStack.isOf(BSGItems.CANNABIS_LEAF)){
 						if (!this.insertItem(fromStack,1,2,false)) return ItemStack.EMPTY;
 					}
-
 					else if (slotIndex > 28 && slotIndex < 38 && !this.insertItem(fromStack, 2, 29, false)) {
 						// in player inventory hotbar and successfully moved everything to non-hotbar (combined index check and trying to move because it's last in this branch)
 						return ItemStack.EMPTY;
 					}
 					else if(!this.insertItem(fromStack, 29, 38, false)) return ItemStack.EMPTY;
-
-
 				}
 			}
-
 			if (fromStack.isEmpty()) {
 				// this is slot.setStack(stack)
 				sourceSlot.setStack(ItemStack.EMPTY);
 			}
-
 			sourceSlot.markDirty();
 			if (fromStack.getCount() == leftoverStack.getCount()) {
 				// didn't move any
 				return ItemStack.EMPTY;
 			}
-
 			sourceSlot.onTakeItem(player, fromStack);
 			this.sendContentUpdates();
-
 		}
-
 		return leftoverStack;
-
 	}
 
 	@Override

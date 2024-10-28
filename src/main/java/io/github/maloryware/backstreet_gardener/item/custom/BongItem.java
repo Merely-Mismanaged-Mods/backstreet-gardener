@@ -193,7 +193,10 @@ public class BongItem extends Item {
 		BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}\nConsumption: {}", smokingDuration, particleCount, consumption);
 	}
 
+	// the following code was based off of WispForest's OutTheDoor mod
+	// special thanks to Glisco for providing me with this
 
+	// OutTheDoor available here: https://github.com/wisp-forest/out-the-door
 
 	public static NamedScreenHandlerFactory createScreenHandlerFactory(World world, BlockPos pos, ItemStack stack) {
 		return new SimpleNamedScreenHandlerFactory((i, playerInventory, player) ->
@@ -210,11 +213,7 @@ public class BongItem extends Item {
 		return super.finishUsing(stack, world, user);
 	}
 }
-	// the following code was based off of WispForest's OutTheDoor mod
-	// special thanks to Glisco for providing me with this!
-	// if you ever see this, you're a lifesaver <3 tysm
 
-	// OutTheDoor available here: https://github.com/wisp-forest/out-the-door
 
 
 

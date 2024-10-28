@@ -17,7 +17,7 @@ public class TitleScreenMixin extends Screen {
 
 	@Inject(method = "init", at = @At("TAIL"))
     public void onInit(CallbackInfo ci) {
-        BackstreetGardener.BSGLOGGER.info("domain expansion: opioid addiction");
+        BackstreetGardener.BSGLOGGER.info("Not Enough Drug Overdose Deaths in the United States of America (Fabric Edition)");
     }
 
 

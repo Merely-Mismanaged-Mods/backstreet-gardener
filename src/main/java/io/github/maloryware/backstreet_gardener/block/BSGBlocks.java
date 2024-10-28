@@ -1,6 +1,5 @@
 package io.github.maloryware.backstreet_gardener.block;
 
-import com.sun.jna.platform.unix.solaris.Kstat2StatusException;
 import io.github.maloryware.backstreet_gardener.block.crop.CokePlant;
 import io.github.maloryware.backstreet_gardener.block.crop.OpiumPlant;
 import io.github.maloryware.backstreet_gardener.block.crop.TobaccoPlant;
@@ -10,15 +9,13 @@ import io.github.maloryware.backstreet_gardener.block.custom.SniffableBlock;
 import io.github.maloryware.backstreet_gardener.block.custom.curing_station.CuringStationBlock;
 import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBlock;
 import io.github.maloryware.backstreet_gardener.block.custom.drying_rack.DryingRackBottomBlock;
+import io.github.maloryware.backstreet_gardener.block.custom.filter.FilterBlock;
 import net.minecraft.block.*;
 import net.minecraft.block.piston.PistonBehavior;
-import net.minecraft.client.item.ClampedModelPredicateProvider;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.BlockView;
 
 public class BSGBlocks {
 
@@ -61,6 +58,12 @@ public class BSGBlocks {
 			.pistonBehavior(PistonBehavior.DESTROY)
 			.nonOpaque());
 
+	public static final FilterBlock FILTER_BLOCK = new FilterBlock(
+		AbstractBlock.Settings.create()
+			.breakInstantly()
+			.pistonBehavior(PistonBehavior.DESTROY)
+			.nonOpaque());
+
 	public static final CuringStationBlock CURING_STATION_BLOCK = new CuringStationBlock(
 		AbstractBlock.Settings.create()
 			.breakInstantly()
@@ -68,6 +71,7 @@ public class BSGBlocks {
 			.nonOpaque()
 			.luminance(state -> 6)
 			.emissiveLighting((state, world, pos) -> !state.get(CuringStationBlock.OPEN)));
+
 
 	public static final SniffableBlock COCAINE_BLOCK = new SniffableBlock(
 		AbstractBlock.Settings.create()
