@@ -35,8 +35,8 @@ public record BongComponent(boolean hasWater, int waterPurity, int resourceQuant
 	public String toString() {
 		return "BongComponent{" +
 			"hasWater=" + hasWater +
-			", waterPurity=" + waterPurity +
-			", resourceQuantity=" + resourceQuantity +
+			",waterPurity=" + waterPurity +
+			",resourceQuantity=" + resourceQuantity +
 			'}';
 	}
 

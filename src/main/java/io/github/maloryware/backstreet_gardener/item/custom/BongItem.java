@@ -98,6 +98,7 @@ public class BongItem extends Item {
 			else {
 				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 			}
+			
 			user.setCurrentHand(hand);
 			return TypedActionResult.success(stack, false);
 		}
