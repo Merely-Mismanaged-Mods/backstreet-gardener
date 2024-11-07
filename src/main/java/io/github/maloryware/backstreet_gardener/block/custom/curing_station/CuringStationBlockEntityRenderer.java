@@ -109,9 +109,9 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 				}
 				matrices.scale(0.375F, 0.375F, 0.375F);
 				this.itemRenderer.renderItem(stack, ModelTransformationMode.GROUND, lightSource, OverlayTexture.DEFAULT_UV, matrices, vertexConsumers, entity.getWorld(), k + i);
-
+				matrices.pop();
 			}
-			matrices.pop();
+
 		}
 
 	}

@@ -90,7 +90,7 @@ public class BSGBlocks {
 		register("curing_station",CURING_STATION_BLOCK);
 		register("cocaine_pile", COCAINE_BLOCK);
 		register("potted_opium_crop", POTTED_OPIUM_CROP);
-
+		register("filter_block", FILTER_BLOCK);
 
 	}
 
