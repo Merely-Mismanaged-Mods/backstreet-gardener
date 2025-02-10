@@ -3,9 +3,6 @@
   "minVersion": "0.8",
   "package": "io.github.maloryware.backstreet_gardener.mixin",
   "compatibilityLevel": "JAVA_21",
-  "mixins": [
-    "ZekoSpecialMixin"
-  ],
   "client": [
     "BipedEntityModelMixin",
     "HudDebugValuesMixin",
@@ -13,5 +10,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-    }
+  }
 }

@@ -56,8 +56,11 @@ public class DryingRackBlockEntity extends BlockEntity implements SimplerInvento
 	private final DefaultedList<ItemStack> items = DefaultedList.ofSize(6, ItemStack.EMPTY);
 
 	public static void tick(World world, BlockPos pos, BlockState state, DryingRackBlockEntity blockEntity) {
-		int maxProgressTick = world.getBiome(pos) == BiomeKeys.DESERT ? 3 : 6;
 
+		if(world.isRaining()) return; // changeme kindly
+
+		@SuppressWarnings("OptionalGetWithoutIsPresent")
+		int maxProgressTick = world.getBiome(pos).getKey().get() == BiomeKeys.DESERT ? 3 : 6;
 		if(blockEntity.nextProgressTick == maxProgressTick) {
 			// BSGLOGGER.info("Ticked!");
 

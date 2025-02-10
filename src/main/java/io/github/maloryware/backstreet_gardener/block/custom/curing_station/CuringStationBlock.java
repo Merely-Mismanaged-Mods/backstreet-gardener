@@ -1,6 +1,7 @@
 package io.github.maloryware.backstreet_gardener.block.custom.curing_station;
 
 import com.mojang.serialization.MapCodec;
+import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
@@ -15,24 +16,20 @@ import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 import static net.minecraft.state.property.Properties.*;
 
 public class CuringStationBlock extends BlockWithEntity {
@@ -68,23 +65,27 @@ public class CuringStationBlock extends BlockWithEntity {
 		return Block.createCuboidShape(0, 0, 0, 16, 16, 16);
 
 	}
+
 	@Override
 	protected float getAmbientOcclusionLightLevel(BlockState state, BlockView world, BlockPos pos) {
 		return 1.0F;
 	}
+
 	// boilerplate overrides
-	//
-	//
+
 	public static final MapCodec<CuringStationBlock> CODEC = Block.createCodec(CuringStationBlock::new);
+
 	@Override
 	protected BlockRenderType getRenderType(BlockState state) {
 		return BlockRenderType.MODEL;
 	}
+
 	@Override
 	protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
 		ItemScatterer.onStateReplaced(state, newState, world, pos);
 		super.onStateReplaced(state, world, pos, newState, moved);
 	}
+
 	@Override
 	protected MapCodec<? extends BlockWithEntity> getCodec() {
 		return CODEC;
@@ -94,20 +95,22 @@ public class CuringStationBlock extends BlockWithEntity {
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
 		return new CuringStationBlockEntity(pos, state);
 	}
+
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
 		// Make sure to check world.isClient if you only want to tick only on serverside.
 		return world.isClient() ? null : validateTicker(type, BSGBlockEntityTypes.CURING_STATION, CuringStationBlockEntity::tick);
 	}
+
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
 		builder.add(Properties.HORIZONTAL_FACING, OPEN, Properties.LEVEL_15);
 	}
+
 	public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
 		return this.getDefaultState().with(HORIZONTAL_FACING, ctx.getHorizontalPlayerFacing().getOpposite());
 	}
-	//
-	//
+
 	// boilerplate overrides end
 
 	protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -117,11 +120,11 @@ public class CuringStationBlock extends BlockWithEntity {
 		BlockHitResult raycast = (BlockHitResult) player.raycast(3, 3,false);
 
 		if(!state.get(OPEN)){
-			BSGLOGGER.info("State = closed. (from onUse) Opening...");
+			BackstreetGardener.LOGGER.info("State = closed. (from onUse) Opening...");
 			world.setBlockState(pos,state.with(OPEN, true));
 		}
 		else if((raycast.getSide() != state.get(HORIZONTAL_FACING) && stack.isEmpty()) || player.isSneaking()){
-			BSGLOGGER.info("State = open. (from onUse) Closing...");
+			BackstreetGardener.LOGGER.info("State = open. (from onUse) Closing...");
 			world.setBlockState(pos,state.with(OPEN, false));
 		}
 
@@ -134,7 +137,7 @@ public class CuringStationBlock extends BlockWithEntity {
 						blockEntity.setStack(n, player.getStackInHand(hand).copy());
 						blockEntity.getStack(n).setCount(1);
 						player.getStackInHand(hand).decrementUnlessCreative(1, player);
-						BSGLOGGER.info("Moved {} to slot {}", blockEntity.getStack(n), n);
+						BackstreetGardener.LOGGER.info("Moved {} to slot {}", blockEntity.getStack(n), n);
 						if(!player.isSneaking())break;
 					}
 				}
@@ -157,7 +160,7 @@ public class CuringStationBlock extends BlockWithEntity {
 						var currStack = blockEntity.getStack(n);
 						if (!currStack.isEmpty()) {
 							containedLeaf = true;
-							BSGLOGGER.info("Retrieved {} from slot {}", blockEntity.getStack(n), n);
+							BackstreetGardener.LOGGER.info("Retrieved {} from slot {}", blockEntity.getStack(n), n);
 							player.getInventory().offerOrDrop(blockEntity.getStack(n));
 							if (!player.isSneaking()) break;
 						}

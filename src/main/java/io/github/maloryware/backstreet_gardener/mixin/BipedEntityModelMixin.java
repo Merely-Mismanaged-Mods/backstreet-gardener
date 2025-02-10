@@ -16,7 +16,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(BipedEntityModel.class)
 public class BipedEntityModelMixin<T extends LivingEntity> {
 
-
 	@Shadow
 	@Final
 	public ModelPart rightArm;

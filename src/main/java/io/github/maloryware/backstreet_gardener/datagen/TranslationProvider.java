@@ -35,8 +35,6 @@ public class TranslationProvider extends FabricLanguageProvider {
 		translationBuilder.add(DRYING_RACK_ITEM, "Drying Rack");
 		translationBuilder.add(CURING_STATION_ITEM,"Curing Station");
 
-		translationBuilder.add(WEED, "Weed");
-		translationBuilder.add(TOBACCO, "Tobacco");
 		translationBuilder.add(WRAPPER, "Wrapper");
 		translationBuilder.add(FILTER, "Filter");
 		translationBuilder.add(WEAVED_COTTON, "Weaved Cotton");

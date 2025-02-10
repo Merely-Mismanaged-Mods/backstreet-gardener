@@ -19,8 +19,9 @@ import net.minecraft.util.math.ColorHelper;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.LOGGER;
 
+@SuppressWarnings("DataFlowIssue")
 public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandler> {
 
 	private final World world;
@@ -28,6 +29,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 	private static final Identifier GUI = BackstreetGardener.identifier("textures/gui/bong_gui.png");
 	private static final Identifier WATER = BackstreetGardener.identifier("textures/gui/bong_water.png");
 	private static final Identifier BONG = BackstreetGardener.identifier("textures/gui/bong_overlay_test.png");
+	@SuppressWarnings("FieldCanBeLocal")
 	private static PositionedRectangle waterVisibleArea = PositionedRectangle.of(0, 0, Size.zero());
 
 
@@ -36,7 +38,6 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 		player = inventory.player;
 		world = player.getWorld();
 	}
-
 
 	@Override
 	protected @NotNull OwoUIAdapter<FlowLayout> createAdapter() {
@@ -56,7 +57,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 			player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater()
 				? PositionedRectangle.of(0, 0, 32, 32)
 				: PositionedRectangle.of(0, 0, Size.zero());
-		BSGLOGGER.info("waterVisibleArea: {}, {}, {}, {}\n, hasWater:{}", waterVisibleArea.x(), waterVisibleArea.y(), waterVisibleArea.width(),  waterVisibleArea.height(), player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater());
+		LOGGER.info("waterVisibleArea: {}, {}, {}, {}\n, hasWater:{}", waterVisibleArea.x(), waterVisibleArea.y(), waterVisibleArea.width(),  waterVisibleArea.height(), player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater());
 
 		bongWaterComponent = OwoScreenExtras.AdvancedTextureComponent.texture(
 						WATER,
@@ -78,7 +79,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 			.speed(OwoScreenExtras.AnimSpeed.SLOWEST)
 			.blend(true)
 			.tooltip(Text.of("Test"));
-		BSGLOGGER.info("color - {}, purity -> {}, percent -> {}", Color.ofArgb(ColorHelper.Argb.lerp(
+		LOGGER.info("color - {}, purity -> {}, percent -> {}", Color.ofArgb(ColorHelper.Argb.lerp(
 			100,
 			Color.ofDye(DyeColor.LIGHT_BLUE).argb(), Color.ofDye(DyeColor.RED).argb())), (float) player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).waterPurity(), (float) player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).waterPurity() / 255);
 		stack.child(bongWaterComponent);
@@ -91,7 +92,7 @@ public class BongScreen extends BaseOwoHandledScreen<FlowLayout, BongScreenHandl
 		// PositionedRectangle resourceVisibleArea = PositionedRectangle.of(0, 0, (int) (comp.resourceQuantity() * 0.18039215686274509803921568627451), 8);
 
 
-		BSGLOGGER.info("FINAL CALL: POST RENDER\nwaterVisibleArea: {}, {}, {}, {}\n, hasWater:{}", bongWaterComponent.visibleArea().get().x(), bongWaterComponent.visibleArea().get().y(), bongWaterComponent.visibleArea().get().width(),  bongWaterComponent.visibleArea().get().height(), player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater());
+		LOGGER.info("FINAL CALL: POST RENDER\nwaterVisibleArea: {}, {}, {}, {}\n, hasWater:{}", bongWaterComponent.visibleArea().get().x(), bongWaterComponent.visibleArea().get().y(), bongWaterComponent.visibleArea().get().width(),  bongWaterComponent.visibleArea().get().height(), player.getMainHandStack().get(BSGComponents.BONG_COMPONENT).hasWater());
 
 		stack.child(
 			Components.texture(BONG, 0, 0, 176, 166)

@@ -1,6 +1,5 @@
 package io.github.maloryware.backstreet_gardener.sound.moving;
 
-import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import io.github.maloryware.backstreet_gardener.sound.BSGSoundsClient;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

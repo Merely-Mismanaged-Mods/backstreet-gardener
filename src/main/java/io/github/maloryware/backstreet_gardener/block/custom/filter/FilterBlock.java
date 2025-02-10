@@ -2,17 +2,14 @@ package io.github.maloryware.backstreet_gardener.block.custom.filter;
 
 import com.mojang.serialization.MapCodec;
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
-import io.github.maloryware.backstreet_gardener.block.type.station.StationBlock;
-import io.github.maloryware.backstreet_gardener.screen.handler.FilterScreenHandler;
+import io.github.maloryware.backstreet_gardener.block.station.StationBWE;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.screen.ScreenHandlerContext;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemActionResult;
@@ -23,10 +20,10 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-public class FilterBlock extends StationBlock<FilterBlockEntity> {
+public class FilterBlock extends StationBWE<FilterBlockEntity> {
 
 	public FilterBlock(Settings settings) {
-		super(settings, BSGBlockEntityTypes.FILTER, FilterBlockEntity::tick);
+		super(settings); //BSGBlockEntityTypes.CURING_STATION, CuringStationBlockEntity::tick
 		setDefaultState(getDefaultState());
 	}
 
@@ -44,7 +41,12 @@ public class FilterBlock extends StationBlock<FilterBlockEntity> {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-		return new FilterBlockEntity(pos, state);
+		return new FilterBlockEntity(BSGBlockEntityTypes.CURING_STATION, pos, state);
+	}
+
+	@Override
+	public BlockEntityType<FilterBlockEntity> getBlockEntityType() {
+		return null;
 	}
 
 	@Override

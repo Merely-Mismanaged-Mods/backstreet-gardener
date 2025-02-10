@@ -64,7 +64,7 @@ public class CuringStationBlockEntity extends BlockEntity implements SimplerInve
 	public static void tick(World world, BlockPos pos, BlockState state, CuringStationBlockEntity blockEntity) {
 		if(state.get(CuringStationBlock.OPEN)) return;
 
-		int maxProgressTick = world.getBiome(pos) == BiomeKeys.DESERT ? 3 : 6;
+		int maxProgressTick = world.getBiome(pos).getKey().get() == BiomeKeys.DESERT ? 3 : 6;
 
 		if(blockEntity.nextProgressTick == maxProgressTick) {
 			// BSGLOGGER.info("Ticked!");

@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.sound.SoundInstance;
 import net.minecraft.entity.player.PlayerEntity;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.LOGGER;
 import static io.github.maloryware.backstreet_gardener.sound.BSGSoundsClient.BLOWING;
 import static io.github.maloryware.backstreet_gardener.sound.BSGSoundsClient.BUBBLING;
 
@@ -27,7 +27,7 @@ public class ClientPacketHandler {
 					soundToPlay = new BlowingSoundInstance((PlayerEntity) context.client().world.getEntityById(payload.sourceId()));
 				}
 				context.client().getSoundManager().play(soundToPlay);
-				BSGLOGGER.info("Played sound.");
+				LOGGER.info("Played sound.");
 				}
 			))
 		);

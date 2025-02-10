@@ -1,6 +1,7 @@
 package io.github.maloryware.backstreet_gardener.block.custom.drying_rack;
 
 import com.mojang.serialization.MapCodec;
+import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
@@ -25,8 +26,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 
 public class DryingRackBlock extends BlockWithEntity {
 	public DryingRackBlock(Settings settings) {
@@ -94,7 +93,7 @@ public class DryingRackBlock extends BlockWithEntity {
 					blockEntity.setStack(n, player.getStackInHand(hand).copy());
 					blockEntity.getStack(n).setCount(1);
 					player.getStackInHand(hand).decrementUnlessCreative(1, player);
-					BSGLOGGER.info("Moved {} to slot {}", blockEntity.getStack(n), n);
+					BackstreetGardener.LOGGER.info("Moved {} to slot {}", blockEntity.getStack(n), n);
 					if(!player.isSneaking())break;
 				}
 			}
@@ -114,7 +113,7 @@ public class DryingRackBlock extends BlockWithEntity {
                 for (int n = 0; n < 6; n++) {
                     if (!blockEntity.getStack(n).isEmpty()) {
                         containedLeaf = true;
-                        BSGLOGGER.info("Retrieved {} from slot {}", blockEntity.getStack(n), n);
+                        BackstreetGardener.LOGGER.info("Retrieved {} from slot {}", blockEntity.getStack(n), n);
                         player.getInventory().offerOrDrop(blockEntity.getStack(n));
                         if (!player.isSneaking()) break;
                     }

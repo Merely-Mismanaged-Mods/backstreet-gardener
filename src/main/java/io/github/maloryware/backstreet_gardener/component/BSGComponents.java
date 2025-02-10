@@ -23,7 +23,7 @@ public class BSGComponents {
 	public static final ComponentType<Integer> PROGRESS =
 		ComponentType.<Integer>builder().codec(Codec.INT).build();
 
-	public static void initialize() {
+	public static void register() {
 
 		Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(BackstreetGardener.ID,"bong_component"), BONG_COMPONENT);
 		Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(BackstreetGardener.ID, "is_lit"), IS_LIT);

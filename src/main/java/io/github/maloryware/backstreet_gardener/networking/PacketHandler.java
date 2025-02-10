@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 public class PacketHandler {
 
 
-	public static void initialize(){
+	public static void register(){
 
 		PayloadTypeRegistry.playS2C().register(S2CSoundPayload.ID, S2CSoundPayload.CODEC);
 	}

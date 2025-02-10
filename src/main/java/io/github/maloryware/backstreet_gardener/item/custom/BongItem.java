@@ -1,5 +1,6 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
+import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
 import io.github.maloryware.backstreet_gardener.component.BongComponent;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
@@ -31,7 +32,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 import static io.github.maloryware.backstreet_gardener.screen.gui.BongScreen.bongWaterComponent;
 import static net.minecraft.util.Hand.OFF_HAND;
 
@@ -98,7 +98,7 @@ public class BongItem extends Item {
 			else {
 				world.playSound(user, user.getX(), user.getY() + 1, user.getZ(), BSGSounds.LIGHTER_FLICKING, SoundCategory.PLAYERS);
 			}
-			
+
 			user.setCurrentHand(hand);
 			return TypedActionResult.success(stack, false);
 		}
@@ -176,22 +176,22 @@ public class BongItem extends Item {
 		else {
 			PacketUtils.playSoundInstance(PacketUtils.Sounds.BLOWING_SMOKE, (PlayerEntity) user);
 			BongComponent comp = stack.get(BSGComponents.BONG_COMPONENT);
-			BSGLOGGER.info("Precheck\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", comp.waterPurity(), comp.resourceQuantity(), comp.hasWater(), consumption);
+			BackstreetGardener.LOGGER.info("Precheck\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", comp.waterPurity(), comp.resourceQuantity(), comp.hasWater(), consumption);
 			int newWaterPurity = (int) (comp.waterPurity() - 0.1 * consumption);
 			int newResourceQuantity = (int) (comp.resourceQuantity() - 0.1 * consumption);
-			BSGLOGGER.info("Finished using bong. Removing:\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", newWaterPurity, newResourceQuantity, comp.hasWater(), consumption);
+			BackstreetGardener.LOGGER.info("Finished using bong. Removing:\nPurity - {}\nResource - {}\nHasWater - {}\nconsumption - {}", newWaterPurity, newResourceQuantity, comp.hasWater(), consumption);
 
 			if (newResourceQuantity < 0) {
 			newResourceQuantity = 0;
 			}
 			BongComponent updateComp = BongComponent.of(comp.hasWater(), newWaterPurity, newResourceQuantity);
-			BSGLOGGER.info("Updated component:\n{}", updateComp);
+			BackstreetGardener.LOGGER.info("Updated component:\n{}", updateComp);
 			user.getActiveItem().set(BSGComponents.BONG_COMPONENT, updateComp);
 			smokingDuration = 0	;
 			consumption = 0;
 
 		}
-		BSGLOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}\nConsumption: {}", smokingDuration, particleCount, consumption);
+		BackstreetGardener.LOGGER.info("Finished using smokable.\nSmoking duration: {} ticks\nParticles: {}\nConsumption: {}", smokingDuration, particleCount, consumption);
 	}
 
 	// the following code was based off of WispForest's OutTheDoor mod

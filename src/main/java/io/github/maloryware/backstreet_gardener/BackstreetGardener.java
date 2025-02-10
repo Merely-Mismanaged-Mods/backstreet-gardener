@@ -4,7 +4,7 @@ package io.github.maloryware.backstreet_gardener;
 import io.github.maloryware.backstreet_gardener.block.BSGBlockEntityTypes;
 import io.github.maloryware.backstreet_gardener.block.BSGBlocks;
 import io.github.maloryware.backstreet_gardener.component.BSGComponents;
-import io.github.maloryware.backstreet_gardener.item.BSGItemGroup;
+import io.github.maloryware.backstreet_gardener.item.BSGTab;
 import io.github.maloryware.backstreet_gardener.item.BSGItems;
 import io.github.maloryware.backstreet_gardener.networking.PacketHandler;
 import io.github.maloryware.backstreet_gardener.screen.handler.BongScreenHandler;
@@ -19,11 +19,9 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.dnd.InvalidDnDOperationException;
-
 
 public class BackstreetGardener implements ModInitializer {
-    public static final Logger BSGLOGGER = LoggerFactory.getLogger("Backstreet Gardener");
+    public static final Logger LOGGER = LoggerFactory.getLogger("Backstreet Gardener");
 	public static final String ID = "backstreet_gardener";
 
 	public static Identifier identifier(String id){
@@ -42,31 +40,28 @@ public class BackstreetGardener implements ModInitializer {
 			new ScreenHandlerType<>(FilterScreenHandler::new, FeatureFlags.DEFAULT_ENABLED_FEATURES));
 
 
-	// hi chat! this is built on quilt mappings but it should work on fabric
-	// if not i'll change them :clueless:
-
-	// now you may wonder: why are some classes initialized here and some aren't?
-	// and you'd wonder well! but the reality of it is i can't decide on a proper
-	// implementation method and realistically speaking it doesn't really matter
-	// so yeah. some are initialized here, some aren't, but rest assured the true
-	// initialized classes were the friends we made along the way
-
-	// /|\
-	//  |
-	//  |
-	//  |
-	// chat... is that guy retarded?
+	// welcome back!
+	// TODO: (everything, but for rn)
+	//  filter block model, screen, screenhandler
+	//  some other things? idk lol i forgor
+	//  oh right settle on a way to interact with the curing station
 
 	@Override
 	public void onInitialize() {
+		// don't forget that the registering order matters
+		// you've spent way too many hours trying to fix problems that didn't exist
+		BSGBlockEntityTypes.register();
+		BSGComponents.register();
+		BSGItems.register();
+		BSGTab.register();
+		BSGSounds.register();
+		BSGBlocks.register();
+		PacketHandler.register();
 
-		BSGBlockEntityTypes.initialize();
-		BSGComponents.initialize();
-		BSGItems.initialize();
-		BSGItemGroup.initialize();
-		BSGSounds.initialize();
-		BSGBlocks.initialize();
 
-		PacketHandler.initialize();
 	}
+
+
+
 }
+

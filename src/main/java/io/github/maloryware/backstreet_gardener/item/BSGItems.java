@@ -85,15 +85,14 @@ public class BSGItems {
 	public static final Item WEAVED_COTTON = new Item(new Item.Settings());
 	public static final Item WRAPPER = new Item(new Item.Settings());
 	public static final Item FILTER = new Item(new Item.Settings());
-	public static final Item TOBACCO = new Item(new Item.Settings().rarity(Rarity.RARE));
-	public static final Item WEED = new Item(new Item.Settings().rarity(Rarity.RARE));
 
 	public static final Item COKE_PASTE = new Item(new Item.Settings());
 	public static final Item COKE_COMPOSITE = new Item(new Item.Settings());
 	public static final Item COKE = new Item(new Item.Settings().rarity(Rarity.RARE));
+	public static final Item TOBACCO = new Item(new Item.Settings().rarity(Rarity.RARE));
 
 
-	public static void initialize(){
+	public static void register(){
 		//smokables
 		register("blunt", BLUNT);
 		register("joint", JOINT);
@@ -116,15 +115,13 @@ public class BSGItems {
 		register("tobacco_leaf", TOBACCO_LEAF);
 		//etc
 		register("drying_rack_item", DRYING_RACK_ITEM);
+		register("tobacco", TOBACCO);
 		register("curing_station_item", CURING_STATION_ITEM);
-		register("tobacco",TOBACCO);
-		register("filter",FILTER);
-		register("wrapper",WRAPPER);
-		register("weaved_cotton",WEAVED_COTTON);
+		register("filter", FILTER);
+		register("wrapper", WRAPPER);
+		register("weaved_cotton", WEAVED_COTTON);
 		register("baggie", BAGGIE);
-		//smokable containers
 		register("bong", BONG);
-		register("weed", WEED);
 
 	}
 

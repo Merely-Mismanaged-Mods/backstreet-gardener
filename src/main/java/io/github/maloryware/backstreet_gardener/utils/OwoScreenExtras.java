@@ -6,11 +6,10 @@ import io.wispforest.owo.ui.core.*;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
+import static io.github.maloryware.backstreet_gardener.BackstreetGardener.LOGGER;
 
 @SuppressWarnings({"FieldCanBeLocal, ", "unused"})
 public class OwoScreenExtras {
@@ -95,7 +94,7 @@ public class OwoScreenExtras {
 		}
 
 		@Override
-		public AdvancedTextureComponent id(@Nullable String id) {
+		public AdvancedTextureComponent id(String id) {
 			super.id(id);
 			return this;
 		}
@@ -187,7 +186,7 @@ public class OwoScreenExtras {
 
 			if (this.visibleArea().get() == null){
 				this.visibleArea(PositionedRectangle.of(0, 0, Size.of(256, 256)));
-				BSGLOGGER.info("Visible area was null - setting to 256x256");
+				LOGGER.info("Visible area was null - setting to 256x256");
 			}
 
 			if (Objects.requireNonNull(this.anim) == AnimParams.ANIMATED) {

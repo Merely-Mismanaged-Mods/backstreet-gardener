@@ -1,5 +1,6 @@
 package io.github.maloryware.backstreet_gardener.item.custom;
 
+import io.github.maloryware.backstreet_gardener.BackstreetGardener;
 import io.github.maloryware.backstreet_gardener.sound.BSGSounds;
 import io.wispforest.owo.particles.ClientParticles;
 import net.minecraft.entity.Entity;
@@ -22,7 +23,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
 import static io.github.maloryware.backstreet_gardener.component.BSGComponents.IS_LIT;
 import static net.minecraft.util.Hand.MAIN_HAND;
 import static net.minecraft.util.Hand.OFF_HAND;
@@ -98,7 +98,7 @@ public class SmokableItem extends Item {
 		}
 		else {
 			user.setCurrentHand(hand);
-			BSGLOGGER.info("Moked");
+			BackstreetGardener.LOGGER.info("Moked");
 			return TypedActionResult.success(user.getMainHandStack(), false);
 
 		}

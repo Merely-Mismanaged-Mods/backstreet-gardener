@@ -29,8 +29,13 @@ public class CuringStationBlockEntityRenderer implements BlockEntityRenderer<Cur
 		int k = (int)entity.getPos().asLong();
 
 		int lightSource = WorldRenderer.getLightmapCoordinates(entity.getWorld(), entity.getPos());
+
 		// i love writing renderers! it's so fun and enjoyable!
 		// there's probably a better way of writing this but.... guh....
+
+		// yes they're "magic numbers" stfu i'm not writing an entire javadoc on converting
+		// blockbench values to rendered in-game values on something that i have the math
+		// done for in paper on my desk.
 
 		for(int i = 0; i < 24; i++){
 			ItemStack stack = items.get(i);

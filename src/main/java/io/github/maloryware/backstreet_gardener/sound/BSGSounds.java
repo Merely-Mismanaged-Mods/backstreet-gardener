@@ -22,7 +22,7 @@ public class BSGSounds {
 	// TODO: go somewhere with this if noelle accepts the request
 	public static final SoundEvent FEMTANYL = register("femtanyl");
 
-	public static void initialize(){
+	public static void register(){
 
 	}
 

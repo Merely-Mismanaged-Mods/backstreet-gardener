@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.slot.Slot;
@@ -62,7 +61,7 @@ public class BongScreenHandler extends ScreenHandler {
 		}
 		@Override
 		public boolean canInsert(ItemStack stack) {
-			return stack.isOf(Items.WATER_BUCKET);
+			return stack.isOf(net.minecraft.item.Items.WATER_BUCKET);
 		}
 		@Override
 		public int getMaxItemCount(){
@@ -104,7 +103,7 @@ public class BongScreenHandler extends ScreenHandler {
 
 		this.inventory.addListener(sender -> {
 
-  				if(!component.get().hasWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(Items.WATER_BUCKET)){
+  				if(!component.get().hasWater() && waterSlot.hasStack() && waterSlot.getStack().isOf(net.minecraft.item.Items.WATER_BUCKET)){
 
 				if(player.getWorld().isClient()) {
 					bongWaterComponent.setColor(Color.ofDye(DyeColor.LIGHT_BLUE));
@@ -116,7 +115,7 @@ public class BongScreenHandler extends ScreenHandler {
 						player.getMainHandStack().set(
 							BSGComponents.BONG_COMPONENT,
 							BongComponent.of(true, 255, component.get().resourceQuantity()));
-						BongScreenHandler.this.waterSlot.setStack(Items.BUCKET.getDefaultStack());
+						BongScreenHandler.this.waterSlot.setStack(net.minecraft.item.Items.BUCKET.getDefaultStack());
 					playerInventory.player.playSound(SoundEvents.ITEM_BUCKET_FILL, (float) Math.random(), (float) Math.random());
 
 				}
@@ -129,7 +128,7 @@ public class BongScreenHandler extends ScreenHandler {
 					player.getMainHandStack().set(
 						BSGComponents.BONG_COMPONENT,
 						BongComponent.of(component.get().hasWater(), component.get().waterPurity(), 255));
-					BongScreenHandler.this.resourceSlot.setStack(Items.CHARCOAL.getDefaultStack());
+					BongScreenHandler.this.resourceSlot.setStack(net.minecraft.item.Items.CHARCOAL.getDefaultStack());
 					playerInventory.player.playSound(SoundEvents.BLOCK_WET_GRASS_STEP, (float) Math.random(), (float) Math.random());
 
 				}
@@ -190,7 +189,7 @@ public class BongScreenHandler extends ScreenHandler {
 					sourceSlot.onQuickTransfer(fromStack, leftoverStack);
 				}
 				default -> {
-					if (fromStack.isOf(Items.WATER_BUCKET)){
+					if (fromStack.isOf(net.minecraft.item.Items.WATER_BUCKET)){
 						if (!this.insertItem(fromStack,0,1,false)) return ItemStack.EMPTY;
 					}
 					if (fromStack.isOf(BSGItems.CANNABIS_LEAF)){

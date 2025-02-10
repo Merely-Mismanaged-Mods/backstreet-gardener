@@ -25,8 +25,6 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 
-import static io.github.maloryware.backstreet_gardener.BackstreetGardener.BSGLOGGER;
-
 public class SniffableBlock extends Block {
 
 	/*

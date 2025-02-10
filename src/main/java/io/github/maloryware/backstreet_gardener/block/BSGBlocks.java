@@ -79,7 +79,7 @@ public class BSGBlocks {
 		.nonOpaque()
 	);
 
-	public static void initialize(){
+	public static void register(){
 
 		registerCropBlock("coke_crop", COKE_CROP);
 		registerCropBlock("opium_crop", OPIUM_CROP);
