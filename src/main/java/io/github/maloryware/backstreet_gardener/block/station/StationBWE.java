@@ -53,6 +53,8 @@ public abstract class StationBWE<B extends StationBE> extends BlockWithEntity {
 		return world.isClient() ? null : validateTicker(type, this.getBlockEntityType(), this::tickImpl);
 	}
 
+	// you could create an abstract method that returns a map of block-specific properties to their default values
+	// then you could use that to implement this and also setDefaultState in the constructor
 	@Override
 	protected abstract void appendProperties(StateManager.Builder<Block, BlockState> builder);
 
